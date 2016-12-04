@@ -1,0 +1,152 @@
+@import "_const";
+@import "_reset";
+@import "_common";
+//@import "_module";
+//@import "_icon";
+//@import "_font";
+
+//@import "_color";
+//@import "_form";
+//@import "_layout";
+//@import "_seldom";
+//@import "_glyphicon";
+
+//主体色块背景色
+$bg-color: rgba(0, 0, 0, 0.3);
+$bg-color2: rgba(255, 255, 255, 0.3);
+//左侧导航宽度
+$left-width: 200px;
+//头部高度
+$height-header: 80px;
+//区块的间距
+$margin: 15px;
+$margin-mobile: 10px;
+//区块内填充
+$padding: 10px;
+//区块阴影
+$shadow: 5px 5px rgba(0, 0, 0, .4);
+
+/*通用*/
+body {
+    background: #004286;
+    color: #fff;
+    width: auto;
+    //background: url("../images/bg.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+a {
+    color: #fff;
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(9, 174, 255, 0.5);
+    &:hover {
+        color: #fc0;
+        text-decoration: underline;
+    }
+}
+
+fieldset {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    padding: 0 20px 20px 20px;
+    margin-bottom: 20px;
+    clear: both;
+    legend {
+        font-size: 18px;
+        padding-left: 8px;
+        padding-right: 10px;
+        font-weight: bold;
+        color: #fc0;
+        margin-bottom: 10px;
+    }
+}
+
+.header {
+    position: fixed;
+    top: $margin;
+    left: $margin;
+    width: $left-width;
+    height: $height-header;
+    line-height: 2em;
+    padding: $padding;
+    background: $bg-color;
+    box-shadow: $shadow;
+    a {
+        margin: 0 5px;
+        &.cur {
+            color: #444;
+            padding: 3px 5px;
+            background: #fc0;
+            border-radius: 5px;
+        }
+    }
+}
+
+.sub-nav {
+    position: fixed;
+    top: ($height-header+$margin*2);
+    bottom: $margin;
+    left: $margin;
+    width: $left-width;
+    padding: $padding;
+    background: $bg-color;
+    box-shadow: $shadow;
+}
+
+.main-area {
+    margin: $margin;
+    margin-left: ($left-width+$margin*2);
+    padding: $padding;
+    background: $bg-color;
+    box-shadow: $shadow;
+}
+
+.notebook {
+    fieldset {
+        a {
+            margin: 3px 10px;
+            &.special {
+                font-weight: bold;
+                text-decoration: underline;
+            }
+        }
+        .sort {
+            color: #ff0;
+        }
+    }
+}
+
+ul.anchor {
+    li {
+        a {
+            text-decoration: none;
+            display: block;
+            padding: 0 10px;
+            &:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    //移动端显示
+    .header {
+        position: static;
+        width: auto;
+        margin: $margin-mobile;
+    }
+    .sub-nav {
+        position: static;
+        width: auto;
+        margin: $margin-mobile;
+    }
+    .main-area {
+        position: static;
+        width: auto;
+        margin: $margin-mobile;
+    }
+    ul.anchor li {
+        float: left;
+        margin: 3px 10px;
+    }
+}

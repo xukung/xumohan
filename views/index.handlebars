@@ -1,0 +1,43 @@
+<div class="pad">
+    <ul class="list" id="loadMoreList">
+        {{#each results}}
+        {{#if hasPic}}
+        <li class="clearfix clear">
+            <div class="oneImage">
+                <a href="{{newsPath}}" title="{{title}}">
+                    <div class="pic">
+                        <img src="http://grab.xumohan.com/images/upload/smallPhoto/{{file}}" alt="{{title}}">
+                    </div>
+                    <div class="txt">
+                        <div class="title">{{title}}</div>
+                        <div class="other omit clearfix">
+                            <div class="fleft">来源：{{source}}</div>
+                            <div class="fright">{{datetimeFromNow}}</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </li>
+        {{else}}
+        <li class="clearfix clear">
+            <div class="noImage">
+                <a href="{{newsPath}}" title="{{title}}">
+                    <div class="txt">
+                        <div class="title">{{title}}</div>
+                        <div class="other omit clearfix">
+                            <div class="fleft">来源：{{source}}</div>
+                            <div class="fright">{{datetimeFromNow}}</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </li>
+        {{/if}}
+        {{/each}}
+    </ul>
+    <div class=""><a href="javascript:void(0);" id="btnLoadMore">点击加载更多...</a></div>
+    <div id="ajaxTips">正在加载...</div>
+</div>
+
+
+<script src="/js/loadMore.js" async="async"></script>

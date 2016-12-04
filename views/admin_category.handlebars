@@ -1,0 +1,25 @@
+<div class="pad">
+    <div class="">
+        <a href="/admin/category/add" class="btn btn-info">+添加栏目</a>
+    </div>
+
+    <table class="data mt" width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <th width="10%">id</th>
+            <th width="30%">名称</th>
+            <th width="30%">序号</th>
+            <th width="30%">操作</th>
+        </tr>
+        {{#each results}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{cname}}</td>
+            <td>{{orderid}}</td>
+            <td align="center">
+                <a href="/admin/category/modify/?id={{id}}" class="btn btn-success">修改</a>
+                <a data-title="{{cname}}" data-url="/admin/category/del/?id={{id}}" href="javascript:void(0);" class="btn btn-danger delConfirm">删除</a>
+            </td>
+        </tr>
+        {{/each}}
+    </table>
+</div>

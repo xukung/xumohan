@@ -1,0 +1,71 @@
+<div class="pad">
+    <form method="post" role="form" action="/admin/addDB" enctype="multipart/form-data">
+        <h4 class="">发布文章：</h4>
+        <!--<input type="hidden" name="token" value="123"/>--><!--防止表单重复提交-->
+
+        <div class="mt row">
+            <div>
+                <select name="sort" id="sort" class="">
+                    {{#each sorts}}
+
+                    {{#if status}}
+                    <option value="{{id}}" selected>{{cname}}</option>
+                    {{else}}
+                    <option value="{{id}}">{{cname}}</option>
+                    {{/if}}
+
+                    {{/each}}
+                </select>
+            </div>
+        </div>
+        <div class="mt">
+            <input type="text" name="title" placeholder="标题">
+        </div>
+        <div class="mt">
+            <input type="text" name="keywords" placeholder="关键词">
+        </div>
+        <div class="mt">
+            <input type="text" name="description" placeholder="描述">
+        </div>
+        <div class="mt">
+            <fieldset>
+                <legend>缩略图(大小限制为2M，jpg/gif/png格式)</legend>
+                <input type="file" name="file" accept=".jpg,.jpeg,.png,.gif">
+            </fieldset>
+        </div>
+        <div class="mt">
+            <textarea class="form-control" name="note" id="conhtml" rows="15" style="width: 100%;"></textarea>
+            <script src="/kindeditor/kindeditor-min.js"></script>
+            <script src="/kindeditor/zh_CN.js"></script>
+            <script>
+                var options = {
+                    cssPath: '/kindeditor/themes/default/default.css',
+                    items: [
+                        'source', '|', 'clearhtml', 'quickformat', '|', 'preview', 'code',
+                        'plainpaste', 'wordpaste', '|', 'forecolor',
+                        'hilitecolor', 'bold', '|', 'emoticons', 'link'
+                    ]
+                };
+                //var editor = K.create('textarea[name="content"]', options);
+
+                KindEditor.ready(function (K) {
+                    window.editor = K.create('#conhtml', options);
+                });
+            </script>
+        </div>
+        <div class="mt">
+            <label>
+                <input type="radio" name="top" value="0" checked>
+                <span class="btn btn-info">不置顶</span>
+            </label>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <label>
+                <input type="radio" name="top" value="1">
+                <span class="btn btn-warning">置顶</span>
+            </label>
+        </div>
+        <div class="mt">
+            <button type="submit" class="btn btn-success btn-full-width">提交</button>
+        </div>
+    </form>
+</div>

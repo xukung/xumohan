@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>col</title>
+<style>
+html,body{height:100%;margin:0;padding:0;}
+.col1,.col2,.col3{width:330px;display:inline;float:left;padding:20px;}
+
+</style>
+</head>
+
+<body>
+<div class="col1">
+	<script>
+        var d=new Date();
+        var hour=d.getHours();
+        var minute=d.getMinutes();
+        if(hour<10){
+            hour='0'+hour;
+        }else{
+            hour=String(hour);	
+        }
+        if(minute<10){
+            minute='0'+minute;
+        }else{
+            minute=String(minute);	
+        }
+    
+    var str=hour+minute;
+    var css1='.col_'+str+'_1{width:626px;}';
+    var css2='.col_'+str+'_2{width:313px;}';
+    
+    var para1='&lt;div class=&quot;clear clearfix&quot;&gt;\n'+
+             '    &lt;div class=&quot;fleft col_'+str+'_1&quot;&gt;\n'+
+             '        \n'+
+             '    &lt;/div&gt;\n'+
+             '    &lt;div class=&quot;fright col_'+str+'_2&quot;&gt;\n'+
+             '        \n'+
+             '    &lt;/div&gt;\n'+
+             '&lt;/div&gt;\n';
+    
+    document.write('<pre>');
+    document.write(css1);
+    document.write('\n');
+    document.write(css2);
+    document.write('\n');
+    document.write('\n');
+    document.write(para1);
+    document.write('\n');
+    document.write('</pre>');
+    
+    </script>
+    
+    
+    <div>_______________^2列______________</div>
+</div>
+
+
+<div class="col2">
+	<script>
+    var css3='.col_'+str+'_1{width:313px;}';
+    var css4='.col_'+str+'_2{width:313px;}';
+    var css5='.col_'+str+'_3{width:313px;}';
+    
+    var para2='&lt;div class=&quot;clear clearfix&quot;&gt;\n'+
+             '    &lt;div class=&quot;fleft col_'+str+'_1&quot;&gt;\n'+
+             '        \n'+
+             '    &lt;/div&gt;\n'+
+             '    &lt;div class=&quot;fleft col_'+str+'_2&quot;&gt;\n'+
+             '        \n'+
+             '    &lt;/div&gt;\n'+
+             '    &lt;div class=&quot;fright col_'+str+'_3&quot;&gt;\n'+
+             '        \n'+
+             '    &lt;/div&gt;\n'+
+             '&lt;/div&gt;\n';
+    
+    document.write('<pre>');
+    document.write(css3);
+    document.write('\n');
+    document.write(css4);
+    document.write('\n');
+    document.write(css5);
+    document.write('\n');
+    document.write('\n');
+    document.write(para2);
+    document.write('\n');
+    document.write('</pre>');
+    
+    </script>
+    
+    
+    
+    
+    
+    <div>_______________^3列________________</div>
+</div>
+
+
+
+<div class="col3">
+	<script>
+    var css6='.col_'+str+'_1{width:232px;}';
+    var css7='.col_'+str+'_2{width:232px;}';
+    var css8='.col_'+str+'_3{width:232px;}';
+    var css9='.col_'+str+'_4{width:232px;}';
+    
+    var para3='&lt;div class=&quot;clear clearfix&quot;&gt;\n'+
+             '    &lt;div class=&quot;fleft col_'+str+'_1&quot;&gt;\n'+
+             '        \n'+
+             '    &lt;/div&gt;\n'+
+             '    &lt;div class=&quot;fleft col_'+str+'_2&quot;&gt;\n'+
+             '        \n'+
+             '    &lt;/div&gt;\n'+
+             '    &lt;div class=&quot;fleft col_'+str+'_3&quot;&gt;\n'+
+             '        \n'+
+             '    &lt;/div&gt;\n'+
+             '    &lt;div class=&quot;fright col_'+str+'_4&quot;&gt;\n'+
+             '        \n'+
+             '    &lt;/div&gt;\n'+
+             '&lt;/div&gt;\n';
+    
+    document.write('<pre>');
+    document.write(css6);
+    document.write('\n');
+    document.write(css7);
+    document.write('\n');
+    document.write(css8);
+    document.write('\n');
+    document.write(css9);
+    document.write('\n');
+    document.write('\n');
+    document.write(para3);
+    document.write('</pre>');
+    
+    </script>
+    
+    
+    <div>_______________^4列_______________</div>
+</div>
+
+</body>
+</html>

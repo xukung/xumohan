@@ -1,0 +1,42 @@
+@charset "UTF-8";
+body { padding-top: 190px; }
+
+header { position: fixed; z-index: 9999; top: 0; left: 50%; margin-left: -384px; width: 768px; height: 190px; }
+header .logo-bar { display: block; position: relative; height: 95px; line-height: 95px; padding: 0 19px; background: #e33; color: #fff; font-size: 38px; }
+header .logo-bar a { color: #fff; }
+header .logo-bar .left-region { position: absolute; left: 19px; top: 0; }
+header .logo-bar .middle-region { text-align: center; }
+header .logo-bar .right-region { position: absolute; right: 19px; top: 0; }
+header .logo-bar .right-region .icon-bars { cursor: pointer; font-size: 47px; padding: 0 19px; }
+header .nav-bar { position: relative; height: 95px; line-height: 95px; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.3); background: #fff; color: #555; font-size: 19px; }
+header .nav-bar nav { width: 90%; white-space: nowrap; overflow: hidden; overflow-x: hidden; -webkit-overflow-scrolling: touch; }
+@media (min-width: 800px) { header .nav-bar nav { overflow-x: hidden; } }
+header .nav-bar nav a.item { color: #555; display: inline-block; padding: 0 19px; margin: 0 19px; }
+header .nav-bar nav a.item.cur { color: #e33; border-bottom: 2px solid #e33; }
+header .nav-bar nav::-webkit-scrollbar { display: none; }
+header .nav-bar .nav-btn { position: absolute; bottom: 0; right: 0; padding: 0 19px; cursor: pointer; }
+header .nav-bar .nav-btn .icon-up-nav { display: none; }
+header .show-all-nav { height: auto; }
+header .show-all-nav nav { white-space: normal; width: 100%; }
+header .show-all-nav .nav-btn .icon-up-nav { display: inline-block; }
+header .show-all-nav .nav-btn .icon-down-nav { display: none; }
+header .menu { display: none; position: fixed; top: 95px; bottom: 0; left: 50%; margin-left: -384px; width: 768px; background: white; }
+
+/*通用*/
+.pad { padding: 10px; }
+
+ul.list { display: block; }
+ul.list li { padding: 19px 0; border-bottom: 1px solid #eee; }
+ul.list li .pic { float: left; width: 28%; height: 152px; border: 1px solid #eee; overflow: hidden; }
+ul.list li .pic img { width: 100%; min-height: 152px; }
+ul.list li .txt { float: right; width: 69%; padding-left: 19px; }
+ul.list li .txt .title { overflow: hidden; font-size: 38px; line-height: 47px; max-height: 94px; }
+ul.list li .txt .other { color: #999; font-size: 27px; }
+ul.list li .noImage .txt { float: none; width: auto; padding: 0; }
+
+.article h1.title { font-size: 50px; line-height: 1.4em; font-weight: bold; margin: 19px 0; }
+.article .note-container { font-size: 19px; line-height: 1.8em; margin: 0.5em 0; }
+.article .note-container img { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+.article .note-container video { width: 100%; }
+
+/*# sourceMappingURL=style_ie.css.map */

@@ -1,0 +1,39 @@
+<header>
+    <div class="logo-bar">
+        <div class="left-region"><a href="javascript:history.go(-1);"><span class="icon icon-left-nav"></span> 返回</a>
+        </div>
+        <div class="middle-region"><a href="/">万函网</a></div>
+        <div class="right-region"><span class="icon icon-bars"></span></div>
+    </div>
+
+    <div class="nav-bar">
+        <nav>
+            {{#each navObj}}
+            {{#if cur}}
+            <a href="/html/list_{{id}}.html" class="item cur">{{cname}}</a>
+            {{else}}
+            <a href="/html/list_{{id}}.html" class="item">{{cname}}</a>
+            {{/if}}
+            {{/each}}
+        </nav>
+        <div class="nav-btn">
+            <span class="icon icon-down-nav"></span>
+            <span class="icon icon-up-nav"></span>
+        </div>
+    </div>
+
+    <div class="menu">
+        <div class="pad">
+            <div class="">
+                <a href="http://pc.xumohan.com" class="btn btn-success" target="_blank">PC版</a>
+                <a href="/admin" class="btn btn-success">管理系统</a>
+                <a href="/it/" class="btn btn-success" target="_blank">徐公网经</a>
+                <a href="http://blog.xumohan.com" class="btn btn-success" target="_blank">博客</a>
+            </div>
+            <div class="hr"></div>
+            <div class="tcenter">
+                <img class="fw" src="/images/mohanURL.gif" alt="网址二维码">
+            </div>
+        </div>
+    </div>
+</header>

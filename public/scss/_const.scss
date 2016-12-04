@@ -1,0 +1,35 @@
+//定义手机屏幕最大宽度
+$device_max_width: 768px;
+
+//body的背景颜色
+$background_color: #f0f0f0;
+
+//全局字体
+$font_family: STHeiti, "Microsoft YaHei", Helvetica, Arial, sans-serif;
+$font_size: 17px;
+
+//全局字体颜色
+$font_color: #333;
+
+//全局链接颜色
+$link_color: #222;
+$link_hover_color: #04bee6;
+
+//全局手指点击后高亮颜色
+$tap_highlight_color: rgba(9, 174, 255, 0.5);
+
+//全局行高
+$line_height: 1.8em;
+
+//导航条
+$logo_bar_height: 2.5rem;
+$logo_bar_bg_color:#e33;
+$admin_logo_bar_bg_color:#04bee6;
+$nav_bar_height: 2.5rem;
+
+//定义常用颜色
+$color_info: #428bca;
+$color_success: #5cb85c;
+$color_warning: #f90;
+$color_danger: #e33;
+
