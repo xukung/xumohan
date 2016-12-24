@@ -12,8 +12,13 @@
 //@import "_glyphicon";
 
 //主体色块背景色
-$bg-color: #afe1de;
+$bg-color: #fff;
 $bg-color2: rgba(255, 255, 255, 0.3);
+
+//配色
+$title-color:#002F2F;   //标题颜色
+$link-color:#78755A;    //链接颜色
+
 //左侧导航宽度
 $left-width: 200px;
 //头部高度
@@ -23,12 +28,13 @@ $margin: 15px;
 $margin-mobile: 10px;
 //区块内填充
 $padding: 10px;
+
 //区块阴影
 $shadow: 3px 3px 5px rgba(0, 0, 0, .15);
 
 /*通用*/
 body {
-    background: #ffffff;
+    background: #EFECCA;
     color: #222;
     width: auto;
     //background: url("../images/bg.jpg") no-repeat center center fixed;
@@ -36,7 +42,7 @@ body {
 }
 
 a {
-    color: #222;
+    color: $link-color;
     text-decoration: none;
     -webkit-tap-highlight-color: rgba(9, 174, 255, 0.5);
     &:hover {
@@ -46,7 +52,7 @@ a {
 }
 
 fieldset {
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.2);
     padding: 0 20px 20px 20px;
     margin-bottom: 20px;
     clear: both;
@@ -55,7 +61,7 @@ fieldset {
         padding-left: 8px;
         padding-right: 10px;
         font-weight: bold;
-        color: #b11e25;
+        color: $title-color;
         margin-bottom: 10px;
     }
 }
@@ -96,7 +102,7 @@ fieldset {
     margin: $margin;
     margin-left: ($left-width+$margin*2);
     padding: $padding;
-    background: #ebf9f8;
+    background: #fff;
     box-shadow: $shadow;
 }
 
@@ -110,7 +116,7 @@ fieldset {
             }
         }
         .sort {
-            color: #b11e25;
+            color: $title-color;
         }
     }
 }
