@@ -3,8 +3,6 @@ var path = require('path');
 var router = express.Router();
 var pool = require('../lib/pool_mysql');
 var getNavObj = require('../lib/getNavObj');
-var generatePage = require('../lib/generatePage');
-var generateList = require('../lib/generateList');
 var moment = require('moment');
 moment.locale('zh-cn');
 var fs = require('fs');
@@ -72,67 +70,6 @@ router.get('/news/', function (req, res) {
 });
 
 
-//不分状态，全部重新生成静态html页面
-router.get('/generate/', function (req, res) {
-    var begin = parseInt(req.query.begin ? req.query.begin : 1);
-    var end = begin + 999;
-
-    pool.getConnection(function (err, connection) {
-        if (err) throw err;
-        var sqlStr = "SELECT article.*,category.cname FROM article INNER JOIN category ON article.sort=category.id WHERE article.id BETWEEN " + begin + " AND " + end;
-        connection.query(sqlStr, function (err, rows) {
-            if (err) throw err;
-
-            generatePage(rows, res, connection);
-
-            res.send('正在生成页面！');
-
-            connection.release();
-        });
-    });
-});
-
-//把未生成静态页面的文章生成静态html页面
-router.get('/generateNew/', function (req, res) {
-    pool.getConnection(function (err, connection) {
-        if (err) throw err;
-        var sqlStr = "SELECT article.*,category.cname FROM article INNER JOIN category ON article.sort=category.id WHERE article.path IS NULL";
-        connection.query(sqlStr, function (err, rows) {
-            if (err) throw err;
-
-            generatePage(rows, res, connection);
-
-            res.send('正在生成页面！');
-
-            connection.release();
-        });
-    });
-});
-
-
-//生成分类列表的静态html页
-router.get('/generateList/', function (req, res) {
-    pool.getConnection(function (err, connection) {
-        if (err) throw err;
-        var sqlStr = "SELECT * FROM category";
-        connection.query(sqlStr, function (err, rows) {
-            if (err) throw err;
-            var sortArr = [];
-            for (var i = 0; i < rows.length; i++) {
-                sortArr.push({
-                    "id": parseInt(rows[i].id),
-                    "cname": rows[i].cname
-                });
-            }
-
-            generateList(sortArr, res, connection);
-
-            res.send('正在生成列表页！');
-
-            connection.release();
-        });
-    });
-});
 
 router.get('/it', function (req, res) {
     res.render('it', {title: "徐公网经", layout: 'layout_it'});
