@@ -9,15 +9,38 @@ var moment = require('moment');
 moment.locale('zh-cn');
 var fs = require('fs');
 
+
 router.get('/', function (req, res) {
-    //读取静态页面的内容
-    var dirPath = path.join(__dirname, '../public/html', 'list_1.html');
-    fs.readFile(dirPath, function (err, data) {
-        if (err) {
-            console.log(err);
-        }
-        res.send(data.toString());
+    var sort = parseInt(req.query.sort ? req.query.sort : 1);
+    var offset = parseInt(req.query.offset ? req.query.offset : 0);
+    var pageSize = 20;
+
+    pool.getConnection(function (err, connection) {
+        if (err) throw err;
+        var sqlStr = "SELECT id,top,sort,source,title,description,file,datetime FROM article WHERE sort=" + sort + " ORDER BY top DESC,id DESC LIMIT " + offset + "," + pageSize;
+        connection.query(sqlStr, function (err, rows) {
+            if (err) throw err;
+            for (var i = 0; i < rows.length; i++) {
+                rows[i].datetimeFromNow = moment(rows[i].datetime).fromNow();
+                if (rows[i].file) {
+                    rows[i].hasPic = true;
+                }
+            }
+
+            getNavObj({"sort": sort}, function (navObj) {
+                res.render('index', {
+                    title: "首页",
+                    keywords: "万函网,物联网,新闻,财经,科技,历史,商道,人物",
+                    description: "万函网是中国领先的资讯网站，为用户提供专业的新闻类、财经类和科技类资讯",
+                    navObj: navObj,
+                    results: rows
+                });
+            });
+
+            connection.release();
+        });
     });
+
 });
 
 

@@ -4,7 +4,7 @@
         {{#if hasPic}}
         <li class="clearfix clear">
             <div class="oneImage">
-                <a href="{{newsPath}}" title="{{title}}">
+                <a href="/news/?id={{id}}" title="{{title}}">
                     <div class="pic">
                         <img src="http://grab.xumohan.com/images/upload/smallPhoto/{{file}}" alt="{{title}}">
                     </div>
@@ -21,7 +21,7 @@
         {{else}}
         <li class="clearfix clear">
             <div class="noImage">
-                <a href="{{newsPath}}" title="{{title}}">
+                <a href="/news/?id={{id}}" title="{{title}}">
                     <div class="txt">
                         <div class="title">{{title}}</div>
                         <div class="other omit clearfix">

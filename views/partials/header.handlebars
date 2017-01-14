@@ -10,9 +10,9 @@
         <nav>
             {{#each navObj}}
             {{#if cur}}
-            <a href="/html/list_{{id}}.html" class="item cur">{{cname}}</a>
+            <a href="/?sort={{id}}" class="item cur">{{cname}}</a>
             {{else}}
-            <a href="/html/list_{{id}}.html" class="item">{{cname}}</a>
+            <a href="/?sort={{id}}" class="item">{{cname}}</a>
             {{/if}}
             {{/each}}
         </nav>

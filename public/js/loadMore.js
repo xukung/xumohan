@@ -11,7 +11,7 @@ require(navigator.userAgent.indexOf('MSIE') >= 0 ? ['jquery', 'underscore'] : ['
             //numOffset 为请求数据卷滚的条数，即已经加载的条数
             var numOffset = 0;
             //var numSort = GetQueryString("sort");
-            var sort_analyze = window.location.href.split('.html')[0].split('_')[1];
+            var sort_analyze = window.location.href.split('=')[1];
             var numSort = sort_analyze ? sort_analyze : 1;
 
             function GetQueryString(name) {
@@ -62,7 +62,7 @@ require(navigator.userAgent.indexOf('MSIE') >= 0 ? ['jquery', 'underscore'] : ['
                             }
 
                             li = '<li class="clearfix clear"><div class=' + className + '>' +
-                                '<a href="' + jsonObj[i].newsPath + '" title=' + jsonObj[i].title + '>' +
+                                '<a href="/news/?id=' + jsonObj[i].id + '" title=' + jsonObj[i].title + '>' +
                                 picDiv +
                                 '<div class="txt">' +
                                 '<div class="title">' + jsonObj[i].title + '</div>' +

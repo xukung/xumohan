@@ -40,7 +40,7 @@ router.get('/newsItems', function (req, res, next) {
             if (err) throw err;
             for (var i = 0; i < rows.length; i++) {
                 rows[i].datetimeFromNow = moment(rows[i].datetime).fromNow();
-                rows[i].newsPath = '/html/' + moment(rows[i].datetime).format('YYYY/MM/DD') + '/' + rows[i].id + '.html';
+                // rows[i].newsPath = '/html/' + moment(rows[i].datetime).format('YYYY/MM/DD') + '/' + rows[i].id + '.html';
             }
             res.render('json', {layout: null, results: JSON.stringify(rows)});
             connection.release();
