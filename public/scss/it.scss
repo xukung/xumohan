@@ -124,8 +124,7 @@ fieldset {
         a {
             margin: 3px 10px;
             &.special {
-                font-weight: bold;
-                text-decoration: underline;
+                color: $head-bg-color;
             }
         }
         .sort {

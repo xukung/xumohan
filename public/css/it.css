@@ -126,7 +126,7 @@ fieldset:nth-child(2n) { background: #f5f5f5; }
 .main-area { margin: 0; margin-left: 200px; padding: 10px; background: #fff; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15); }
 
 .notebook fieldset a { margin: 3px 10px; }
-.notebook fieldset a.special { font-weight: bold; text-decoration: underline; }
+.notebook fieldset a.special { color: #349cf0; }
 .notebook fieldset .sort { color: #002F2F; }
 
 ul.anchor li a { text-decoration: none; display: block; padding: 0 10px; }
