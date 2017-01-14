@@ -13,18 +13,20 @@
 
 //主体色块背景色
 $bg-color: #fff;
+$head-bg-color: #349cf0;
+$nav-bg-color: #349cf0;
 $bg-color2: rgba(255, 255, 255, 0.3);
 
 //配色
-$title-color:#002F2F;   //标题颜色
-$link-color:#78755A;    //链接颜色
+$title-color: #002F2F; //标题颜色
+$link-color: #444; //链接颜色
 
 //左侧导航宽度
 $left-width: 200px;
 //头部高度
-$height-header: 80px;
+$height-header: 60px;
 //区块的间距
-$margin: 15px;
+$margin: 0;
 $margin-mobile: 10px;
 //区块内填充
 $padding: 10px;
@@ -34,7 +36,7 @@ $shadow: 3px 3px 5px rgba(0, 0, 0, .15);
 
 /*通用*/
 body {
-    background: #EFECCA;
+    background: #fff;
     color: #222;
     width: auto;
     //background: url("../images/bg.jpg") no-repeat center center fixed;
@@ -64,6 +66,9 @@ fieldset {
         color: $title-color;
         margin-bottom: 10px;
     }
+    &:nth-child(2n){
+        background:#f5f5f5;
+    }
 }
 
 .header {
@@ -74,9 +79,13 @@ fieldset {
     height: $height-header;
     line-height: 2em;
     padding: $padding;
-    background: $bg-color;
+    color: #fff;
+    background-color: $head-bg-color;
+    background-image: linear-gradient(to bottom,lighten($nav-bg-color, 10%), darken($nav-bg-color, 5%));
     box-shadow: $shadow;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
     a {
+        color: #fff;
         margin: 0 5px;
         &.cur {
             color: #444;
@@ -94,8 +103,12 @@ fieldset {
     left: $margin;
     width: $left-width;
     padding: $padding;
-    background: $bg-color;
+    background-color: $nav-bg-color;
+    background-image: linear-gradient(to bottom,lighten($nav-bg-color, 5%), darken($nav-bg-color, 15%));
     box-shadow: $shadow;
+    a {
+        color: #fff;
+    }
 }
 
 .main-area {
