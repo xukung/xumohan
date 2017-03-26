@@ -8,6 +8,9 @@ moment.locale('zh-cn');
 var fs = require('fs');
 
 
+
+
+/*
 router.get('/', function (req, res) {
     var sort = parseInt(req.query.sort ? req.query.sort : 1);
     var offset = parseInt(req.query.offset ? req.query.offset : 0);
@@ -41,8 +44,25 @@ router.get('/', function (req, res) {
 
 });
 
+*/
+
+router.get('/test',function (req, res, next) {
+    pool.getConnection(function (err, connection) {
+        console.info('try to connect database');
+        if (err) throw err;
+        var sqlStr = "SELECT * FROM admin";
+        connection.query(sqlStr, function (err, rows) {
+            console.log('rows.length',rows.length);
+            if (err) throw err;
+            res.render('index', {title: 'index'});
+            connection.release();
+        });
+    });
+});
+
 
 //新闻详情页,动态页面，为了兼容，不要删
+/*
 router.get('/news/', function (req, res) {
     var id = parseInt(req.query.id ? req.query.id : 1);
 
@@ -68,10 +88,11 @@ router.get('/news/', function (req, res) {
         });
     });
 });
+*/
 
 
 
-router.get('/it', function (req, res) {
+router.get('/', function (req, res) {
     res.render('it', {title: "徐公网经", layout: 'layout_it'});
 });
 
