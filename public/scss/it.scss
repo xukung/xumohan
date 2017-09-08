@@ -59,14 +59,14 @@ fieldset {
     margin-bottom: 50px;
     clear: both;
     legend {
-        font-size: 18px;
+        font-size: 16px;
         padding-left: 8px;
         padding-right: 10px;
         font-weight: bold;
         color: $font_color;
-        background-color: #f5f5f5;
         margin-bottom: 10px;
         border: 1px solid rgba(0,0,0,0.1);
+        box-shadow: $shadow1;
     }
     &:nth-child(2n){
         background:#f9f9f9;
