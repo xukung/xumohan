@@ -18,7 +18,7 @@ $nav-bg-color: #349cf0;
 $bg-color2: rgba(255, 255, 255, 0.3);
 
 //配色
-$title-color: #002F2F; //标题颜色
+$title-color: #f80; //标题颜色
 $link-color: #444; //链接颜色
 
 //左侧导航宽度
@@ -63,7 +63,8 @@ fieldset {
         padding-left: 8px;
         padding-right: 10px;
         font-weight: bold;
-        color: $title-color;
+        color: white;
+        background: $link_hover_color;
         margin-bottom: 10px;
     }
     &:nth-child(2n){
