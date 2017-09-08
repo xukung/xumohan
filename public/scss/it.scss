@@ -64,7 +64,8 @@ fieldset {
         padding-right: 10px;
         font-weight: bold;
         color: white;
-        background: $link_hover_color;
+        background-color: $nav-bg-color;
+        background-image: linear-gradient(to bottom,lighten($nav-bg-color, 5%), darken($nav-bg-color, 15%));
         margin-bottom: 10px;
     }
     &:nth-child(2n){
@@ -125,11 +126,11 @@ fieldset {
         a {
             margin: 3px 10px;
             &.special {
-                color: $head-bg-color;
+                color: #F2524D;
             }
         }
         .sort {
-            color: $title-color;
+            color: #B7BD16;
         }
     }
 }
