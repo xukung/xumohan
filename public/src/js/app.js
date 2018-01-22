@@ -2,11 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {Router, Route, hashHistory, IndexRoute, browserHistory} from 'react-router';
-
-// Material-UI
-var injectTapEventPlugin = require("react-tap-event-plugin");
-injectTapEventPlugin();//injectTapEventPlugin(): Can only be called once per application lifecycle.
-
 import store from './store/';
 import Base from './components/Base';
 import ErrorPage from './components/ErrorPage';

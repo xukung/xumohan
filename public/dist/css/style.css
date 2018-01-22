@@ -236,35 +236,6 @@ table.data td[align="right"], table.data th[align="right"] { text-align: right; 
 .page a { display: inline-block; height: 1.5em; line-height: 1.5em; padding: 0 0.5em; border: 1px solid #ddd; margin: 0 0.3em; }
 .page span { margin: 0 0.3em; }
 
-/*对materialUI的组件重设样式*/
-.nav-bar .menu-item-1 > div > div { padding: 16px 16px 16px 48px !important; }
-.nav-bar .menu-item-1 .iconfont { left: 20px !important; color: #fff !important; font-size: 18px !important; }
-.nav-bar .menu-item-1 button { display: none !important; }
-.nav-bar .menu-item-2 > div > div { display: flex; align-items: center; margin-left: 0 !important; padding: 0 16px 0 48px !important; overflow: hidden; }
-
-.drawer > div { overflow: hidden !important; }
-
-.side-bar .side-body .tabs > div:nth-child(1) button.each-tab:nth-child(1) { border-right: 1px solid #ccc !important; }
-.side-bar .side-body .tabs > div:nth-child(2) { background: #ccc; }
-.side-bar .side-body .tabs > div:nth-child(2) > div { overflow: hidden; height: 1px !important; background: #f8f8f8 !important; }
-
-.floating-action-button { position: absolute; z-index: 100; left: 236px; top: 40px; box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.8) !important; }
-
-.pop-win > div > div > div h3 { font-size: 14px !important; }
-.pop-win > div > div > div > div { font-size: 12px !important; }
-
 /*通用组件样式*/
-.search-comp { position: relative; width: 460px; }
-.search-comp .search-input { font-family: "PingFangSC-Regular", "Microsoft YaHei", STHeiti, Helvetica, Arial, sans-serif !important; font-size: 13px; width: 100%; height: 34px; line-height: 34px; padding: 4px 18px; border: 1px solid #ccc; border-radius: 3px; outline: none; }
-.search-comp span[class*="icon-"] { position: absolute; right: 0px; top: 1px; font-size: 20px; cursor: pointer; width: 40px; height: 32px; color: #555; text-align: center; line-height: 32px; display: block; }
-.search-comp span[class*="icon-"]:hover { color: #3986ff; }
-
-.context-menu { position: absolute; display: none; z-index: 999; width: 160px; line-height: 1.5em; background-color: #fff; box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.2); }
-.context-menu[class*="show"] { display: block; }
-.context-menu > div { padding: 10px 20px; }
-.context-menu > div:hover { cursor: pointer; background: #f9f9f9; }
-.context-menu span[class*="icon-"] { position: relative; top: 2px; margin-right: 0.3em; font-size: 18px; }
-
-.mask { position: fixed; z-index: 100; top: 0; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.15); }
 
 /*# sourceMappingURL=style.css.map */

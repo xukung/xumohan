@@ -5,11 +5,11 @@ router.get('/', function (req, res, next) {
     res.render('index', {title: 'tech', file: "app.js"});
 });
 
-router.get('/project', function (req, res, next) {
+router.get('/list', function (req, res, next) {
     res.render('index', {title: 'tech', file: "app.js"});
 });
 
-router.get('/resource', function (req, res, next) {
+router.get('/detail', function (req, res, next) {
     res.render('index', {title: 'tech', file: "app.js"});
 });
 
