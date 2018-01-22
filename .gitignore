@@ -1,10 +1,19 @@
 /node_modules/
 /.idea/
+/tempFiles/
 npm-debug.log
-
+package-lock.json
+nohup.out
+config.json
 
 
 
 
 #for macOS
 *.DS_Store
+.AppleDouble
+.LSOverride
+
+
+# Thumbnails
+._*

@@ -1,0 +1,26 @@
+import React from 'react';
+import store from '../store';
+import * as TYPE from '../libs/constTYPE';
+import * as events from '../libs/customEvents';
+
+export default class List extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+
+    }
+
+    componentWillUnmount() {
+
+    }
+
+    render() {
+        return (
+            <div>
+                list
+            </div>
+        );
+    }
+}
