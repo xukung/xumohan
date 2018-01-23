@@ -43,10 +43,43 @@ router.get('/sort/list', function (req, res, next) {
     });
 });
 
+router.get('/article/total', function (req, res, next) {
+    pool.getConnection(function (err, connection) {
+        if (err) throw err;
+
+        let sqlStr = `SELECT * FROM article`;
+
+        // console.log('sqlStr:', sqlStr);
+
+        connection.query(sqlStr, function (err, rows) {
+            if (err) throw err;
+
+            if (rows.length > 0) {
+                //success
+                // console.log(rows);
+
+                let obj = {
+                    status: 'success',
+                    data: rows.length,
+                };
+
+                res.json(obj);
+            } else {
+                let obj = {
+                    status: 'success',
+                    data: 0,
+                };
+                res.json(obj);
+            }
+            connection.release();
+        });
+    });
+});
 
 router.get('/article/list', function (req, res, next) {
-    let offset = req.query.offset || 0;
-    let size = req.query.size || 10;
+    let page = parseInt(req.query.page, 10) || 1;
+    let size = parseInt(req.query.size, 10) || 10;
+    let offset = (page - 1) * size;
 
     pool.getConnection(function (err, connection) {
         if (err) throw err;
@@ -73,14 +106,16 @@ router.get('/article/list', function (req, res, next) {
 
                 let obj = {
                     status: 'success',
-                    data: rows
+                    data: rows,
+                    total: rows.length,
                 };
 
                 res.json(obj);
             } else {
                 let obj = {
                     status: 'success',
-                    data: []
+                    data: [],
+                    total: 0,
                 };
                 res.json(obj);
             }

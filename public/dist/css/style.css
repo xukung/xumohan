@@ -33,7 +33,7 @@ sub { bottom: -.25em; }
 ::-webkit-scrollbar-thumb { background-color: #aaa; }
 
 /*common*/
-body { font-family: "PingFangSC-Regular", "Microsoft YaHei", STHeiti, Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.8em; background-color: #fff; color: #444; min-width: 1280px; overflow: hidden; }
+body { font-family: "PingFangSC-Regular", "Microsoft YaHei", STHeiti, Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.8em; background-color: #fff; color: #444; min-width: 1280px; }
 
 a { color: #222; text-decoration: none; -webkit-tap-highlight-color: rgba(9, 174, 255, 0.5); }
 a:hover { color: #04bee6; }
@@ -232,9 +232,7 @@ table.data th { background: #fff; color: #9b9b9b !important; border-bottom: 1px 
 table.data td[align="left"], table.data th[align="left"] { text-align: left; }
 table.data td[align="right"], table.data th[align="right"] { text-align: right; }
 
-.page { text-align: center; margin: 1em 0; }
-.page a { display: inline-block; height: 1.5em; line-height: 1.5em; padding: 0 0.5em; border: 1px solid #ddd; margin: 0 0.3em; }
-.page span { margin: 0 0.3em; }
+.page { display: flex; margin: 2em 0; justify-content: center; }
 
 /*通用组件样式*/
 

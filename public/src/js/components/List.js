@@ -3,6 +3,7 @@ import store from '../store';
 import * as TYPE from '../libs/constTYPE';
 import * as events from '../libs/customEvents';
 import Header from './Header';
+import MainList from './MainList';
 
 export default class List extends React.Component {
     constructor(props) {
@@ -21,7 +22,7 @@ export default class List extends React.Component {
         return (
             <div>
                 <Header/>
-                <div>list</div>
+                <MainList/>
             </div>
         );
     }

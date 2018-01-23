@@ -8,7 +8,7 @@ export default class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            sorts: [1,2],
+            sorts: [1, 2],
         };
     }
 

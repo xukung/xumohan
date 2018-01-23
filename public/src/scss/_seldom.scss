@@ -42,18 +42,8 @@ table.data {
 }
 
 .page {
-    text-align: center;
-    margin: 1em 0;
-    a {
-        display: inline-block;
-        height: 1.5em;
-        line-height: 1.5em;
-        padding: 0 0.5em;
-        border: 1px solid #ddd;
-        margin: 0 0.3em;
-    }
-    span {
-        margin: 0 0.3em;
-    }
+    display: flex;
+    margin: 2em 0;
+    justify-content: center;
 }
 
