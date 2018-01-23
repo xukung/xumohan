@@ -40,7 +40,7 @@ export default class Header extends React.Component {
 
     changeSort(e) {
         let tar = e.currentTarget;
-        let id = tar.dataset.id;
+        let id = parseInt(tar.dataset.id, 10);
         // console.log(id);
 
         store.dispatch({
@@ -49,12 +49,31 @@ export default class Header extends React.Component {
         });
 
         events.customEvent.emit(events.REFRESH_ARTICLE_LIST);
+
+        this.render();
+    }
+
+    search() {
+        let keywords = $('#searchInput').val();
+        store.dispatch({
+            type: TYPE.SET_KEYWORDS,
+            val: keywords,
+        });
+
+        events.customEvent.emit(events.REFRESH_ARTICLE_LIST);
     }
 
     render() {
+        console.log('render header');
+        let currentSort = parseInt(store.getState().project.currentSort, 10);
+
         let sortsArray = this.state.sorts.map((value, index)=> {
+            // console.log('store.getState().project.currentSort:', store.getState().project.currentSort);
+            // console.log('value.id:', value.id);
             return (
-                <li className="" key={index} data-id={value.id} onClick={this.changeSort.bind(this)}>
+                <li className={currentSort === value.id ? 'active' : ''}
+                    key={index}
+                    data-id={value.id} onClick={this.changeSort.bind(this)}>
                     <a className="btn" href="javascript:void(0)">{value.cname}</a>
                 </li>
             )
@@ -73,6 +92,14 @@ export default class Header extends React.Component {
                             <ul className="nav navbar-nav">
                                 {sortsArray}
                             </ul>
+                            <div className="navbar-form navbar-right" role="search">
+                                <div className="form-group">
+                                    <input type="text" name="keywords" id="searchInput" className="form-control"
+                                           placeholder="Search"/>
+                                </div>
+                                <button type="button" className="btn btn-default" onClick={this.search.bind(this)}>搜索
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </nav>

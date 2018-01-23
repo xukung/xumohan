@@ -47,12 +47,16 @@ router.get('/sort/list', function (req, res, next) {
 //article总条数
 router.get('/article/total', function (req, res, next) {
     let sort = req.query.sort;
+    let keywords = req.query.keywords;
+
+    let sortStr = sort === '0' ? `WHERE sort!="0" ` : `WHERE sort="${sort}" `;
+    let keyStr = keywords === '' ? `` : ` AND title like "%${keywords}%" `;
 
     pool.getConnection(function (err, connection) {
         if (err) throw err;
 
-        let sqlStr = sort === '0' ? `SELECT * FROM article` : `SELECT * FROM article WHERE sort="${sort}"`;
-
+        // let sqlStr = sort === '0' ? `SELECT * FROM article` : `SELECT * FROM article WHERE sort="${sort}"`;
+        let sqlStr = `SELECT * FROM article ${sortStr} ${keyStr}`;
         // console.log('sqlStr:', sqlStr);
 
         connection.query(sqlStr, function (err, rows) {
@@ -86,7 +90,9 @@ router.get('/article/list', function (req, res, next) {
     let size = parseInt(req.query.size, 10) || 10;
     let offset = (page - 1) * size;
     let sort = req.query.sort;
+    let keywords = req.query.keywords;
     let sortStr = sort === '0' ? `` : `WHERE sort="${sort}" `;
+    let keyStr = keywords === '' ? `` : ` AND title like "%${keywords}%" `;
 
     pool.getConnection(function (err, connection) {
         if (err) throw err;
@@ -94,7 +100,8 @@ router.get('/article/list', function (req, res, next) {
         let sqlStr = `SELECT article.*,sort.id AS sort_id,sort.cname AS sort_name 
         FROM article INNER JOIN sort 
         ON article.sort=sort.id 
-        ${sortStr} 
+        ${sortStr}
+        ${keyStr}
         ORDER BY datetime DESC 
         LIMIT ${size} OFFSET ${offset} `;
 

@@ -38,9 +38,6 @@ export default class MainList extends React.Component {
     }
 
     refreshList() {
-        let currentSort = store.getState().project.currentSort;
-        // console.log(currentSort);
-
         this.getTotal();
     }
 
@@ -51,6 +48,7 @@ export default class MainList extends React.Component {
                 url: '/json/article/total',
                 data: {
                     sort: store.getState().project.currentSort,
+                    keywords: store.getState().project.keywords,
                 },
             });
 
@@ -73,6 +71,7 @@ export default class MainList extends React.Component {
                     page: this.state.page,
                     size: this.state.size,
                     sort: store.getState().project.currentSort,
+                    keywords: store.getState().project.keywords,
                 }
             });
 
@@ -91,20 +90,24 @@ export default class MainList extends React.Component {
         // console.log('totalPage:', totalPage);
 
         $('#pages').twbsPagination('destroy');
-        $('#pages').twbsPagination({
-            totalPages: totalPage,
-            visiblePages: totalPage > 5 ? 5 : totalPage,
-            onPageClick: (event, page)=> {
-                // console.log(page);
-                this.setState({
-                    page: page,
-                });
 
-                this.getArticles();
-            }
-        });
+        if (totalPage > 0) {
+            $('#pages').twbsPagination({
+                totalPages: totalPage,
+                visiblePages: totalPage > 5 ? 5 : totalPage,
+                onPageClick: (event, page)=> {
+                    // console.log(page);
+                    this.setState({
+                        page: page,
+                    });
 
-        this.getArticles();
+                    this.getArticles();
+                }
+            });
+        } else {
+            this.getArticles();
+        }
+
     }
 
     render() {
@@ -115,8 +118,8 @@ export default class MainList extends React.Component {
                     <td>{value.title}</td>
                     <td>{value.datetime}</td>
                     <td>
-                        <button type="button" className="btn btn-xs btn-success">修改</button>
-                        <button type="button" className="btn btn-xs btn-danger">删除</button>
+                        {/*<button type="button" className="btn btn-xs btn-success">修改</button>*/}
+                        {/*<button type="button" className="btn btn-xs btn-danger">删除</button>*/}
                     </td>
                 </tr>
             );

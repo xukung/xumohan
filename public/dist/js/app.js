@@ -44432,6 +44432,7 @@
 	var CHANGE_ROUTE = exports.CHANGE_ROUTE = 'CHANGE_ROUTE'; //改变当前路径
 
 	var SET_CURRENT_SORT = exports.SET_CURRENT_SORT = 'SET_CURRENT_SORT';
+	var SET_KEYWORDS = exports.SET_KEYWORDS = 'SET_KEYWORDS';
 
 /***/ }),
 /* 605 */
@@ -44493,7 +44494,8 @@
 	(0, _objectAssign2.default)();
 
 	var initState = {
-	    currentSort: 0 //当前分类
+	    currentSort: 0, //当前分类
+	    keywords: '' //搜索关键词
 	};
 
 	function header() {
@@ -44503,6 +44505,10 @@
 	    switch (action.type) {
 	        case TYPE.SET_CURRENT_SORT:
 	            return Object.assign({}, state, { currentSort: action.val });
+	            break;
+
+	        case TYPE.SET_KEYWORDS:
+	            return Object.assign({}, state, { keywords: action.val });
 	            break;
 
 	        default:
@@ -45179,12 +45185,25 @@
 	        key: 'changeSort',
 	        value: function changeSort(e) {
 	            var tar = e.currentTarget;
-	            var id = tar.dataset.id;
+	            var id = parseInt(tar.dataset.id, 10);
 	            // console.log(id);
 
 	            _store2.default.dispatch({
 	                type: TYPE.SET_CURRENT_SORT,
 	                val: id
+	            });
+
+	            events.customEvent.emit(events.REFRESH_ARTICLE_LIST);
+
+	            this.render();
+	        }
+	    }, {
+	        key: 'search',
+	        value: function search() {
+	            var keywords = $('#searchInput').val();
+	            _store2.default.dispatch({
+	                type: TYPE.SET_KEYWORDS,
+	                val: keywords
 	            });
 
 	            events.customEvent.emit(events.REFRESH_ARTICLE_LIST);
@@ -45194,10 +45213,17 @@
 	        value: function render() {
 	            var _this2 = this;
 
+	            console.log('render header');
+	            var currentSort = parseInt(_store2.default.getState().project.currentSort, 10);
+
 	            var sortsArray = this.state.sorts.map(function (value, index) {
+	                // console.log('store.getState().project.currentSort:', store.getState().project.currentSort);
+	                // console.log('value.id:', value.id);
 	                return _react2.default.createElement(
 	                    'li',
-	                    { className: '', key: index, 'data-id': value.id, onClick: _this2.changeSort.bind(_this2) },
+	                    { className: currentSort === value.id ? 'active' : '',
+	                        key: index,
+	                        'data-id': value.id, onClick: _this2.changeSort.bind(_this2) },
 	                    _react2.default.createElement(
 	                        'a',
 	                        { className: 'btn', href: 'javascript:void(0)' },
@@ -45231,6 +45257,21 @@
 	                                'ul',
 	                                { className: 'nav navbar-nav' },
 	                                sortsArray
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'navbar-form navbar-right', role: 'search' },
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'form-group' },
+	                                    _react2.default.createElement('input', { type: 'text', name: 'keywords', id: 'searchInput', className: 'form-control',
+	                                        placeholder: 'Search' })
+	                                ),
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { type: 'button', className: 'btn btn-default', onClick: this.search.bind(this) },
+	                                    '\u641C\u7D22'
+	                                )
 	                            )
 	                        )
 	                    )
@@ -45329,9 +45370,6 @@
 	    }, {
 	        key: 'refreshList',
 	        value: function refreshList() {
-	            var currentSort = _store2.default.getState().project.currentSort;
-	            // console.log(currentSort);
-
 	            this.getTotal();
 	        }
 	    }, {
@@ -45349,7 +45387,8 @@
 	                                    type: 'GET',
 	                                    url: '/json/article/total',
 	                                    data: {
-	                                        sort: _store2.default.getState().project.currentSort
+	                                        sort: _store2.default.getState().project.currentSort,
+	                                        keywords: _store2.default.getState().project.keywords
 	                                    }
 	                                });
 
@@ -45400,7 +45439,8 @@
 	                                    data: {
 	                                        page: this.state.page,
 	                                        size: this.state.size,
-	                                        sort: _store2.default.getState().project.currentSort
+	                                        sort: _store2.default.getState().project.currentSort,
+	                                        keywords: _store2.default.getState().project.keywords
 	                                    }
 	                                });
 
@@ -45442,20 +45482,23 @@
 	            // console.log('totalPage:', totalPage);
 
 	            $('#pages').twbsPagination('destroy');
-	            $('#pages').twbsPagination({
-	                totalPages: totalPage,
-	                visiblePages: totalPage > 5 ? 5 : totalPage,
-	                onPageClick: function onPageClick(event, page) {
-	                    // console.log(page);
-	                    _this2.setState({
-	                        page: page
-	                    });
 
-	                    _this2.getArticles();
-	                }
-	            });
+	            if (totalPage > 0) {
+	                $('#pages').twbsPagination({
+	                    totalPages: totalPage,
+	                    visiblePages: totalPage > 5 ? 5 : totalPage,
+	                    onPageClick: function onPageClick(event, page) {
+	                        // console.log(page);
+	                        _this2.setState({
+	                            page: page
+	                        });
 
-	            this.getArticles();
+	                        _this2.getArticles();
+	                    }
+	                });
+	            } else {
+	                this.getArticles();
+	            }
 	        }
 	    }, {
 	        key: 'render',
@@ -45479,20 +45522,7 @@
 	                        null,
 	                        value.datetime
 	                    ),
-	                    _react2.default.createElement(
-	                        'td',
-	                        null,
-	                        _react2.default.createElement(
-	                            'button',
-	                            { type: 'button', className: 'btn btn-xs btn-success' },
-	                            '\u4FEE\u6539'
-	                        ),
-	                        _react2.default.createElement(
-	                            'button',
-	                            { type: 'button', className: 'btn btn-xs btn-danger' },
-	                            '\u5220\u9664'
-	                        )
-	                    )
+	                    _react2.default.createElement('td', null)
 	                );
 	            });
 
