@@ -6,6 +6,7 @@ import store from './store/';
 import Base from './components/Base';
 import ErrorPage from './components/ErrorPage';
 import List from './components/List';
+import Detail from './components/Detail';
 
 
 ReactDOM.render(
@@ -14,6 +15,7 @@ ReactDOM.render(
             <Route path="/" component={Base}>
                 <IndexRoute component={List}/>
                 <Route path="/list" component={List}/>
+                <Route path="/detail" component={Detail}/>
             </Route>
             <Route path="/*" component={ErrorPage}/>
         </Router>

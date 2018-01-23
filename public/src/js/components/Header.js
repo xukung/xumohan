@@ -64,7 +64,7 @@ export default class Header extends React.Component {
     }
 
     render() {
-        console.log('render header');
+        // console.log('render header');
         let currentSort = parseInt(store.getState().project.currentSort, 10);
 
         let sortsArray = this.state.sorts.map((value, index)=> {
@@ -85,7 +85,7 @@ export default class Header extends React.Component {
                 <nav className="navbar navbar-default">
                     <div className="container-fluid">
                         <div className="navbar-header">
-                            <a className="navbar-brand" href="#">Brand</a>
+                            <a className="navbar-brand" href="/">Brand</a>
                         </div>
 
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

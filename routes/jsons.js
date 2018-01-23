@@ -146,8 +146,6 @@ router.get('/article/list', function (req, res, next) {
 //article详情
 router.get('/article/detail', function (req, res, next) {
     let id = req.query.id || 1;
-    let offset = req.query.offset || 0;
-    let size = req.query.size || 10;
 
     pool.getConnection(function (err, connection) {
         if (err) throw err;
@@ -165,10 +163,11 @@ router.get('/article/detail', function (req, res, next) {
 
                 let obj = {
                     status: 'success',
-                    data: rows
+                    data: rows[0],
                 };
 
                 res.json(obj);
+
             } else {
                 let obj = {
                     status: 'success',

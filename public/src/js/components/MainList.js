@@ -1,4 +1,5 @@
 import React from 'react';
+import {browserHistory} from 'react-router';
 import store from '../store';
 import * as TYPE from '../libs/constTYPE';
 import * as events from '../libs/customEvents';
@@ -110,12 +111,22 @@ export default class MainList extends React.Component {
 
     }
 
+    showDetail(e) {
+        let tar = e.currentTarget;
+        let id = tar.dataset.id;
+        store.dispatch({
+            type: TYPE.SET_CURRENT_ARTICLE,
+            val: id,
+        });
+        browserHistory.push(`/detail`);
+    }
+
     render() {
         let articleArray = this.state.articles.map((value, index)=> {
             return (
                 <tr key={index}>
                     <td>{value.sort_name}</td>
-                    <td>{value.title}</td>
+                    <td><a href={`/detail?id=${value.id}`} target="_blank">{value.title}</a></td>
                     <td>{value.datetime}</td>
                     <td>
                         {/*<button type="button" className="btn btn-xs btn-success">修改</button>*/}
