@@ -235,5 +235,6 @@ table.data td[align="right"], table.data th[align="right"] { text-align: right; 
 .page { display: flex; margin: 2em 0; justify-content: center; }
 
 /*通用组件样式*/
+.nav > li > a { padding: 15px 5px !important; }
 
 /*# sourceMappingURL=style.css.map */

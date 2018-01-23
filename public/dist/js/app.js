@@ -44431,7 +44431,7 @@
 	//common
 	var CHANGE_ROUTE = exports.CHANGE_ROUTE = 'CHANGE_ROUTE'; //改变当前路径
 
-	var SET_RECENT_BROWSE = exports.SET_RECENT_BROWSE = 'SET_RECENT_BROWSE';
+	var SET_CURRENT_SORT = exports.SET_CURRENT_SORT = 'SET_CURRENT_SORT';
 
 /***/ }),
 /* 605 */
@@ -44493,7 +44493,7 @@
 	(0, _objectAssign2.default)();
 
 	var initState = {
-	    recentBrowse: [] //最近浏览
+	    currentSort: 0 //当前分类
 	};
 
 	function header() {
@@ -44501,8 +44501,8 @@
 	    var action = arguments[1];
 
 	    switch (action.type) {
-	        case TYPE.SET_RECENT_BROWSE:
-	            return Object.assign({}, state, { recentBrowse: action.val });
+	        case TYPE.SET_CURRENT_SORT:
+	            return Object.assign({}, state, { currentSort: action.val });
 	            break;
 
 	        default:
@@ -44751,10 +44751,7 @@
 
 	//string
 
-	var SHOW_ADD_PROJECT = exports.SHOW_ADD_PROJECT = 'SHOW_ADD_PROJECT';
-	var SHOW_ADD_RESOURCE = exports.SHOW_ADD_RESOURCE = 'SHOW_ADD_RESOURCE';
-	var SHOW_SNACK = exports.SHOW_SNACK = 'SHOW_SNACK';
-	var REFRESH_PROJECT_LIST = exports.REFRESH_PROJECT_LIST = 'REFRESH_PROJECT_LIST';
+	var REFRESH_ARTICLE_LIST = exports.REFRESH_ARTICLE_LIST = 'REFRESH_ARTICLE_LIST';
 
 /***/ }),
 /* 612 */
@@ -45183,7 +45180,14 @@
 	        value: function changeSort(e) {
 	            var tar = e.currentTarget;
 	            var id = tar.dataset.id;
-	            console.log(id);
+	            // console.log(id);
+
+	            _store2.default.dispatch({
+	                type: TYPE.SET_CURRENT_SORT,
+	                val: id
+	            });
+
+	            events.customEvent.emit(events.REFRESH_ARTICLE_LIST);
 	        }
 	    }, {
 	        key: 'render',
@@ -45305,6 +45309,7 @@
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            this.init();
+	            events.customEvent.on(events.REFRESH_ARTICLE_LIST, this.refreshList.bind(this));
 	        }
 	    }, {
 	        key: 'componentWillUnmount',
@@ -45312,8 +45317,22 @@
 	    }, {
 	        key: 'init',
 	        value: function init() {
+	            this.setState({
+	                articles: [],
+	                total: 0,
+	                page: 1,
+	                size: 10
+	            });
+
 	            this.getTotal();
-	            this.getArticles();
+	        }
+	    }, {
+	        key: 'refreshList',
+	        value: function refreshList() {
+	            var currentSort = _store2.default.getState().project.currentSort;
+	            // console.log(currentSort);
+
+	            this.getTotal();
 	        }
 	    }, {
 	        key: 'getTotal',
@@ -45328,7 +45347,10 @@
 	                                _context.next = 3;
 	                                return (0, _fetchJson2.default)({
 	                                    type: 'GET',
-	                                    url: '/json/article/total'
+	                                    url: '/json/article/total',
+	                                    data: {
+	                                        sort: _store2.default.getState().project.currentSort
+	                                    }
 	                                });
 
 	                            case 3:
@@ -45374,7 +45396,12 @@
 	                                _context2.next = 3;
 	                                return (0, _fetchJson2.default)({
 	                                    type: 'GET',
-	                                    url: '/json/article/list?page=' + this.state.page + '&size=' + this.state.size
+	                                    url: '/json/article/list',
+	                                    data: {
+	                                        page: this.state.page,
+	                                        size: this.state.size,
+	                                        sort: _store2.default.getState().project.currentSort
+	                                    }
 	                                });
 
 	                            case 3:
@@ -45411,17 +45438,24 @@
 	        value: function setPages() {
 	            var _this2 = this;
 
+	            var totalPage = Math.ceil(this.state.total / this.state.size);
+	            // console.log('totalPage:', totalPage);
+
+	            $('#pages').twbsPagination('destroy');
 	            $('#pages').twbsPagination({
-	                totalPages: Math.ceil(this.state.total / this.state.size),
-	                visiblePages: 7,
+	                totalPages: totalPage,
+	                visiblePages: totalPage > 5 ? 5 : totalPage,
 	                onPageClick: function onPageClick(event, page) {
 	                    // console.log(page);
 	                    _this2.setState({
 	                        page: page
 	                    });
+
 	                    _this2.getArticles();
 	                }
 	            });
+
+	            this.getArticles();
 	        }
 	    }, {
 	        key: 'render',

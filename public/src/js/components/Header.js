@@ -41,7 +41,14 @@ export default class Header extends React.Component {
     changeSort(e) {
         let tar = e.currentTarget;
         let id = tar.dataset.id;
-        console.log(id);
+        // console.log(id);
+
+        store.dispatch({
+            type: TYPE.SET_CURRENT_SORT,
+            val: id,
+        });
+
+        events.customEvent.emit(events.REFRESH_ARTICLE_LIST);
     }
 
     render() {

@@ -5,7 +5,4 @@ export {customEvent};
 
 
 //string
-export const SHOW_ADD_PROJECT = 'SHOW_ADD_PROJECT';
-export const SHOW_ADD_RESOURCE = 'SHOW_ADD_RESOURCE';
-export const SHOW_SNACK = 'SHOW_SNACK';
-export const REFRESH_PROJECT_LIST = 'REFRESH_PROJECT_LIST';
+export const REFRESH_ARTICLE_LIST = 'REFRESH_ARTICLE_LIST';

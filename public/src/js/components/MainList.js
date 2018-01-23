@@ -19,6 +19,7 @@ export default class MainList extends React.Component {
 
     componentDidMount() {
         this.init();
+        events.customEvent.on(events.REFRESH_ARTICLE_LIST, this.refreshList.bind(this));
     }
 
     componentWillUnmount() {
@@ -26,8 +27,21 @@ export default class MainList extends React.Component {
     }
 
     init() {
+        this.setState({
+            articles: [],
+            total: 0,
+            page: 1,
+            size: 10,
+        });
+
         this.getTotal();
-        this.getArticles();
+    }
+
+    refreshList() {
+        let currentSort = store.getState().project.currentSort;
+        // console.log(currentSort);
+
+        this.getTotal();
     }
 
     async getTotal() {
@@ -35,6 +49,9 @@ export default class MainList extends React.Component {
             let msg = await fetchJson({
                 type: 'GET',
                 url: '/json/article/total',
+                data: {
+                    sort: store.getState().project.currentSort,
+                },
             });
 
             this.setState({
@@ -51,7 +68,12 @@ export default class MainList extends React.Component {
         try {
             let msg = await fetchJson({
                 type: 'GET',
-                url: `/json/article/list?page=${this.state.page}&size=${this.state.size}`,
+                url: `/json/article/list`,
+                data: {
+                    page: this.state.page,
+                    size: this.state.size,
+                    sort: store.getState().project.currentSort,
+                }
             });
 
             this.setState({
@@ -64,17 +86,25 @@ export default class MainList extends React.Component {
     }
 
     setPages() {
+
+        let totalPage = Math.ceil(this.state.total / this.state.size);
+        // console.log('totalPage:', totalPage);
+
+        $('#pages').twbsPagination('destroy');
         $('#pages').twbsPagination({
-            totalPages: Math.ceil(this.state.total / this.state.size),
-            visiblePages: 7,
+            totalPages: totalPage,
+            visiblePages: totalPage > 5 ? 5 : totalPage,
             onPageClick: (event, page)=> {
                 // console.log(page);
                 this.setState({
                     page: page,
                 });
+
                 this.getArticles();
             }
         });
+
+        this.getArticles();
     }
 
     render() {

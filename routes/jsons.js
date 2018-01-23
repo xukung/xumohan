@@ -46,10 +46,12 @@ router.get('/sort/list', function (req, res, next) {
 
 //article总条数
 router.get('/article/total', function (req, res, next) {
+    let sort = req.query.sort;
+
     pool.getConnection(function (err, connection) {
         if (err) throw err;
 
-        let sqlStr = `SELECT * FROM article`;
+        let sqlStr = sort === '0' ? `SELECT * FROM article` : `SELECT * FROM article WHERE sort="${sort}"`;
 
         // console.log('sqlStr:', sqlStr);
 
@@ -83,11 +85,16 @@ router.get('/article/list', function (req, res, next) {
     let page = parseInt(req.query.page, 10) || 1;
     let size = parseInt(req.query.size, 10) || 10;
     let offset = (page - 1) * size;
+    let sort = req.query.sort;
+    let sortStr = sort === '0' ? `` : `WHERE sort="${sort}" `;
 
     pool.getConnection(function (err, connection) {
         if (err) throw err;
 
-        let sqlStr = `SELECT article.*,sort.id AS sort_id,sort.cname AS sort_name FROM article INNER JOIN sort ON article.sort=sort.id 
+        let sqlStr = `SELECT article.*,sort.id AS sort_id,sort.cname AS sort_name 
+        FROM article INNER JOIN sort 
+        ON article.sort=sort.id 
+        ${sortStr} 
         ORDER BY datetime DESC 
         LIMIT ${size} OFFSET ${offset} `;
 
