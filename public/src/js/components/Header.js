@@ -38,28 +38,35 @@ export default class Header extends React.Component {
         }
     }
 
+    changeSort(e) {
+        let tar = e.currentTarget;
+        let id = tar.dataset.id;
+        console.log(id);
+    }
+
     render() {
         let sortsArray = this.state.sorts.map((value, index)=> {
             return (
-                <li className="nav-item" key={index}><a className="nav-link" href="#">{value.cname}</a></li>
+                <li className="" key={index} data-id={value.id} onClick={this.changeSort.bind(this)}>
+                    <a className="btn" href="javascript:void(0)">{value.cname}</a>
+                </li>
             )
         });
 
 
         return (
             <div>
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                    <a className="navbar-brand" href="#">Navbar</a>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon"></span>
-                    </button>
+                <nav className="navbar navbar-default">
+                    <div className="container-fluid">
+                        <div className="navbar-header">
+                            <a className="navbar-brand" href="#">Brand</a>
+                        </div>
 
-                    <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul className="navbar-nav mr-auto">
-                            {sortsArray}
-                        </ul>
+                        <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul className="nav navbar-nav">
+                                {sortsArray}
+                            </ul>
+                        </div>
                     </div>
                 </nav>
             </div>

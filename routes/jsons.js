@@ -9,8 +9,9 @@ var moment = require('moment');
  * 所有请求前缀  /json
  * */
 
-router.get('/sort/list', function (req, res, next) {
 
+//分类列表
+router.get('/sort/list', function (req, res, next) {
     pool.getConnection(function (err, connection) {
         if (err) throw err;
 
@@ -43,6 +44,7 @@ router.get('/sort/list', function (req, res, next) {
     });
 });
 
+//article总条数
 router.get('/article/total', function (req, res, next) {
     pool.getConnection(function (err, connection) {
         if (err) throw err;
@@ -76,6 +78,7 @@ router.get('/article/total', function (req, res, next) {
     });
 });
 
+//article 列表
 router.get('/article/list', function (req, res, next) {
     let page = parseInt(req.query.page, 10) || 1;
     let size = parseInt(req.query.size, 10) || 10;
@@ -84,7 +87,9 @@ router.get('/article/list', function (req, res, next) {
     pool.getConnection(function (err, connection) {
         if (err) throw err;
 
-        let sqlStr = `SELECT * FROM article ORDER BY datetime DESC LIMIT ${size} OFFSET ${offset} `;
+        let sqlStr = `SELECT article.*,sort.id AS sort_id,sort.cname AS sort_name FROM article INNER JOIN sort ON article.sort=sort.id 
+        ORDER BY datetime DESC 
+        LIMIT ${size} OFFSET ${offset} `;
 
         // console.log('sqlStr:', sqlStr);
 
@@ -124,6 +129,7 @@ router.get('/article/list', function (req, res, next) {
     });
 });
 
+//article详情
 router.get('/article/detail', function (req, res, next) {
     let id = req.query.id || 1;
     let offset = req.query.offset || 0;

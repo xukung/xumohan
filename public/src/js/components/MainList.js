@@ -81,9 +81,13 @@ export default class MainList extends React.Component {
         let articleArray = this.state.articles.map((value, index)=> {
             return (
                 <tr key={index}>
-                    <td>{value.sort}</td>
+                    <td>{value.sort_name}</td>
                     <td>{value.title}</td>
                     <td>{value.datetime}</td>
+                    <td>
+                        <button type="button" className="btn btn-xs btn-success">修改</button>
+                        <button type="button" className="btn btn-xs btn-danger">删除</button>
+                    </td>
                 </tr>
             );
         });
@@ -98,6 +102,7 @@ export default class MainList extends React.Component {
                                 <th>分类</th>
                                 <th>标题</th>
                                 <th>日期</th>
+                                <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
