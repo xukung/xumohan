@@ -1,0 +1,101 @@
+import React from 'react';
+import store from '../store';
+import {browserHistory} from 'react-router';
+import * as TYPE from '../libs/constTYPE';
+import * as events from '../libs/customEvents';
+import Header from './Header';
+import MainList from './MainList';
+import fetchJson from '../libs/fetchJson';
+
+export default class List extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            sorts: [],
+        };
+    }
+
+    componentDidMount() {
+        this.init();
+    }
+
+    componentWillUnmount() {
+
+    }
+
+    init(){
+        this.getSorts();
+    }
+
+    async getSorts() {
+        try {
+            let msg = await fetchJson({
+                type: 'GET',
+                url: '/json/sort/list',
+            });
+
+            this.setState({
+                sorts: msg.data,
+            });
+
+        } catch (e) {
+            // console.error(e); 
+        }
+    }
+
+    async addNew() {
+        let data = {
+            sort: $('#sorts').val(),
+            title: $('#title').val(),
+            note: $('#note').val(),
+        };
+        try {
+            let msg = await fetchJson({
+                type: 'POST',
+                url: '/json/article/add',
+                data: data,
+            });
+
+            if(msg.status==='success'){
+                browserHistory.push(`/article/list`);
+            }
+        } catch (e) {
+            // console.error(e);
+        }
+    }
+
+    render() {
+        let sorts = this.state.sorts || [];
+
+        return (
+            <div>
+                <Header/>
+                <div className="container">
+                    <div className="row">
+                        <div className="col-xs-12 col-md-10 col-md-push-1">
+                            <div>
+                                <select name="" id="sorts">
+                                    {
+                                        sorts.map((value, index)=> {
+                                            return <option key={index} value={value.id}>{value.cname}</option>;
+                                        })
+                                    }
+                                </select>
+                            </div>
+                            <div className="mt">
+                                <input id="title" className="form-control" type="text" placeholder="标题"/>
+                            </div>
+                            <div className="mt">
+                                <textarea id="note" className="form-control" placeholder="内容" cols="30"
+                                          rows="10"></textarea>
+                            </div>
+                            <div className="mt">
+                                <button className="btn btn-default" onClick={this.addNew.bind(this)}>添加</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}

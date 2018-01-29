@@ -180,5 +180,63 @@ router.get('/article/detail', function (req, res, next) {
     });
 });
 
+//添加
+router.post('/article/add', function (req, res, next) {
+    let title = req.body.title;
+    let note = req.body.note;
+    let sort = req.body.sort;
+
+    pool.getConnection(function (err, connection) {
+        if (err) throw err;
+        let sqlObj = {
+            title: title,
+            note: note,
+            sort: sort,
+        };
+
+        connection.query(`INSERT INTO article SET ?`, sqlObj, function (err, results, fields) {
+            if (err) throw err;
+            let obj = {
+                status: 'success',
+                data: {}
+            };
+
+            res.json(obj);
+            connection.release();
+        });
+
+    });
+});
+
+//删除
+router.get('/article/del', function (req, res, next) {
+    let id = req.query.id;
+
+    pool.getConnection(function (err, connection) {
+        if (err) throw err;
+        let sqlStr = `DELETE FROM article WHERE id="${id}"`;
+
+        connection.query(sqlStr, function (err, results) {
+            if (err) throw err;
+
+            let obj = {};
+            if (results.affectedRows > 0) {
+                obj = {
+                    status: 'success',
+                    data: '删除成功'
+                };
+            } else {
+                obj = {
+                    status: 'error',
+                    data: '删除失败'
+                };
+            }
+
+            res.json(obj);
+            connection.release();
+        });
+    });
+});
+
 
 module.exports = router;

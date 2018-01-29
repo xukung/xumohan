@@ -245,4 +245,6 @@ table.data td[align="right"], table.data th[align="right"] { text-align: right; 
 
 .breadcrumb { background: rgba(255, 255, 255, 0); }
 
+.add-new { cursor: pointer; }
+
 /*# sourceMappingURL=style.css.map */

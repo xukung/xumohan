@@ -17,7 +17,6 @@ export default class MainList extends React.Component {
         };
     }
 
-
     componentDidMount() {
         this.init();
         events.customEvent.on(events.REFRESH_ARTICLE_LIST, this.refreshList.bind(this));
@@ -111,26 +110,60 @@ export default class MainList extends React.Component {
 
     }
 
-    showDetail(e) {
+    addNew() {
+        browserHistory.push(`/article/add`);
+    }
+
+    editArticle(e) {
+
+    }
+
+    delArticle(e) {
         let tar = e.currentTarget;
-        let id = tar.dataset.id;
-        store.dispatch({
-            type: TYPE.SET_CURRENT_ARTICLE,
-            val: id,
-        });
-        browserHistory.push(`/detail`);
+        let $tr = $(tar).closest('tr');
+        let id = $tr.attr('data-id');
+        let title = $tr.attr('data-title');
+        // console.info(id);
+
+        let r = window.confirm(`确认删除" ${title} "吗?`);
+        if (r === true) {
+            this.del(parseInt(id, 10));
+        }
+    }
+
+    async del(id) {
+        let data = {
+            id: id,
+        };
+        try {
+            let msg = await fetchJson({
+                type: 'GET',
+                url: '/json/article/del',
+                data: data,
+            });
+
+            if (msg.status === 'success') {
+                this.refreshList();
+            }
+        } catch (e) {
+            // console.error(e);
+        }
     }
 
     render() {
         let articleArray = this.state.articles.map((value, index)=> {
             return (
-                <tr key={index}>
+                <tr key={index} data-id={value.id} data-title={value.title}>
                     <td>{value.sort_name}</td>
-                    <td><a href={`/detail?id=${value.id}`} target="_blank">{value.title}</a></td>
+                    <td><a href={`/article/detail?id=${value.id}`} target="_blank">{value.title}</a></td>
                     <td>{value.datetime}</td>
                     <td>
-                        {/*<button type="button" className="btn btn-xs btn-success">修改</button>*/}
-                        {/*<button type="button" className="btn btn-xs btn-danger">删除</button>*/}
+                        <button type="button" className="btn btn-xs btn-success" onClick={this.editArticle.bind(this)}>
+                            修改
+                        </button>
+                        <button type="button" className="btn btn-xs btn-danger" onClick={this.delArticle.bind(this)}>
+                            删除
+                        </button>
                     </td>
                 </tr>
             );
@@ -139,7 +172,8 @@ export default class MainList extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col">
+                    <div className="col-xs-12">
+                        <div className="glyphicon glyphicon-plus add-new" onClick={this.addNew.bind(this)}></div>
                         <table className="data" width="100%">
                             <thead>
                             <tr>

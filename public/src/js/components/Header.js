@@ -8,7 +8,7 @@ export default class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            sorts: [1, 2],
+            sorts: [],
         };
     }
 
@@ -30,9 +30,11 @@ export default class Header extends React.Component {
                 type: 'GET',
                 url: '/json/sort/list',
             });
+
             this.setState({
                 sorts: msg.data,
             });
+
         } catch (e) {
             // console.error(e); 
         }
@@ -50,7 +52,6 @@ export default class Header extends React.Component {
 
         events.customEvent.emit(events.REFRESH_ARTICLE_LIST);
 
-        this.render();
     }
 
     search() {
@@ -66,6 +67,7 @@ export default class Header extends React.Component {
     render() {
         // console.log('render header');
         let currentSort = parseInt(store.getState().project.currentSort, 10);
+
 
         let sortsArray = this.state.sorts.map((value, index)=> {
             // console.log('store.getState().project.currentSort:', store.getState().project.currentSort);

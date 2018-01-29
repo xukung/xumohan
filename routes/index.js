@@ -2,15 +2,11 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function (req, res, next) {
-    res.render('index', {title: 'tech', file: "app.js"});
+    res.redirect('/article/list');
 });
 
-router.get('/list', function (req, res, next) {
-    res.render('index', {title: 'tech', file: "app.js"});
-});
-
-router.get('/detail', function (req, res, next) {
-    res.render('index', {title: 'tech', file: "app.js"});
+router.get('/it', function (req, res, next) {
+    res.render('it', {title: 'tech'});
 });
 
 

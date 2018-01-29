@@ -7,6 +7,8 @@ import Base from './components/Base';
 import ErrorPage from './components/ErrorPage';
 import List from './components/List';
 import Detail from './components/Detail';
+import ArticleAdd from './components/ArticleAdd';
+import ArticleEdit from './components/ArticleEdit';
 
 
 ReactDOM.render(
@@ -14,8 +16,9 @@ ReactDOM.render(
         <Router history={browserHistory}>
             <Route path="/" component={Base}>
                 <IndexRoute component={List}/>
-                <Route path="/list" component={List}/>
-                <Route path="/detail" component={Detail}/>
+                <Route path="/article/list" component={List}/>
+                <Route path="/article/detail" component={Detail}/>
+                <Route path="/article/add" component={ArticleAdd}/>
             </Route>
             <Route path="/*" component={ErrorPage}/>
         </Router>
