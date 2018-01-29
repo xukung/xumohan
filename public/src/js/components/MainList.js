@@ -115,7 +115,16 @@ export default class MainList extends React.Component {
     }
 
     editArticle(e) {
+        let tar = e.currentTarget;
+        let $tr = $(tar).closest('tr');
+        let id = parseInt($tr.attr('data-id'), 10);
 
+        store.dispatch({
+            type: TYPE.SET_CURRENT_ARTICLE,
+            val: id,
+        });
+
+        browserHistory.push(`/article/edit`);
     }
 
     delArticle(e) {

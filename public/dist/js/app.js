@@ -107,7 +107,8 @@
 	            _react2.default.createElement(_reactRouter.IndexRoute, { component: _List2.default }),
 	            _react2.default.createElement(_reactRouter.Route, { path: '/article/list', component: _List2.default }),
 	            _react2.default.createElement(_reactRouter.Route, { path: '/article/detail', component: _Detail2.default }),
-	            _react2.default.createElement(_reactRouter.Route, { path: '/article/add', component: _ArticleAdd2.default })
+	            _react2.default.createElement(_reactRouter.Route, { path: '/article/add', component: _ArticleAdd2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: '/article/edit', component: _ArticleEdit2.default })
 	        ),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/*', component: _ErrorPage2.default })
 	    )
@@ -54390,7 +54391,18 @@
 	        }
 	    }, {
 	        key: 'editArticle',
-	        value: function editArticle(e) {}
+	        value: function editArticle(e) {
+	            var tar = e.currentTarget;
+	            var $tr = $(tar).closest('tr');
+	            var id = parseInt($tr.attr('data-id'), 10);
+
+	            _store2.default.dispatch({
+	                type: TYPE.SET_CURRENT_ARTICLE,
+	                val: id
+	            });
+
+	            _reactRouter.browserHistory.push('/article/edit');
+	        }
 	    }, {
 	        key: 'delArticle',
 	        value: function delArticle(e) {
@@ -54867,13 +54879,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var List = function (_React$Component) {
-	    _inherits(List, _React$Component);
+	var ArticleAdd = function (_React$Component) {
+	    _inherits(ArticleAdd, _React$Component);
 
-	    function List(props) {
-	        _classCallCheck(this, List);
+	    function ArticleAdd(props) {
+	        _classCallCheck(this, ArticleAdd);
 
-	        var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (ArticleAdd.__proto__ || Object.getPrototypeOf(ArticleAdd)).call(this, props));
 
 	        _this.state = {
 	            sorts: []
@@ -54881,7 +54893,7 @@
 	        return _this;
 	    }
 
-	    _createClass(List, [{
+	    _createClass(ArticleAdd, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            this.init();
@@ -55049,16 +55061,311 @@
 	        }
 	    }]);
 
-	    return List;
+	    return ArticleAdd;
 	}(_react2.default.Component);
 
-	exports.default = List;
+	exports.default = ArticleAdd;
 
 /***/ }),
 /* 945 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _store = __webpack_require__(264);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	var _reactRouter = __webpack_require__(203);
+
+	var _constTYPE = __webpack_require__(604);
+
+	var TYPE = _interopRequireWildcard(_constTYPE);
+
+	var _customEvents = __webpack_require__(611);
+
+	var events = _interopRequireWildcard(_customEvents);
+
+	var _Header = __webpack_require__(613);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _MainList = __webpack_require__(941);
+
+	var _MainList2 = _interopRequireDefault(_MainList);
+
+	var _fetchJson = __webpack_require__(614);
+
+	var _fetchJson2 = _interopRequireDefault(_fetchJson);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ArticleEdit = function (_React$Component) {
+	    _inherits(ArticleEdit, _React$Component);
+
+	    function ArticleEdit(props) {
+	        _classCallCheck(this, ArticleEdit);
+
+	        var _this = _possibleConstructorReturn(this, (ArticleEdit.__proto__ || Object.getPrototypeOf(ArticleEdit)).call(this, props));
+
+	        _this.state = {
+	            sorts: [],
+	            article: {}
+	        };
+	        return _this;
+	    }
+
+	    _createClass(ArticleEdit, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.init();
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {}
+	    }, {
+	        key: 'init',
+	        value: function init() {
+	            this.getSorts();
+	            this.getData();
+	        }
+	    }, {
+	        key: 'getSorts',
+	        value: function () {
+	            var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+	                var msg;
+	                return regeneratorRuntime.wrap(function _callee$(_context) {
+	                    while (1) {
+	                        switch (_context.prev = _context.next) {
+	                            case 0:
+	                                _context.prev = 0;
+	                                _context.next = 3;
+	                                return (0, _fetchJson2.default)({
+	                                    type: 'GET',
+	                                    url: '/json/sort/list'
+	                                });
+
+	                            case 3:
+	                                msg = _context.sent;
+
+
+	                                this.setState({
+	                                    sorts: msg.data
+	                                });
+
+	                                _context.next = 9;
+	                                break;
+
+	                            case 7:
+	                                _context.prev = 7;
+	                                _context.t0 = _context['catch'](0);
+
+	                            case 9:
+	                            case 'end':
+	                                return _context.stop();
+	                        }
+	                    }
+	                }, _callee, this, [[0, 7]]);
+	            }));
+
+	            function getSorts() {
+	                return _ref.apply(this, arguments);
+	            }
+
+	            return getSorts;
+	        }()
+	    }, {
+	        key: 'getData',
+	        value: function () {
+	            var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+	                var data, msg;
+	                return regeneratorRuntime.wrap(function _callee2$(_context2) {
+	                    while (1) {
+	                        switch (_context2.prev = _context2.next) {
+	                            case 0:
+	                                data = {
+	                                    id: _store2.default.getState().project.currentArticle
+	                                };
+	                                _context2.prev = 1;
+	                                _context2.next = 4;
+	                                return (0, _fetchJson2.default)({
+	                                    type: 'GET',
+	                                    url: '/json/article/detail',
+	                                    data: data
+	                                });
+
+	                            case 4:
+	                                msg = _context2.sent;
+
+
+	                                this.setState({
+	                                    article: msg.data
+	                                });
+
+	                                //必须加一个延时
+	                                setTimeout(function () {
+	                                    $('#sorts2').val(msg.data.sort);
+	                                    $('#title2').val(msg.data.title);
+	                                    $('#note2').val(msg.data.note);
+	                                }, 100);
+
+	                                _context2.next = 11;
+	                                break;
+
+	                            case 9:
+	                                _context2.prev = 9;
+	                                _context2.t0 = _context2['catch'](1);
+
+	                            case 11:
+	                            case 'end':
+	                                return _context2.stop();
+	                        }
+	                    }
+	                }, _callee2, this, [[1, 9]]);
+	            }));
+
+	            function getData() {
+	                return _ref2.apply(this, arguments);
+	            }
+
+	            return getData;
+	        }()
+	    }, {
+	        key: 'editArticle',
+	        value: function () {
+	            var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+	                var data, msg;
+	                return regeneratorRuntime.wrap(function _callee3$(_context3) {
+	                    while (1) {
+	                        switch (_context3.prev = _context3.next) {
+	                            case 0:
+	                                data = {
+	                                    id: this.state.article.id,
+	                                    sort: $('#sorts2').val(),
+	                                    title: $('#title2').val(),
+	                                    note: $('#note2').val()
+	                                };
+	                                _context3.prev = 1;
+	                                _context3.next = 4;
+	                                return (0, _fetchJson2.default)({
+	                                    type: 'POST',
+	                                    url: '/json/article/edit',
+	                                    data: data
+	                                });
+
+	                            case 4:
+	                                msg = _context3.sent;
+
+
+	                                if (msg.status === 'success') {
+	                                    _reactRouter.browserHistory.push('/article/list');
+	                                }
+	                                _context3.next = 10;
+	                                break;
+
+	                            case 8:
+	                                _context3.prev = 8;
+	                                _context3.t0 = _context3['catch'](1);
+
+	                            case 10:
+	                            case 'end':
+	                                return _context3.stop();
+	                        }
+	                    }
+	                }, _callee3, this, [[1, 8]]);
+	            }));
+
+	            function editArticle() {
+	                return _ref3.apply(this, arguments);
+	            }
+
+	            return editArticle;
+	        }()
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var sorts = this.state.sorts || [];
+
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_Header2.default, null),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'container' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'row' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'col-xs-12 col-md-10 col-md-push-1' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'select',
+	                                    { name: '', id: 'sorts2' },
+	                                    sorts.map(function (value, index) {
+	                                        return _react2.default.createElement(
+	                                            'option',
+	                                            { key: index, value: value.id },
+	                                            value.cname
+	                                        );
+	                                    })
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'mt' },
+	                                _react2.default.createElement('input', { id: 'title2', className: 'form-control', type: 'text', placeholder: '\u6807\u9898',
+	                                    defaultValue: this.state.article.title })
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'mt' },
+	                                _react2.default.createElement('textarea', { id: 'note2', className: 'form-control', placeholder: '\u5185\u5BB9', cols: '30',
+	                                    rows: '10', defaultValue: this.state.article.note })
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'mt' },
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { className: 'btn btn-default', onClick: this.editArticle.bind(this) },
+	                                    '\u4FEE\u6539'
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ArticleEdit;
+	}(_react2.default.Component);
+
+	exports.default = ArticleEdit;
 
 /***/ })
 /******/ ]);

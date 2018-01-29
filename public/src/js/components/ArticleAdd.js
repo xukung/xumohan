@@ -7,7 +7,7 @@ import Header from './Header';
 import MainList from './MainList';
 import fetchJson from '../libs/fetchJson';
 
-export default class List extends React.Component {
+export default class ArticleAdd extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

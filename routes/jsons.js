@@ -208,6 +208,32 @@ router.post('/article/add', function (req, res, next) {
     });
 });
 
+//修改
+router.post('/article/edit', function (req, res, next) {
+    let id = req.body.id;
+    let sort = req.body.sort;
+    let title = req.body.title;
+    let note = req.body.note;
+
+    pool.getConnection(function (err, connection) {
+        if (err) throw err;
+        let sqlObj = {
+            sort: sort,
+            title: title,
+            note: note,
+        };
+        connection.query(`UPDATE article SET ? WHERE id="${id}"`, sqlObj, function (err, rows) {
+            if (err) throw err;
+            let obj = {
+                status: 'success',
+                data: '保存成功!',
+            };
+            res.json(obj);
+            connection.release();
+        });
+    });
+});
+
 //删除
 router.get('/article/del', function (req, res, next) {
     let id = req.query.id;

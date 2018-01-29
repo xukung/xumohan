@@ -19,6 +19,7 @@ ReactDOM.render(
                 <Route path="/article/list" component={List}/>
                 <Route path="/article/detail" component={Detail}/>
                 <Route path="/article/add" component={ArticleAdd}/>
+                <Route path="/article/edit" component={ArticleEdit}/>
             </Route>
             <Route path="/*" component={ErrorPage}/>
         </Router>
