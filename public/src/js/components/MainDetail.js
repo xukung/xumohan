@@ -57,10 +57,9 @@ export default class MainDetail extends React.Component {
                 <div className="row">
                     <div className="col-xs-12 col-md-10 col-md-push-1">
                         <ol className="breadcrumb">
-                            <li><a href="/news">文章</a></li>
                         </ol>
                         <h1 className="text-center">{a.title}</h1>
-                        <div className="text-center">{a.datetime}</div>
+                        <div className="text-center">{func.timestampToTime(a.datetime)}</div>
                         <div className="note-area" dangerouslySetInnerHTML={{__html: a.note}}></div>
                     </div>
                 </div>

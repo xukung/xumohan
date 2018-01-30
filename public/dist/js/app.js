@@ -54801,19 +54801,7 @@
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'col-xs-12 col-md-10 col-md-push-1' },
-	                        _react2.default.createElement(
-	                            'ol',
-	                            { className: 'breadcrumb' },
-	                            _react2.default.createElement(
-	                                'li',
-	                                null,
-	                                _react2.default.createElement(
-	                                    'a',
-	                                    { href: '/news' },
-	                                    '\u6587\u7AE0'
-	                                )
-	                            )
-	                        ),
+	                        _react2.default.createElement('ol', { className: 'breadcrumb' }),
 	                        _react2.default.createElement(
 	                            'h1',
 	                            { className: 'text-center' },
@@ -54822,7 +54810,7 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { className: 'text-center' },
-	                            a.datetime
+	                            func.timestampToTime(a.datetime)
 	                        ),
 	                        _react2.default.createElement('div', { className: 'note-area', dangerouslySetInnerHTML: { __html: a.note } })
 	                    )
@@ -55421,6 +55409,7 @@
 	});
 	exports.copyText = copyText;
 	exports.getQueryString = getQueryString;
+	exports.timestampToTime = timestampToTime;
 	function copyText(text, callback) {
 	    var textarea = document.createElement('textarea');
 	    textarea.style.position = 'absolute';
@@ -55450,6 +55439,17 @@
 	    } else {
 	        return null;
 	    }
+	}
+
+	function timestampToTime(timestamp) {
+	    var date = new Date(timestamp);
+	    var Y = date.getFullYear();
+	    var M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+	    var D = date.getDate();
+	    var h = date.getHours();
+	    var m = date.getMinutes();
+	    var s = date.getSeconds();
+	    return Y + '-' + M + '-' + D + ' ' + h + ':' + m + ':' + s;
 	}
 
 /***/ })

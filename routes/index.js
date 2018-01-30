@@ -9,6 +9,10 @@ router.get('/it', function (req, res, next) {
     res.render('it', {title: 'tech'});
 });
 
+router.get('/code', function (req, res, next) {
+    res.render('code', {title: 'tech'});
+});
+
 
 
 module.exports = router;

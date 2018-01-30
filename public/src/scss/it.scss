@@ -1,5 +1,172 @@
 @import "_const";
 @import "_reset";
 @import "_common";
+//@import "_module";
+//@import "_icon";
+//@import "_font";
 
+//@import "_color";
+//@import "_form";
+//@import "_layout";
+//@import "_seldom";
+//@import "_glyphicon";
 
+//主体色块背景色
+$bg-color: #fff;
+$head-bg-color: #349cf0;
+$nav-bg-color: #349cf0;
+$bg-color2: rgba(255, 255, 255, 0.3);
+
+//配色
+$title-color: #f80; //标题颜色
+$link-color: #444; //链接颜色
+
+//左侧导航宽度
+$left-width: 200px;
+//头部高度
+$height-header: 60px;
+//区块的间距
+$margin: 0;
+$margin-mobile: 10px;
+//区块内填充
+$padding: 10px;
+
+//区块阴影
+$shadow: 3px 3px 5px rgba(0, 0, 0, .15);
+
+/*通用*/
+body {
+    background: #fff;
+    color: #222;
+    width: auto;
+    //background: url("../images/bg.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+a {
+    color: $link-color;
+    text-decoration: none;
+    -webkit-tap-highlight-color: rgba(9, 174, 255, 0.5);
+    &:hover {
+        color: #b11e25;
+        text-decoration: underline;
+    }
+}
+
+fieldset {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    padding: 0 20px 20px 20px;
+    margin-bottom: 50px;
+    clear: both;
+    legend {
+        font-size: 16px;
+        padding-left: 8px;
+        padding-right: 10px;
+        font-weight: bold;
+        color: $font_color;
+        margin-bottom: 10px;
+        border: 1px solid rgba(0,0,0,0.1);
+        box-shadow: $shadow1;
+    }
+    &:nth-child(2n){
+        background:#f9f9f9;
+    }
+}
+
+.header {
+    position: fixed;
+    top: $margin;
+    left: $margin;
+    width: $left-width;
+    height: $height-header;
+    line-height: 2em;
+    padding: $padding;
+    color: #fff;
+    background-color: $head-bg-color;
+    background-image: linear-gradient(to bottom,lighten($nav-bg-color, 10%), darken($nav-bg-color, 5%));
+    box-shadow: $shadow;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    a {
+        color: #fff;
+        margin: 0 5px;
+        &.cur {
+            color: #444;
+            padding: 3px 5px;
+            background: #fc0;
+            border-radius: 5px;
+        }
+    }
+}
+
+.sub-nav {
+    position: fixed;
+    top: ($height-header+$margin*2);
+    bottom: $margin;
+    left: $margin;
+    width: $left-width;
+    padding: $padding;
+    background-color: $nav-bg-color;
+    background-image: linear-gradient(to bottom,lighten($nav-bg-color, 5%), darken($nav-bg-color, 15%));
+    box-shadow: $shadow;
+    a {
+        color: #fff;
+    }
+}
+
+.main-area {
+    margin: $margin;
+    margin-left: ($left-width+$margin*2);
+    padding: $padding;
+    background: #fff;
+    box-shadow: $shadow;
+}
+
+.notebook {
+    fieldset {
+        a {
+            margin: 3px 10px;
+            &.special {
+                color: #F2524D;
+            }
+        }
+        .sort {
+            color: #B7BD16;
+        }
+    }
+}
+
+ul.anchor {
+    li {
+        a {
+            text-decoration: none;
+            display: block;
+            padding: 0 10px;
+            &:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    //移动端显示
+    .header {
+        position: static;
+        width: auto;
+        margin: $margin-mobile;
+    }
+    .sub-nav {
+        position: static;
+        width: auto;
+        margin: $margin-mobile;
+    }
+    .main-area {
+        position: static;
+        width: auto;
+        margin: $margin-mobile;
+    }
+    ul.anchor li {
+        float: left;
+        margin: 3px 10px;
+    }
+}
