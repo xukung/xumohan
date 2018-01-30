@@ -54413,8 +54413,7 @@
 	        key: 'editArticle',
 	        value: function editArticle(e) {
 	            var tar = e.currentTarget;
-	            var $tr = $(tar).closest('tr');
-	            var id = parseInt($tr.attr('data-id'), 10);
+	            var id = parseInt($(tar).attr('data-id'), 10);
 
 	            _store2.default.dispatch({
 	                type: TYPE.SET_CURRENT_ARTICLE,
@@ -54493,7 +54492,7 @@
 	            var articleArray = this.state.articles.map(function (value, index) {
 	                return _react2.default.createElement(
 	                    'tr',
-	                    { key: index, 'data-id': value.id, 'data-title': value.title },
+	                    { key: index, 'data-id': value.id, 'data-title': value.title, onDoubleClick: _this3.editArticle.bind(_this3) },
 	                    _react2.default.createElement(
 	                        'td',
 	                        null,
@@ -54516,11 +54515,6 @@
 	                    _react2.default.createElement(
 	                        'td',
 	                        null,
-	                        _react2.default.createElement(
-	                            'button',
-	                            { type: 'button', className: 'btn btn-xs btn-success', onClick: _this3.editArticle.bind(_this3) },
-	                            '\u4FEE\u6539'
-	                        ),
 	                        _react2.default.createElement(
 	                            'button',
 	                            { type: 'button', className: 'btn btn-xs btn-danger', onClick: _this3.delArticle.bind(_this3) },

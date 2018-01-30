@@ -116,8 +116,7 @@ export default class MainList extends React.Component {
 
     editArticle(e) {
         let tar = e.currentTarget;
-        let $tr = $(tar).closest('tr');
-        let id = parseInt($tr.attr('data-id'), 10);
+        let id = parseInt($(tar).attr('data-id'), 10);
 
         store.dispatch({
             type: TYPE.SET_CURRENT_ARTICLE,
@@ -162,14 +161,11 @@ export default class MainList extends React.Component {
     render() {
         let articleArray = this.state.articles.map((value, index)=> {
             return (
-                <tr key={index} data-id={value.id} data-title={value.title}>
+                <tr key={index} data-id={value.id} data-title={value.title} onDoubleClick={this.editArticle.bind(this)}>
                     <td>{value.sort_name}</td>
                     <td><a href={`/article/detail?id=${value.id}`} target="_blank">{value.title}</a></td>
                     <td>{value.datetime}</td>
                     <td>
-                        <button type="button" className="btn btn-xs btn-success" onClick={this.editArticle.bind(this)}>
-                            修改
-                        </button>
                         <button type="button" className="btn btn-xs btn-danger" onClick={this.delArticle.bind(this)}>
                             删除
                         </button>
