@@ -25,9 +25,9 @@
     border-top: 1px solid #ddd;
     padding: 1.5em 0;
 
-    ul{
+    ul {
         padding-left: 2em;
-        li{
+        li {
             list-style: disc;
         }
     }
@@ -45,9 +45,10 @@
     font-size: 20px;
 }
 
-pre{
-    padding: 10px;
-    white-space:normal;
-    word-wrap:break-word;
-    word-break: break-all;
+pre {
+    padding: 20px;
+}
+
+.navbar {
+    border-radius: 0 !important;
 }

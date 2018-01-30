@@ -1,5 +1,6 @@
 import React from 'react';
 import store from '../store';
+import {browserHistory} from 'react-router';
 import * as TYPE from '../libs/constTYPE';
 import * as events from '../libs/customEvents';
 import fetchJson from '../libs/fetchJson';
@@ -22,6 +23,18 @@ export default class Header extends React.Component {
 
     init() {
         this.getSorts();
+
+        //回车提交表单
+        $('#searchInput').keydown((event)=> {
+            // console.info(event.keyCode);
+            switch (event.keyCode) {
+                case 13:
+                    this.search();
+                    break;
+                default:
+                    ;
+            }
+        });
     }
 
     async getSorts() {
@@ -41,6 +54,8 @@ export default class Header extends React.Component {
     }
 
     changeSort(e) {
+        browserHistory.push(`/article/list`);
+
         let tar = e.currentTarget;
         let id = parseInt(tar.dataset.id, 10);
         // console.log(id);
@@ -55,6 +70,8 @@ export default class Header extends React.Component {
     }
 
     search() {
+        browserHistory.push(`/article/list`);
+
         let keywords = $('#searchInput').val();
         store.dispatch({
             type: TYPE.SET_KEYWORDS,
@@ -84,10 +101,10 @@ export default class Header extends React.Component {
 
         return (
             <div>
-                <nav className="navbar navbar-default">
+                <nav className="navbar navbar-inverse">
                     <div className="container-fluid">
                         <div className="navbar-header">
-                            <a className="navbar-brand" href="/">Brand</a>
+                            <a className="navbar-brand" href="/">Home</a>
                         </div>
 
                         <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

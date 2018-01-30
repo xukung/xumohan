@@ -3,6 +3,7 @@ import store from '../store';
 import * as TYPE from '../libs/constTYPE';
 import * as events from '../libs/customEvents';
 import fetchJson from '../libs/fetchJson';
+import * as func from '../libs/func';
 
 export default class MainDetail extends React.Component {
     constructor(props) {
@@ -25,14 +26,8 @@ export default class MainDetail extends React.Component {
     }
 
     async getArticle() {
-        function GetQueryString(name) {
-            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)","i");
-            var r = window.location.search.substr(1).match(reg);
-            if (r!=null) return (r[2]); return null;
-        }
-
         let data = {
-            id: GetQueryString("id"),
+            id: func.getQueryString("id"),
         };
         try {
             let msg = await fetchJson({

@@ -18,3 +18,14 @@ export function copyText(text, callback) {
         alert('您使用的浏览器不支持此复制功能，请更换chrome浏览器!');
     }
 }
+
+
+export function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        return (r[2]);
+    } else {
+        return null;
+    }
+}

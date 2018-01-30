@@ -18,8 +18,12 @@ table.data {
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
-    tr.on {
-        background: #f2f2f2;
+
+    tr:nth-child(odd),tr.on {
+        background: #f9f9f9;
+    }
+    tr:hover{
+        background: #f0f0f0;
     }
     td, th {
         padding: 10px 7px;
@@ -43,7 +47,7 @@ table.data {
 
 .page {
     display: flex;
-    margin: 2em 0;
+    //margin: 2em 0;
     justify-content: center;
 }
 

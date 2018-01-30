@@ -56,6 +56,9 @@ export default class ArticleAdd extends React.Component {
                 sorts: msg.data,
             });
 
+            setTimeout(()=>{
+                $('#sorts').val(3);
+            },100);
 
         } catch (e) {
             // console.error(e); 

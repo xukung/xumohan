@@ -226,13 +226,14 @@ fieldset { border: 1px solid #ddd; padding: 0 1em 1em 1em; margin-bottom: 1em; c
 legend { padding-left: 0.5em; padding-right: 0.5em; font-weight: bold; color: #333; }
 
 table.data { margin-top: 5px; border-collapse: collapse; margin-left: auto; margin-right: auto; }
-table.data tr.on { background: #f2f2f2; }
+table.data tr:nth-child(odd), table.data tr.on { background: #f9f9f9; }
+table.data tr:hover { background: #f0f0f0; }
 table.data td, table.data th { padding: 10px 7px; border-bottom: 1px solid #eee; }
 table.data th { background: #fff; color: #9b9b9b !important; border-bottom: 1px solid #f3f3f3; text-align: left; font-weight: bold; }
 table.data td[align="left"], table.data th[align="left"] { text-align: left; }
 table.data td[align="right"], table.data th[align="right"] { text-align: right; }
 
-.page { display: flex; margin: 2em 0; justify-content: center; }
+.page { display: flex; justify-content: center; }
 
 /*通用组件样式*/
 .nav > li > a { padding: 15px 5px !important; }
@@ -249,6 +250,8 @@ table.data td[align="right"], table.data th[align="right"] { text-align: right; 
 
 .add-new { position: fixed; left: 50px; top: 70px; cursor: pointer; font-size: 20px; }
 
-pre { padding: 10px; white-space: normal; word-wrap: break-word; word-break: break-all; }
+pre { padding: 20px; }
+
+.navbar { border-radius: 0 !important; }
 
 /*# sourceMappingURL=style.css.map */

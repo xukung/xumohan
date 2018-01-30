@@ -45108,6 +45108,8 @@
 
 	var _store2 = _interopRequireDefault(_store);
 
+	var _reactRouter = __webpack_require__(203);
+
 	var _constTYPE = __webpack_require__(604);
 
 	var TYPE = _interopRequireWildcard(_constTYPE);
@@ -45157,7 +45159,21 @@
 	    }, {
 	        key: 'init',
 	        value: function init() {
+	            var _this2 = this;
+
 	            this.getSorts();
+
+	            //回车提交表单
+	            $('#searchInput').keydown(function (event) {
+	                // console.info(event.keyCode);
+	                switch (event.keyCode) {
+	                    case 13:
+	                        _this2.search();
+	                        break;
+	                    default:
+	                        ;
+	                }
+	            });
 	        }
 	    }, {
 	        key: 'getSorts',
@@ -45207,6 +45223,8 @@
 	    }, {
 	        key: 'changeSort',
 	        value: function changeSort(e) {
+	            _reactRouter.browserHistory.push('/article/list');
+
 	            var tar = e.currentTarget;
 	            var id = parseInt(tar.dataset.id, 10);
 	            // console.log(id);
@@ -45221,6 +45239,8 @@
 	    }, {
 	        key: 'search',
 	        value: function search() {
+	            _reactRouter.browserHistory.push('/article/list');
+
 	            var keywords = $('#searchInput').val();
 	            _store2.default.dispatch({
 	                type: TYPE.SET_KEYWORDS,
@@ -45232,7 +45252,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this2 = this;
+	            var _this3 = this;
 
 	            // console.log('render header');
 	            var currentSort = parseInt(_store2.default.getState().project.currentSort, 10);
@@ -45244,7 +45264,7 @@
 	                    'li',
 	                    { className: currentSort === value.id ? 'active' : '',
 	                        key: index,
-	                        'data-id': value.id, onClick: _this2.changeSort.bind(_this2) },
+	                        'data-id': value.id, onClick: _this3.changeSort.bind(_this3) },
 	                    _react2.default.createElement(
 	                        'a',
 	                        { className: 'btn', href: 'javascript:void(0)' },
@@ -45258,7 +45278,7 @@
 	                null,
 	                _react2.default.createElement(
 	                    'nav',
-	                    { className: 'navbar navbar-default' },
+	                    { className: 'navbar navbar-inverse' },
 	                    _react2.default.createElement(
 	                        'div',
 	                        { className: 'container-fluid' },
@@ -45268,7 +45288,7 @@
 	                            _react2.default.createElement(
 	                                'a',
 	                                { className: 'navbar-brand', href: '/' },
-	                                'Brand'
+	                                'Home'
 	                            )
 	                        ),
 	                        _react2.default.createElement(
@@ -54636,7 +54656,6 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_Header2.default, null),
 	                _react2.default.createElement(_MainDetail2.default, null)
 	            );
 	        }
@@ -54678,6 +54697,10 @@
 	var _fetchJson = __webpack_require__(614);
 
 	var _fetchJson2 = _interopRequireDefault(_fetchJson);
+
+	var _func = __webpack_require__(946);
+
+	var func = _interopRequireWildcard(_func);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -54722,29 +54745,23 @@
 	        key: 'getArticle',
 	        value: function () {
 	            var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-	                var GetQueryString, data, msg;
+	                var data, msg;
 	                return regeneratorRuntime.wrap(function _callee$(_context) {
 	                    while (1) {
 	                        switch (_context.prev = _context.next) {
 	                            case 0:
-	                                GetQueryString = function GetQueryString(name) {
-	                                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-	                                    var r = window.location.search.substr(1).match(reg);
-	                                    if (r != null) return r[2];return null;
-	                                };
-
 	                                data = {
-	                                    id: GetQueryString("id")
+	                                    id: func.getQueryString("id")
 	                                };
-	                                _context.prev = 2;
-	                                _context.next = 5;
+	                                _context.prev = 1;
+	                                _context.next = 4;
 	                                return (0, _fetchJson2.default)({
 	                                    type: 'GET',
 	                                    url: '/json/article/detail',
 	                                    data: data
 	                                });
 
-	                            case 5:
+	                            case 4:
 	                                msg = _context.sent;
 
 
@@ -54754,19 +54771,19 @@
 	                                    article: msg.data
 	                                });
 
-	                                _context.next = 11;
+	                                _context.next = 10;
 	                                break;
 
-	                            case 9:
-	                                _context.prev = 9;
-	                                _context.t0 = _context['catch'](2);
+	                            case 8:
+	                                _context.prev = 8;
+	                                _context.t0 = _context['catch'](1);
 
-	                            case 11:
+	                            case 10:
 	                            case 'end':
 	                                return _context.stop();
 	                        }
 	                    }
-	                }, _callee, this, [[2, 9]]);
+	                }, _callee, this, [[1, 8]]);
 	            }));
 
 	            function getArticle() {
@@ -54945,19 +54962,23 @@
 	                                    sorts: msg.data
 	                                });
 
-	                                _context.next = 9;
+	                                setTimeout(function () {
+	                                    $('#sorts').val(3);
+	                                }, 100);
+
+	                                _context.next = 10;
 	                                break;
 
-	                            case 7:
-	                                _context.prev = 7;
+	                            case 8:
+	                                _context.prev = 8;
 	                                _context.t0 = _context['catch'](0);
 
-	                            case 9:
+	                            case 10:
 	                            case 'end':
 	                                return _context.stop();
 	                        }
 	                    }
-	                }, _callee, this, [[0, 7]]);
+	                }, _callee, this, [[0, 8]]);
 	            }));
 
 	            function getSorts() {
@@ -55394,6 +55415,48 @@
 	}(_react2.default.Component);
 
 	exports.default = ArticleEdit;
+
+/***/ }),
+/* 946 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.copyText = copyText;
+	exports.getQueryString = getQueryString;
+	function copyText(text, callback) {
+	    var textarea = document.createElement('textarea');
+	    textarea.style.position = 'absolute';
+	    textarea.style.left = '-9999px';
+	    textarea.value = text;
+	    document.body.appendChild(textarea);
+	    textarea.select();
+
+	    document.execCommand('copy');
+	    document.body.removeChild(textarea);
+
+	    try {
+	        document.execCommand('copy');
+	        if (callback) {
+	            callback();
+	        }
+	    } catch (err) {
+	        alert('您使用的浏览器不支持此复制功能，请更换chrome浏览器!');
+	    }
+	}
+
+	function getQueryString(name) {
+	    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	    var r = window.location.search.substr(1).match(reg);
+	    if (r != null) {
+	        return r[2];
+	    } else {
+	        return null;
+	    }
+	}
 
 /***/ })
 /******/ ]);
