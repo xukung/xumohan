@@ -135,7 +135,7 @@ export default class ArticleEdit extends React.Component {
                                        defaultValue={this.state.article.title}/>
                             </div>
                             <div className="mt">
-                                <textarea id="note2" className="form-control" placeholder="内容" cols="30"
+                                <textarea id="note2" className="form-control note" placeholder="内容" cols="30"
                                           rows="10" defaultValue={this.state.article.note}></textarea>
                             </div>
                             <div className="mt">

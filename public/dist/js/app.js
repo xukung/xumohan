@@ -54779,7 +54779,7 @@
 	        key: 'render',
 	        value: function render() {
 	            var a = this.state.article;
-	            console.log('a:', a);
+	            // console.log('a:', a);
 
 	            return _react2.default.createElement(
 	                'div',
@@ -54813,7 +54813,7 @@
 	                            { className: 'text-center' },
 	                            a.datetime
 	                        ),
-	                        _react2.default.createElement('div', { id: 'note', dangerouslySetInnerHTML: { __html: a.note } })
+	                        _react2.default.createElement('div', { className: 'note-area', dangerouslySetInnerHTML: { __html: a.note } })
 	                    )
 	                )
 	            );
@@ -54908,6 +54908,11 @@
 	            this.getSorts();
 	            this.initEditor();
 	        }
+
+	        /**
+	         * 不能放在KindEditor.ready里面执行,否则无法触发
+	         */
+
 	    }, {
 	        key: 'initEditor',
 	        value: function initEditor() {
@@ -55052,7 +55057,7 @@
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'mt' },
-	                                _react2.default.createElement('textarea', { id: 'note', className: 'form-control', placeholder: '\u5185\u5BB9', cols: '30',
+	                                _react2.default.createElement('textarea', { id: 'note', className: 'form-control note', placeholder: '\u5185\u5BB9', cols: '30',
 	                                    rows: '10' })
 	                            ),
 	                            _react2.default.createElement(
@@ -55366,7 +55371,7 @@
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'mt' },
-	                                _react2.default.createElement('textarea', { id: 'note2', className: 'form-control', placeholder: '\u5185\u5BB9', cols: '30',
+	                                _react2.default.createElement('textarea', { id: 'note2', className: 'form-control note', placeholder: '\u5185\u5BB9', cols: '30',
 	                                    rows: '10', defaultValue: this.state.article.note })
 	                            ),
 	                            _react2.default.createElement(

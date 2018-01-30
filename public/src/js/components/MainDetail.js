@@ -55,7 +55,7 @@ export default class MainDetail extends React.Component {
 
     render() {
         let a = this.state.article;
-        console.log('a:', a);
+        // console.log('a:', a);
 
         return (
             <div className="container">
@@ -66,7 +66,7 @@ export default class MainDetail extends React.Component {
                         </ol>
                         <h1 className="text-center">{a.title}</h1>
                         <div className="text-center">{a.datetime}</div>
-                        <div id="note" dangerouslySetInnerHTML={{__html: a.note}}></div>
+                        <div className="note-area" dangerouslySetInnerHTML={{__html: a.note}}></div>
                     </div>
                 </div>
             </div>

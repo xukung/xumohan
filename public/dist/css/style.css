@@ -33,7 +33,7 @@ sub { bottom: -.25em; }
 ::-webkit-scrollbar-thumb { background-color: #aaa; }
 
 /*common*/
-body { font-family: "PingFangSC-Regular", "Microsoft YaHei", STHeiti, Helvetica, Arial, sans-serif; font-size: 12px; line-height: 1.8em; background-color: #fff; color: #444; min-width: 1280px; }
+body { font-family: "PingFangSC-Regular", "Microsoft YaHei", STHeiti, Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.8em; background-color: #fff; color: #444; min-width: 1280px; }
 
 a { color: #222; text-decoration: none; -webkit-tap-highlight-color: rgba(9, 174, 255, 0.5); }
 a:hover { color: #04bee6; }
@@ -227,7 +227,7 @@ legend { padding-left: 0.5em; padding-right: 0.5em; font-weight: bold; color: #3
 
 table.data { margin-top: 5px; border-collapse: collapse; margin-left: auto; margin-right: auto; }
 table.data tr.on { background: #f2f2f2; }
-table.data td, table.data th { padding: 15px 7px; border-bottom: 1px solid #eee; }
+table.data td, table.data th { padding: 10px 7px; border-bottom: 1px solid #eee; }
 table.data th { background: #fff; color: #9b9b9b !important; border-bottom: 1px solid #f3f3f3; text-align: left; font-weight: bold; }
 table.data td[align="left"], table.data th[align="left"] { text-align: left; }
 table.data td[align="right"], table.data th[align="right"] { text-align: right; }
@@ -241,11 +241,13 @@ table.data td[align="right"], table.data th[align="right"] { text-align: right; 
 
 .mt { margin-top: 10px; }
 
-#note { margin-top: 1.5em; border-top: 1px solid #ddd; padding: 1.5em 0; }
+.note-area { margin-top: 1.5em; border-top: 1px solid #ddd; padding: 1.5em 0; }
+.note-area ul { padding-left: 2em; }
+.note-area ul li { list-style: disc; }
 
 .breadcrumb { background: rgba(255, 255, 255, 0); }
 
-.add-new { cursor: pointer; }
+.add-new { position: fixed; left: 50px; top: 70px; cursor: pointer; font-size: 20px; }
 
 pre { padding: 10px; white-space: normal; word-wrap: break-word; word-break: break-all; }
 

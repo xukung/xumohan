@@ -29,6 +29,9 @@ export default class ArticleAdd extends React.Component {
         this.initEditor();
     }
 
+    /**
+     * 不能放在KindEditor.ready里面执行,否则无法触发
+     */
     initEditor() {
         this.editor = KindEditor.create('#note', {
             height: '480px',
@@ -102,7 +105,7 @@ export default class ArticleAdd extends React.Component {
                                 <input id="title" className="form-control" type="text" placeholder="标题"/>
                             </div>
                             <div className="mt">
-                                <textarea id="note" className="form-control" placeholder="内容" cols="30"
+                                <textarea id="note" className="form-control note" placeholder="内容" cols="30"
                                           rows="10"></textarea>
                             </div>
                             <div className="mt">
