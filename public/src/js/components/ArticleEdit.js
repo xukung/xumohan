@@ -14,6 +14,7 @@ export default class ArticleEdit extends React.Component {
             sorts: [],
             article: {},
         };
+        this.editor = null;
     }
 
     componentDidMount() {
@@ -27,6 +28,20 @@ export default class ArticleEdit extends React.Component {
     init() {
         this.getSorts();
         this.getData();
+        this.initEditor();
+    }
+
+    initEditor() {
+        this.editor = KindEditor.create('#note2',{
+            height: '480px',
+            items: [
+                'clearhtml', 'quickformat', 'source', 'code', '|',
+                'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', '|',
+                'formatblock', 'fontname', 'fontsize', '|',
+                'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|',
+                'unlink', 'link',
+            ],
+        });
     }
 
     async getSorts() {
@@ -65,7 +80,8 @@ export default class ArticleEdit extends React.Component {
             setTimeout(()=> {
                 $('#sorts2').val(msg.data.sort);
                 $('#title2').val(msg.data.title);
-                $('#note2').val(msg.data.note);
+                // $('#note2').val(msg.data.note);
+                this.editor.html(msg.data.note);
             }, 100);
 
 
@@ -79,7 +95,7 @@ export default class ArticleEdit extends React.Component {
             id: this.state.article.id,
             sort: $('#sorts2').val(),
             title: $('#title2').val(),
-            note: $('#note2').val(),
+            note: this.editor.html(),
         };
         try {
             let msg = await fetchJson({

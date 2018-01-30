@@ -247,4 +247,6 @@ table.data td[align="right"], table.data th[align="right"] { text-align: right; 
 
 .add-new { cursor: pointer; }
 
+pre { padding: 10px; white-space: normal; word-wrap: break-word; word-break: break-all; }
+
 /*# sourceMappingURL=style.css.map */

@@ -54890,6 +54890,7 @@
 	        _this.state = {
 	            sorts: []
 	        };
+	        _this.editor = null;
 	        return _this;
 	    }
 
@@ -54905,6 +54906,15 @@
 	        key: 'init',
 	        value: function init() {
 	            this.getSorts();
+	            this.initEditor();
+	        }
+	    }, {
+	        key: 'initEditor',
+	        value: function initEditor() {
+	            this.editor = KindEditor.create('#note', {
+	                height: '480px',
+	                items: ['clearhtml', 'quickformat', 'source', 'code', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', '|', 'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'unlink', 'link']
+	            });
 	        }
 	    }, {
 	        key: 'getSorts',
@@ -54963,7 +54973,7 @@
 	                                data = {
 	                                    sort: $('#sorts').val(),
 	                                    title: $('#title').val(),
-	                                    note: $('#note').val()
+	                                    note: this.editor.html()
 	                                };
 	                                _context2.prev = 1;
 	                                _context2.next = 4;
@@ -55132,6 +55142,7 @@
 	            sorts: [],
 	            article: {}
 	        };
+	        _this.editor = null;
 	        return _this;
 	    }
 
@@ -55148,6 +55159,15 @@
 	        value: function init() {
 	            this.getSorts();
 	            this.getData();
+	            this.initEditor();
+	        }
+	    }, {
+	        key: 'initEditor',
+	        value: function initEditor() {
+	            this.editor = KindEditor.create('#note2', {
+	                height: '480px',
+	                items: ['clearhtml', 'quickformat', 'source', 'code', '|', 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', '|', 'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'unlink', 'link']
+	            });
 	        }
 	    }, {
 	        key: 'getSorts',
@@ -55198,6 +55218,8 @@
 	        key: 'getData',
 	        value: function () {
 	            var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+	                var _this2 = this;
+
 	                var data, msg;
 	                return regeneratorRuntime.wrap(function _callee2$(_context2) {
 	                    while (1) {
@@ -55226,7 +55248,8 @@
 	                                setTimeout(function () {
 	                                    $('#sorts2').val(msg.data.sort);
 	                                    $('#title2').val(msg.data.title);
-	                                    $('#note2').val(msg.data.note);
+	                                    // $('#note2').val(msg.data.note);
+	                                    _this2.editor.html(msg.data.note);
 	                                }, 100);
 
 	                                _context2.next = 11;
@@ -55263,7 +55286,7 @@
 	                                    id: this.state.article.id,
 	                                    sort: $('#sorts2').val(),
 	                                    title: $('#title2').val(),
-	                                    note: $('#note2').val()
+	                                    note: this.editor.html()
 	                                };
 	                                _context3.prev = 1;
 	                                _context3.next = 4;

@@ -13,6 +13,7 @@ export default class ArticleAdd extends React.Component {
         this.state = {
             sorts: [],
         };
+        this.editor = null;
     }
 
     componentDidMount() {
@@ -23,8 +24,22 @@ export default class ArticleAdd extends React.Component {
 
     }
 
-    init(){
+    init() {
         this.getSorts();
+        this.initEditor();
+    }
+
+    initEditor() {
+        this.editor = KindEditor.create('#note', {
+            height: '480px',
+            items: [
+                'clearhtml', 'quickformat', 'source', 'code', '|',
+                'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', '|',
+                'formatblock', 'fontname', 'fontsize', '|',
+                'forecolor', 'hilitecolor', 'bold', 'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|',
+                'unlink', 'link',
+            ],
+        });
     }
 
     async getSorts() {
@@ -38,6 +53,7 @@ export default class ArticleAdd extends React.Component {
                 sorts: msg.data,
             });
 
+
         } catch (e) {
             // console.error(e); 
         }
@@ -47,7 +63,7 @@ export default class ArticleAdd extends React.Component {
         let data = {
             sort: $('#sorts').val(),
             title: $('#title').val(),
-            note: $('#note').val(),
+            note: this.editor.html(),
         };
         try {
             let msg = await fetchJson({
@@ -56,7 +72,7 @@ export default class ArticleAdd extends React.Component {
                 data: data,
             });
 
-            if(msg.status==='success'){
+            if (msg.status === 'success') {
                 browserHistory.push(`/article/list`);
             }
         } catch (e) {
