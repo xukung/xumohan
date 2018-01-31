@@ -13,6 +13,10 @@ router.get('/code', function (req, res, next) {
     res.render('code', {title: 'tech'});
 });
 
+router.get('/regexp', function (req, res, next) {
+    res.render('regexp', {title: 'tech'});
+});
+
 
 
 module.exports = router;
