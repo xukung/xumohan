@@ -3,9 +3,9 @@ import store from '../store';
 import * as TYPE from '../libs/constTYPE';
 import * as events from '../libs/customEvents';
 import Header from './Header';
-import MainList from './MainList';
+import ArticleList from './ArticleList';
 
-export default class List extends React.Component {
+export default class ArticleLayout extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -22,7 +22,7 @@ export default class List extends React.Component {
         return (
             <div>
                 <Header/>
-                <MainList/>
+                <ArticleList/>
             </div>
         );
     }

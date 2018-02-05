@@ -4,7 +4,6 @@ import {browserHistory} from 'react-router';
 import * as TYPE from '../libs/constTYPE';
 import * as events from '../libs/customEvents';
 import Header from './Header';
-import MainList from './MainList';
 import fetchJson from '../libs/fetchJson';
 
 export default class ArticleEdit extends React.Component {

@@ -5,7 +5,7 @@ import * as events from '../libs/customEvents';
 import fetchJson from '../libs/fetchJson';
 import * as func from '../libs/func';
 
-export default class MainDetail extends React.Component {
+export default class ArticleDetail extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

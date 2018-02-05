@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var article = require('./routes/article');
+var sort = require('./routes/sort');
 var jsons = require('./routes/jsons');
 var other = require('./routes/other');
 
@@ -26,6 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/article', article);
+app.use('/sort', sort);
 app.use('/json', jsons);
 app.use('/', other);
 

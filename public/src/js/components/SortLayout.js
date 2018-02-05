@@ -3,9 +3,9 @@ import store from '../store';
 import * as TYPE from '../libs/constTYPE';
 import * as events from '../libs/customEvents';
 import Header from './Header';
-import MainDetail from './MainDetail';
+import SortList from './SortList';
 
-export default class Detail extends React.Component {
+export default class SortLayout extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -21,7 +21,8 @@ export default class Detail extends React.Component {
     render() {
         return (
             <div>
-                <MainDetail/>
+                <Header/>
+                <SortList/>
             </div>
         );
     }

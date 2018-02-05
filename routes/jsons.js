@@ -15,7 +15,7 @@ router.get('/sort/list', function (req, res, next) {
     pool.getConnection(function (err, connection) {
         if (err) throw err;
 
-        let sqlStr = `SELECT * FROM sort ORDER BY id ASC`;
+        let sqlStr = `SELECT * FROM sort ORDER BY orderid ASC`;
 
         // console.log('sqlStr:', sqlStr);
 
@@ -43,6 +43,119 @@ router.get('/sort/list', function (req, res, next) {
         });
     });
 });
+
+router.get('/sort/detail', function (req, res, next) {
+    let id = req.query.id || 1;
+
+    pool.getConnection(function (err, connection) {
+        if (err) throw err;
+
+        let sqlStr = `SELECT * FROM sort WHERE id="${id}"`;
+
+        // console.log('sqlStr:', sqlStr);
+
+        connection.query(sqlStr, function (err, rows) {
+            if (err) throw err;
+
+            if (rows.length > 0) {
+                //success
+                // console.log(rows);
+
+                let obj = {
+                    status: 'success',
+                    data: rows[0],
+                };
+
+                res.json(obj);
+
+            } else {
+                let obj = {
+                    status: 'success',
+                    data: []
+                };
+                res.json(obj);
+            }
+            connection.release();
+        });
+    });
+});
+
+router.post('/sort/add', function (req, res, next) {
+    let cname = req.body.cname;
+
+    pool.getConnection(function (err, connection) {
+        if (err) throw err;
+        let sqlObj = {
+            cname: cname,
+            orderid: 100,
+        };
+
+        connection.query(`INSERT INTO sort SET ?`, sqlObj, function (err, results, fields) {
+            if (err) throw err;
+            let obj = {
+                status: 'success',
+                data: {}
+            };
+
+            res.json(obj);
+            connection.release();
+        });
+
+    });
+});
+
+router.post('/sort/edit', function (req, res, next) {
+    let id = req.body.id;
+    let orderid = parseInt(req.body.orderid, 10);
+    let cname = req.body.cname;
+
+    pool.getConnection(function (err, connection) {
+        if (err) throw err;
+        let sqlObj = {
+            orderid: orderid,
+            cname: cname,
+        };
+        connection.query(`UPDATE sort SET ? WHERE id="${id}"`, sqlObj, function (err, rows) {
+            if (err) throw err;
+            let obj = {
+                status: 'success',
+                data: '保存成功!',
+            };
+            res.json(obj);
+            connection.release();
+        });
+    });
+});
+
+router.get('/sort/del', function (req, res, next) {
+    let id = req.query.id;
+
+    pool.getConnection(function (err, connection) {
+        if (err) throw err;
+        let sqlStr = `DELETE FROM sort WHERE id="${id}"`;
+
+        connection.query(sqlStr, function (err, results) {
+            if (err) throw err;
+
+            let obj = {};
+            if (results.affectedRows > 0) {
+                obj = {
+                    status: 'success',
+                    data: '删除成功'
+                };
+            } else {
+                obj = {
+                    status: 'error',
+                    data: '删除失败'
+                };
+            }
+
+            res.json(obj);
+            connection.release();
+        });
+    });
+});
+
 
 //article总条数
 router.get('/article/total', function (req, res, next) {

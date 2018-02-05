@@ -77,21 +77,33 @@
 
 	var _ErrorPage2 = _interopRequireDefault(_ErrorPage);
 
-	var _List = __webpack_require__(610);
+	var _ArticleLayout = __webpack_require__(948);
 
-	var _List2 = _interopRequireDefault(_List);
+	var _ArticleLayout2 = _interopRequireDefault(_ArticleLayout);
 
-	var _Detail = __webpack_require__(942);
+	var _SortLayout = __webpack_require__(950);
 
-	var _Detail2 = _interopRequireDefault(_Detail);
+	var _SortLayout2 = _interopRequireDefault(_SortLayout);
 
-	var _ArticleAdd = __webpack_require__(944);
+	var _ArticleDetail = __webpack_require__(949);
+
+	var _ArticleDetail2 = _interopRequireDefault(_ArticleDetail);
+
+	var _ArticleAdd = __webpack_require__(946);
 
 	var _ArticleAdd2 = _interopRequireDefault(_ArticleAdd);
 
-	var _ArticleEdit = __webpack_require__(945);
+	var _SortAdd = __webpack_require__(951);
+
+	var _SortAdd2 = _interopRequireDefault(_SortAdd);
+
+	var _ArticleEdit = __webpack_require__(947);
 
 	var _ArticleEdit2 = _interopRequireDefault(_ArticleEdit);
+
+	var _SortEdit = __webpack_require__(952);
+
+	var _SortEdit2 = _interopRequireDefault(_SortEdit);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -104,11 +116,14 @@
 	        _react2.default.createElement(
 	            _reactRouter.Route,
 	            { path: '/', component: _Base2.default },
-	            _react2.default.createElement(_reactRouter.IndexRoute, { component: _List2.default }),
-	            _react2.default.createElement(_reactRouter.Route, { path: '/article/list', component: _List2.default }),
-	            _react2.default.createElement(_reactRouter.Route, { path: '/article/detail', component: _Detail2.default }),
+	            _react2.default.createElement(_reactRouter.IndexRoute, { component: _ArticleLayout2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: '/article/list', component: _ArticleLayout2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: '/article/detail', component: _ArticleDetail2.default }),
 	            _react2.default.createElement(_reactRouter.Route, { path: '/article/add', component: _ArticleAdd2.default }),
-	            _react2.default.createElement(_reactRouter.Route, { path: '/article/edit', component: _ArticleEdit2.default })
+	            _react2.default.createElement(_reactRouter.Route, { path: '/article/edit', component: _ArticleEdit2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: '/sort/list', component: _SortLayout2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: '/sort/add', component: _SortAdd2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: '/sort/edit', component: _SortEdit2.default })
 	        ),
 	        _react2.default.createElement(_reactRouter.Route, { path: '/*', component: _ErrorPage2.default })
 	    )
@@ -44700,6 +44715,8 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _reactRouter = __webpack_require__(203);
+
 	var _store = __webpack_require__(264);
 
 	var _store2 = _interopRequireDefault(_store);
@@ -44712,17 +44729,15 @@
 
 	var events = _interopRequireWildcard(_customEvents);
 
-	var _Header = __webpack_require__(613);
+	var _fetchJson = __webpack_require__(614);
 
-	var _Header2 = _interopRequireDefault(_Header);
-
-	var _MainList = __webpack_require__(941);
-
-	var _MainList2 = _interopRequireDefault(_MainList);
+	var _fetchJson2 = _interopRequireDefault(_fetchJson);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -44730,37 +44745,355 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var List = function (_React$Component) {
-	    _inherits(List, _React$Component);
+	var ArticleList = function (_React$Component) {
+	    _inherits(ArticleList, _React$Component);
 
-	    function List(props) {
-	        _classCallCheck(this, List);
+	    function ArticleList(props) {
+	        _classCallCheck(this, ArticleList);
 
-	        return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (ArticleList.__proto__ || Object.getPrototypeOf(ArticleList)).call(this, props));
+
+	        _this.state = {
+	            articles: [],
+	            total: 0,
+	            page: 1,
+	            size: 10
+	        };
+	        return _this;
 	    }
 
-	    _createClass(List, [{
+	    _createClass(ArticleList, [{
 	        key: 'componentDidMount',
-	        value: function componentDidMount() {}
+	        value: function componentDidMount() {
+	            this.init();
+	            events.customEvent.on(events.REFRESH_ARTICLE_LIST, this.refreshList.bind(this));
+	        }
 	    }, {
 	        key: 'componentWillUnmount',
 	        value: function componentWillUnmount() {}
 	    }, {
+	        key: 'init',
+	        value: function init() {
+	            this.setState({
+	                articles: [],
+	                total: 0,
+	                page: 1,
+	                size: 10
+	            });
+
+	            this.getTotal();
+	        }
+	    }, {
+	        key: 'refreshList',
+	        value: function refreshList() {
+	            this.getTotal();
+	        }
+	    }, {
+	        key: 'getTotal',
+	        value: function () {
+	            var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+	                var msg;
+	                return regeneratorRuntime.wrap(function _callee$(_context) {
+	                    while (1) {
+	                        switch (_context.prev = _context.next) {
+	                            case 0:
+	                                _context.prev = 0;
+	                                _context.next = 3;
+	                                return (0, _fetchJson2.default)({
+	                                    type: 'GET',
+	                                    url: '/json/article/total',
+	                                    data: {
+	                                        sort: _store2.default.getState().project.currentSort,
+	                                        keywords: _store2.default.getState().project.keywords
+	                                    }
+	                                });
+
+	                            case 3:
+	                                msg = _context.sent;
+
+
+	                                this.setState({
+	                                    total: msg.data
+	                                });
+
+	                                this.setPages();
+	                                _context.next = 10;
+	                                break;
+
+	                            case 8:
+	                                _context.prev = 8;
+	                                _context.t0 = _context['catch'](0);
+
+	                            case 10:
+	                            case 'end':
+	                                return _context.stop();
+	                        }
+	                    }
+	                }, _callee, this, [[0, 8]]);
+	            }));
+
+	            function getTotal() {
+	                return _ref.apply(this, arguments);
+	            }
+
+	            return getTotal;
+	        }()
+	    }, {
+	        key: 'getArticles',
+	        value: function () {
+	            var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+	                var msg;
+	                return regeneratorRuntime.wrap(function _callee2$(_context2) {
+	                    while (1) {
+	                        switch (_context2.prev = _context2.next) {
+	                            case 0:
+	                                _context2.prev = 0;
+	                                _context2.next = 3;
+	                                return (0, _fetchJson2.default)({
+	                                    type: 'GET',
+	                                    url: '/json/article/list',
+	                                    data: {
+	                                        page: this.state.page,
+	                                        size: this.state.size,
+	                                        sort: _store2.default.getState().project.currentSort,
+	                                        keywords: _store2.default.getState().project.keywords
+	                                    }
+	                                });
+
+	                            case 3:
+	                                msg = _context2.sent;
+
+
+	                                this.setState({
+	                                    articles: msg.data
+	                                });
+
+	                                _context2.next = 9;
+	                                break;
+
+	                            case 7:
+	                                _context2.prev = 7;
+	                                _context2.t0 = _context2['catch'](0);
+
+	                            case 9:
+	                            case 'end':
+	                                return _context2.stop();
+	                        }
+	                    }
+	                }, _callee2, this, [[0, 7]]);
+	            }));
+
+	            function getArticles() {
+	                return _ref2.apply(this, arguments);
+	            }
+
+	            return getArticles;
+	        }()
+	    }, {
+	        key: 'setPages',
+	        value: function setPages() {
+	            var _this2 = this;
+
+	            var totalPage = Math.ceil(this.state.total / this.state.size);
+	            // console.log('totalPage:', totalPage);
+
+	            $('#pages').twbsPagination('destroy');
+
+	            if (totalPage > 0) {
+	                $('#pages').twbsPagination({
+	                    totalPages: totalPage,
+	                    visiblePages: totalPage > 5 ? 5 : totalPage,
+	                    onPageClick: function onPageClick(event, page) {
+	                        // console.log(page);
+	                        _this2.setState({
+	                            page: page
+	                        });
+
+	                        _this2.getArticles();
+	                    }
+	                });
+	            } else {
+	                this.getArticles();
+	            }
+	        }
+	    }, {
+	        key: 'addNew',
+	        value: function addNew() {
+	            _reactRouter.browserHistory.push('/article/add');
+	        }
+	    }, {
+	        key: 'editArticle',
+	        value: function editArticle(e) {
+	            var tar = e.currentTarget;
+	            var id = parseInt($(tar).attr('data-id'), 10);
+
+	            _store2.default.dispatch({
+	                type: TYPE.SET_CURRENT_ARTICLE,
+	                val: id
+	            });
+
+	            _reactRouter.browserHistory.push('/article/edit');
+	        }
+	    }, {
+	        key: 'delArticle',
+	        value: function delArticle(e) {
+	            var tar = e.currentTarget;
+	            var $tr = $(tar).closest('tr');
+	            var id = $tr.attr('data-id');
+	            var title = $tr.attr('data-title');
+	            // console.info(id);
+
+	            var r = window.confirm('\u786E\u8BA4\u5220\u9664" ' + title + ' "\u5417?');
+	            if (r === true) {
+	                this.del(parseInt(id, 10));
+	            }
+	        }
+	    }, {
+	        key: 'del',
+	        value: function () {
+	            var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(id) {
+	                var data, msg;
+	                return regeneratorRuntime.wrap(function _callee3$(_context3) {
+	                    while (1) {
+	                        switch (_context3.prev = _context3.next) {
+	                            case 0:
+	                                data = {
+	                                    id: id
+	                                };
+	                                _context3.prev = 1;
+	                                _context3.next = 4;
+	                                return (0, _fetchJson2.default)({
+	                                    type: 'GET',
+	                                    url: '/json/article/del',
+	                                    data: data
+	                                });
+
+	                            case 4:
+	                                msg = _context3.sent;
+
+
+	                                if (msg.status === 'success') {
+	                                    this.refreshList();
+	                                }
+	                                _context3.next = 10;
+	                                break;
+
+	                            case 8:
+	                                _context3.prev = 8;
+	                                _context3.t0 = _context3['catch'](1);
+
+	                            case 10:
+	                            case 'end':
+	                                return _context3.stop();
+	                        }
+	                    }
+	                }, _callee3, this, [[1, 8]]);
+	            }));
+
+	            function del(_x) {
+	                return _ref3.apply(this, arguments);
+	            }
+
+	            return del;
+	        }()
+	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this3 = this;
+
+	            var articleArray = this.state.articles.map(function (value, index) {
+	                return _react2.default.createElement(
+	                    'tr',
+	                    { key: index, 'data-id': value.id, 'data-title': value.title, onDoubleClick: _this3.editArticle.bind(_this3) },
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        value.sort_name
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        _react2.default.createElement(
+	                            'a',
+	                            { href: '/article/detail?id=' + value.id, target: '_blank' },
+	                            value.title
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        value.datetime
+	                    ),
+	                    _react2.default.createElement(
+	                        'td',
+	                        null,
+	                        _react2.default.createElement(
+	                            'button',
+	                            { type: 'button', className: 'btn btn-xs btn-danger', onClick: _this3.delArticle.bind(_this3) },
+	                            '\u5220\u9664'
+	                        )
+	                    )
+	                );
+	            });
+
 	            return _react2.default.createElement(
 	                'div',
-	                null,
-	                _react2.default.createElement(_Header2.default, null),
-	                _react2.default.createElement(_MainList2.default, null)
+	                { className: 'container' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'row' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'col-xs-12' },
+	                        _react2.default.createElement('div', { className: 'glyphicon glyphicon-plus add-new', onClick: this.addNew.bind(this) }),
+	                        _react2.default.createElement(
+	                            'table',
+	                            { className: 'data', width: '100%' },
+	                            _react2.default.createElement(
+	                                'thead',
+	                                null,
+	                                _react2.default.createElement(
+	                                    'tr',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        null,
+	                                        '\u5206\u7C7B'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        null,
+	                                        '\u6807\u9898'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        null,
+	                                        '\u65E5\u671F'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        null,
+	                                        '\u64CD\u4F5C'
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'tbody',
+	                                null,
+	                                articleArray
+	                            )
+	                        ),
+	                        _react2.default.createElement('div', { id: 'pages', className: 'page' })
+	                    )
+	                )
 	            );
 	        }
 	    }]);
 
-	    return List;
+	    return ArticleList;
 	}(_react2.default.Component);
 
-	exports.default = List;
+	exports.default = ArticleList;
 
 /***/ }),
 /* 611 */
@@ -44779,6 +45112,7 @@
 	//string
 
 	var REFRESH_ARTICLE_LIST = exports.REFRESH_ARTICLE_LIST = 'REFRESH_ARTICLE_LIST';
+	var REFRESH_SORTS_LIST = exports.REFRESH_SORTS_LIST = 'REFRESH_SORTS_LIST';
 
 /***/ }),
 /* 612 */
@@ -54188,7 +54522,8 @@
 
 
 /***/ }),
-/* 941 */
+/* 941 */,
+/* 942 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54233,28 +54568,25 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var MainList = function (_React$Component) {
-	    _inherits(MainList, _React$Component);
+	var SortList = function (_React$Component) {
+	    _inherits(SortList, _React$Component);
 
-	    function MainList(props) {
-	        _classCallCheck(this, MainList);
+	    function SortList(props) {
+	        _classCallCheck(this, SortList);
 
-	        var _this = _possibleConstructorReturn(this, (MainList.__proto__ || Object.getPrototypeOf(MainList)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (SortList.__proto__ || Object.getPrototypeOf(SortList)).call(this, props));
 
 	        _this.state = {
-	            articles: [],
-	            total: 0,
-	            page: 1,
-	            size: 10
+	            sorts: []
 	        };
 	        return _this;
 	    }
 
-	    _createClass(MainList, [{
+	    _createClass(SortList, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
 	            this.init();
-	            events.customEvent.on(events.REFRESH_ARTICLE_LIST, this.refreshList.bind(this));
+	            events.customEvent.on(events.REFRESH_SORTS_LIST, this.refreshList.bind(this));
 	        }
 	    }, {
 	        key: 'componentWillUnmount',
@@ -54263,21 +54595,18 @@
 	        key: 'init',
 	        value: function init() {
 	            this.setState({
-	                articles: [],
-	                total: 0,
-	                page: 1,
-	                size: 10
+	                sorts: []
 	            });
 
-	            this.getTotal();
+	            this.getSorts();
 	        }
 	    }, {
 	        key: 'refreshList',
 	        value: function refreshList() {
-	            this.getTotal();
+	            this.getSorts();
 	        }
 	    }, {
-	        key: 'getTotal',
+	        key: 'getSorts',
 	        value: function () {
 	            var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
 	                var msg;
@@ -54289,11 +54618,7 @@
 	                                _context.next = 3;
 	                                return (0, _fetchJson2.default)({
 	                                    type: 'GET',
-	                                    url: '/json/article/total',
-	                                    data: {
-	                                        sort: _store2.default.getState().project.currentSort,
-	                                        keywords: _store2.default.getState().project.keywords
-	                                    }
+	                                    url: '/json/sort/list'
 	                                });
 
 	                            case 3:
@@ -54301,130 +54626,46 @@
 
 
 	                                this.setState({
-	                                    total: msg.data
+	                                    sorts: msg.data
 	                                });
 
-	                                this.setPages();
-	                                _context.next = 10;
+	                                _context.next = 9;
 	                                break;
 
-	                            case 8:
-	                                _context.prev = 8;
+	                            case 7:
+	                                _context.prev = 7;
 	                                _context.t0 = _context['catch'](0);
 
-	                            case 10:
+	                            case 9:
 	                            case 'end':
 	                                return _context.stop();
 	                        }
 	                    }
-	                }, _callee, this, [[0, 8]]);
+	                }, _callee, this, [[0, 7]]);
 	            }));
 
-	            function getTotal() {
+	            function getSorts() {
 	                return _ref.apply(this, arguments);
 	            }
 
-	            return getTotal;
+	            return getSorts;
 	        }()
-	    }, {
-	        key: 'getArticles',
-	        value: function () {
-	            var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-	                var msg;
-	                return regeneratorRuntime.wrap(function _callee2$(_context2) {
-	                    while (1) {
-	                        switch (_context2.prev = _context2.next) {
-	                            case 0:
-	                                _context2.prev = 0;
-	                                _context2.next = 3;
-	                                return (0, _fetchJson2.default)({
-	                                    type: 'GET',
-	                                    url: '/json/article/list',
-	                                    data: {
-	                                        page: this.state.page,
-	                                        size: this.state.size,
-	                                        sort: _store2.default.getState().project.currentSort,
-	                                        keywords: _store2.default.getState().project.keywords
-	                                    }
-	                                });
-
-	                            case 3:
-	                                msg = _context2.sent;
-
-
-	                                this.setState({
-	                                    articles: msg.data
-	                                });
-
-	                                _context2.next = 9;
-	                                break;
-
-	                            case 7:
-	                                _context2.prev = 7;
-	                                _context2.t0 = _context2['catch'](0);
-
-	                            case 9:
-	                            case 'end':
-	                                return _context2.stop();
-	                        }
-	                    }
-	                }, _callee2, this, [[0, 7]]);
-	            }));
-
-	            function getArticles() {
-	                return _ref2.apply(this, arguments);
-	            }
-
-	            return getArticles;
-	        }()
-	    }, {
-	        key: 'setPages',
-	        value: function setPages() {
-	            var _this2 = this;
-
-	            var totalPage = Math.ceil(this.state.total / this.state.size);
-	            // console.log('totalPage:', totalPage);
-
-	            $('#pages').twbsPagination('destroy');
-
-	            if (totalPage > 0) {
-	                $('#pages').twbsPagination({
-	                    totalPages: totalPage,
-	                    visiblePages: totalPage > 5 ? 5 : totalPage,
-	                    onPageClick: function onPageClick(event, page) {
-	                        // console.log(page);
-	                        _this2.setState({
-	                            page: page
-	                        });
-
-	                        _this2.getArticles();
-	                    }
-	                });
-	            } else {
-	                this.getArticles();
-	            }
-	        }
 	    }, {
 	        key: 'addNew',
 	        value: function addNew() {
-	            _reactRouter.browserHistory.push('/article/add');
+	            _reactRouter.browserHistory.push('/sort/add');
 	        }
 	    }, {
-	        key: 'editArticle',
-	        value: function editArticle(e) {
+	        key: 'editSort',
+	        value: function editSort(e) {
 	            var tar = e.currentTarget;
 	            var id = parseInt($(tar).attr('data-id'), 10);
 
-	            _store2.default.dispatch({
-	                type: TYPE.SET_CURRENT_ARTICLE,
-	                val: id
-	            });
-
-	            _reactRouter.browserHistory.push('/article/edit');
+	            _reactRouter.browserHistory.push('/sort/edit?id=' + id);
 	        }
 	    }, {
-	        key: 'delArticle',
-	        value: function delArticle(e) {
+	        key: 'delSort',
+	        value: function delSort(e) {
 	            var tar = e.currentTarget;
 	            var $tr = $(tar).closest('tr');
 	            var id = $tr.attr('data-id');
@@ -54439,47 +54680,47 @@
 	    }, {
 	        key: 'del',
 	        value: function () {
-	            var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(id) {
+	            var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(id) {
 	                var data, msg;
-	                return regeneratorRuntime.wrap(function _callee3$(_context3) {
+	                return regeneratorRuntime.wrap(function _callee2$(_context2) {
 	                    while (1) {
-	                        switch (_context3.prev = _context3.next) {
+	                        switch (_context2.prev = _context2.next) {
 	                            case 0:
 	                                data = {
 	                                    id: id
 	                                };
-	                                _context3.prev = 1;
-	                                _context3.next = 4;
+	                                _context2.prev = 1;
+	                                _context2.next = 4;
 	                                return (0, _fetchJson2.default)({
 	                                    type: 'GET',
-	                                    url: '/json/article/del',
+	                                    url: '/json/sort/del',
 	                                    data: data
 	                                });
 
 	                            case 4:
-	                                msg = _context3.sent;
+	                                msg = _context2.sent;
 
 
 	                                if (msg.status === 'success') {
 	                                    this.refreshList();
 	                                }
-	                                _context3.next = 10;
+	                                _context2.next = 10;
 	                                break;
 
 	                            case 8:
-	                                _context3.prev = 8;
-	                                _context3.t0 = _context3['catch'](1);
+	                                _context2.prev = 8;
+	                                _context2.t0 = _context2['catch'](1);
 
 	                            case 10:
 	                            case 'end':
-	                                return _context3.stop();
+	                                return _context2.stop();
 	                        }
 	                    }
-	                }, _callee3, this, [[1, 8]]);
+	                }, _callee2, this, [[1, 8]]);
 	            }));
 
 	            function del(_x) {
-	                return _ref3.apply(this, arguments);
+	                return _ref2.apply(this, arguments);
 	            }
 
 	            return del;
@@ -54487,37 +54728,33 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this3 = this;
+	            var _this2 = this;
 
-	            var articleArray = this.state.articles.map(function (value, index) {
+	            var sortsArray = this.state.sorts.map(function (value, index) {
 	                return _react2.default.createElement(
 	                    'tr',
-	                    { key: index, 'data-id': value.id, 'data-title': value.title, onDoubleClick: _this3.editArticle.bind(_this3) },
+	                    { key: index, 'data-id': value.id, 'data-title': value.cname, onDoubleClick: _this2.editSort.bind(_this2) },
 	                    _react2.default.createElement(
 	                        'td',
 	                        null,
-	                        value.sort_name
+	                        value.id
 	                    ),
 	                    _react2.default.createElement(
 	                        'td',
 	                        null,
-	                        _react2.default.createElement(
-	                            'a',
-	                            { href: '/article/detail?id=' + value.id, target: '_blank' },
-	                            value.title
-	                        )
+	                        value.orderid
 	                    ),
 	                    _react2.default.createElement(
 	                        'td',
 	                        null,
-	                        value.datetime
+	                        value.cname
 	                    ),
 	                    _react2.default.createElement(
 	                        'td',
 	                        null,
 	                        _react2.default.createElement(
 	                            'button',
-	                            { type: 'button', className: 'btn btn-xs btn-danger', onClick: _this3.delArticle.bind(_this3) },
+	                            { type: 'button', className: 'btn btn-xs btn-danger', onClick: _this2.delSort.bind(_this2) },
 	                            '\u5220\u9664'
 	                        )
 	                    )
@@ -54546,17 +54783,17 @@
 	                                    _react2.default.createElement(
 	                                        'th',
 	                                        null,
-	                                        '\u5206\u7C7B'
+	                                        'id'
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'th',
+	                                        null,
+	                                        '\u6392\u5E8F'
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        'th',
 	                                        null,
 	                                        '\u6807\u9898'
-	                                    ),
-	                                    _react2.default.createElement(
-	                                        'th',
-	                                        null,
-	                                        '\u65E5\u671F'
 	                                    ),
 	                                    _react2.default.createElement(
 	                                        'th',
@@ -54568,7 +54805,7 @@
 	                            _react2.default.createElement(
 	                                'tbody',
 	                                null,
-	                                articleArray
+	                                sortsArray
 	                            )
 	                        ),
 	                        _react2.default.createElement('div', { id: 'pages', className: 'page' })
@@ -54578,254 +54815,69 @@
 	        }
 	    }]);
 
-	    return MainList;
+	    return SortList;
 	}(_react2.default.Component);
 
-	exports.default = MainList;
+	exports.default = SortList;
 
 /***/ }),
-/* 942 */
-/***/ (function(module, exports, __webpack_require__) {
+/* 943 */,
+/* 944 */,
+/* 945 */
+/***/ (function(module, exports) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.copyText = copyText;
+	exports.getQueryString = getQueryString;
+	exports.timestampToTime = timestampToTime;
+	function copyText(text, callback) {
+	    var textarea = document.createElement('textarea');
+	    textarea.style.position = 'absolute';
+	    textarea.style.left = '-9999px';
+	    textarea.value = text;
+	    document.body.appendChild(textarea);
+	    textarea.select();
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	    document.execCommand('copy');
+	    document.body.removeChild(textarea);
 
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _store = __webpack_require__(264);
-
-	var _store2 = _interopRequireDefault(_store);
-
-	var _constTYPE = __webpack_require__(604);
-
-	var TYPE = _interopRequireWildcard(_constTYPE);
-
-	var _customEvents = __webpack_require__(611);
-
-	var events = _interopRequireWildcard(_customEvents);
-
-	var _Header = __webpack_require__(613);
-
-	var _Header2 = _interopRequireDefault(_Header);
-
-	var _MainDetail = __webpack_require__(943);
-
-	var _MainDetail2 = _interopRequireDefault(_MainDetail);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Detail = function (_React$Component) {
-	    _inherits(Detail, _React$Component);
-
-	    function Detail(props) {
-	        _classCallCheck(this, Detail);
-
-	        return _possibleConstructorReturn(this, (Detail.__proto__ || Object.getPrototypeOf(Detail)).call(this, props));
-	    }
-
-	    _createClass(Detail, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {}
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {}
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(_MainDetail2.default, null)
-	            );
+	    try {
+	        document.execCommand('copy');
+	        if (callback) {
+	            callback();
 	        }
-	    }]);
+	    } catch (err) {
+	        alert('您使用的浏览器不支持此复制功能，请更换chrome浏览器!');
+	    }
+	}
 
-	    return Detail;
-	}(_react2.default.Component);
+	function getQueryString(name) {
+	    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+	    var r = window.location.search.substr(1).match(reg);
+	    if (r != null) {
+	        return r[2];
+	    } else {
+	        return null;
+	    }
+	}
 
-	exports.default = Detail;
+	function timestampToTime(timestamp) {
+	    var date = new Date(timestamp);
+	    var Y = date.getFullYear();
+	    var M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+	    var D = date.getDate();
+	    var h = date.getHours();
+	    var m = date.getMinutes();
+	    var s = date.getSeconds();
+	    return Y + '-' + M + '-' + D + ' ' + h + ':' + m + ':' + s;
+	}
 
 /***/ }),
-/* 943 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _store = __webpack_require__(264);
-
-	var _store2 = _interopRequireDefault(_store);
-
-	var _constTYPE = __webpack_require__(604);
-
-	var TYPE = _interopRequireWildcard(_constTYPE);
-
-	var _customEvents = __webpack_require__(611);
-
-	var events = _interopRequireWildcard(_customEvents);
-
-	var _fetchJson = __webpack_require__(614);
-
-	var _fetchJson2 = _interopRequireDefault(_fetchJson);
-
-	var _func = __webpack_require__(946);
-
-	var func = _interopRequireWildcard(_func);
-
-	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var MainDetail = function (_React$Component) {
-	    _inherits(MainDetail, _React$Component);
-
-	    function MainDetail(props) {
-	        _classCallCheck(this, MainDetail);
-
-	        var _this = _possibleConstructorReturn(this, (MainDetail.__proto__ || Object.getPrototypeOf(MainDetail)).call(this, props));
-
-	        _this.state = {
-	            article: {}
-	        };
-	        return _this;
-	    }
-
-	    _createClass(MainDetail, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            this.init();
-	        }
-	    }, {
-	        key: 'componentWillUnmount',
-	        value: function componentWillUnmount() {}
-	    }, {
-	        key: 'init',
-	        value: function init() {
-	            this.getArticle();
-	        }
-	    }, {
-	        key: 'getArticle',
-	        value: function () {
-	            var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-	                var data, msg;
-	                return regeneratorRuntime.wrap(function _callee$(_context) {
-	                    while (1) {
-	                        switch (_context.prev = _context.next) {
-	                            case 0:
-	                                data = {
-	                                    id: func.getQueryString("id")
-	                                };
-	                                _context.prev = 1;
-	                                _context.next = 4;
-	                                return (0, _fetchJson2.default)({
-	                                    type: 'GET',
-	                                    url: '/json/article/detail',
-	                                    data: data
-	                                });
-
-	                            case 4:
-	                                msg = _context.sent;
-
-
-	                                // console.log(msg.data);
-
-	                                this.setState({
-	                                    article: msg.data
-	                                });
-
-	                                _context.next = 10;
-	                                break;
-
-	                            case 8:
-	                                _context.prev = 8;
-	                                _context.t0 = _context['catch'](1);
-
-	                            case 10:
-	                            case 'end':
-	                                return _context.stop();
-	                        }
-	                    }
-	                }, _callee, this, [[1, 8]]);
-	            }));
-
-	            function getArticle() {
-	                return _ref.apply(this, arguments);
-	            }
-
-	            return getArticle;
-	        }()
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            var a = this.state.article;
-	            // console.log('a:', a);
-
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'container' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'row' },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { className: 'col-xs-12 col-md-10 col-md-push-1' },
-	                        _react2.default.createElement('ol', { className: 'breadcrumb' }),
-	                        _react2.default.createElement(
-	                            'h1',
-	                            { className: 'text-center' },
-	                            a.title
-	                        ),
-	                        _react2.default.createElement(
-	                            'div',
-	                            { className: 'text-center' },
-	                            func.timestampToTime(a.datetime)
-	                        ),
-	                        _react2.default.createElement('div', { className: 'note-area', dangerouslySetInnerHTML: { __html: a.note } })
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-
-	    return MainDetail;
-	}(_react2.default.Component);
-
-	exports.default = MainDetail;
-
-/***/ }),
-/* 944 */
+/* 946 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54857,10 +54909,6 @@
 	var _Header = __webpack_require__(613);
 
 	var _Header2 = _interopRequireDefault(_Header);
-
-	var _MainList = __webpack_require__(941);
-
-	var _MainList2 = _interopRequireDefault(_MainList);
 
 	var _fetchJson = __webpack_require__(614);
 
@@ -55085,7 +55133,7 @@
 	exports.default = ArticleAdd;
 
 /***/ }),
-/* 945 */
+/* 947 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -55117,10 +55165,6 @@
 	var _Header = __webpack_require__(613);
 
 	var _Header2 = _interopRequireDefault(_Header);
-
-	var _MainList = __webpack_require__(941);
-
-	var _MainList2 = _interopRequireDefault(_MainList);
 
 	var _fetchJson = __webpack_require__(614);
 
@@ -55399,58 +55443,727 @@
 	exports.default = ArticleEdit;
 
 /***/ }),
-/* 946 */
-/***/ (function(module, exports) {
+/* 948 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.copyText = copyText;
-	exports.getQueryString = getQueryString;
-	exports.timestampToTime = timestampToTime;
-	function copyText(text, callback) {
-	    var textarea = document.createElement('textarea');
-	    textarea.style.position = 'absolute';
-	    textarea.style.left = '-9999px';
-	    textarea.value = text;
-	    document.body.appendChild(textarea);
-	    textarea.select();
 
-	    document.execCommand('copy');
-	    document.body.removeChild(textarea);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-	    try {
-	        document.execCommand('copy');
-	        if (callback) {
-	            callback();
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _store = __webpack_require__(264);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	var _constTYPE = __webpack_require__(604);
+
+	var TYPE = _interopRequireWildcard(_constTYPE);
+
+	var _customEvents = __webpack_require__(611);
+
+	var events = _interopRequireWildcard(_customEvents);
+
+	var _Header = __webpack_require__(613);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _ArticleList = __webpack_require__(610);
+
+	var _ArticleList2 = _interopRequireDefault(_ArticleList);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ArticleLayout = function (_React$Component) {
+	    _inherits(ArticleLayout, _React$Component);
+
+	    function ArticleLayout(props) {
+	        _classCallCheck(this, ArticleLayout);
+
+	        return _possibleConstructorReturn(this, (ArticleLayout.__proto__ || Object.getPrototypeOf(ArticleLayout)).call(this, props));
+	    }
+
+	    _createClass(ArticleLayout, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {}
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {}
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_Header2.default, null),
+	                _react2.default.createElement(_ArticleList2.default, null)
+	            );
 	        }
-	    } catch (err) {
-	        alert('您使用的浏览器不支持此复制功能，请更换chrome浏览器!');
-	    }
-	}
+	    }]);
 
-	function getQueryString(name) {
-	    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-	    var r = window.location.search.substr(1).match(reg);
-	    if (r != null) {
-	        return r[2];
-	    } else {
-	        return null;
-	    }
-	}
+	    return ArticleLayout;
+	}(_react2.default.Component);
 
-	function timestampToTime(timestamp) {
-	    var date = new Date(timestamp);
-	    var Y = date.getFullYear();
-	    var M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
-	    var D = date.getDate();
-	    var h = date.getHours();
-	    var m = date.getMinutes();
-	    var s = date.getSeconds();
-	    return Y + '-' + M + '-' + D + ' ' + h + ':' + m + ':' + s;
-	}
+	exports.default = ArticleLayout;
+
+/***/ }),
+/* 949 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _store = __webpack_require__(264);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	var _constTYPE = __webpack_require__(604);
+
+	var TYPE = _interopRequireWildcard(_constTYPE);
+
+	var _customEvents = __webpack_require__(611);
+
+	var events = _interopRequireWildcard(_customEvents);
+
+	var _fetchJson = __webpack_require__(614);
+
+	var _fetchJson2 = _interopRequireDefault(_fetchJson);
+
+	var _func = __webpack_require__(945);
+
+	var func = _interopRequireWildcard(_func);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ArticleDetail = function (_React$Component) {
+	    _inherits(ArticleDetail, _React$Component);
+
+	    function ArticleDetail(props) {
+	        _classCallCheck(this, ArticleDetail);
+
+	        var _this = _possibleConstructorReturn(this, (ArticleDetail.__proto__ || Object.getPrototypeOf(ArticleDetail)).call(this, props));
+
+	        _this.state = {
+	            article: {}
+	        };
+	        return _this;
+	    }
+
+	    _createClass(ArticleDetail, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.init();
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {}
+	    }, {
+	        key: 'init',
+	        value: function init() {
+	            this.getArticle();
+	        }
+	    }, {
+	        key: 'getArticle',
+	        value: function () {
+	            var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+	                var data, msg;
+	                return regeneratorRuntime.wrap(function _callee$(_context) {
+	                    while (1) {
+	                        switch (_context.prev = _context.next) {
+	                            case 0:
+	                                data = {
+	                                    id: func.getQueryString("id")
+	                                };
+	                                _context.prev = 1;
+	                                _context.next = 4;
+	                                return (0, _fetchJson2.default)({
+	                                    type: 'GET',
+	                                    url: '/json/article/detail',
+	                                    data: data
+	                                });
+
+	                            case 4:
+	                                msg = _context.sent;
+
+
+	                                // console.log(msg.data);
+
+	                                this.setState({
+	                                    article: msg.data
+	                                });
+
+	                                _context.next = 10;
+	                                break;
+
+	                            case 8:
+	                                _context.prev = 8;
+	                                _context.t0 = _context['catch'](1);
+
+	                            case 10:
+	                            case 'end':
+	                                return _context.stop();
+	                        }
+	                    }
+	                }, _callee, this, [[1, 8]]);
+	            }));
+
+	            function getArticle() {
+	                return _ref.apply(this, arguments);
+	            }
+
+	            return getArticle;
+	        }()
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var a = this.state.article;
+	            // console.log('a:', a);
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'container' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'row' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'col-xs-12 col-md-10 col-md-push-1' },
+	                        _react2.default.createElement('ol', { className: 'breadcrumb' }),
+	                        _react2.default.createElement(
+	                            'h1',
+	                            { className: 'text-center' },
+	                            a.title
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'text-center' },
+	                            func.timestampToTime(a.datetime)
+	                        ),
+	                        _react2.default.createElement('div', { className: 'note-area', dangerouslySetInnerHTML: { __html: a.note } })
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ArticleDetail;
+	}(_react2.default.Component);
+
+	exports.default = ArticleDetail;
+
+/***/ }),
+/* 950 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _store = __webpack_require__(264);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	var _constTYPE = __webpack_require__(604);
+
+	var TYPE = _interopRequireWildcard(_constTYPE);
+
+	var _customEvents = __webpack_require__(611);
+
+	var events = _interopRequireWildcard(_customEvents);
+
+	var _Header = __webpack_require__(613);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _SortList = __webpack_require__(942);
+
+	var _SortList2 = _interopRequireDefault(_SortList);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SortLayout = function (_React$Component) {
+	    _inherits(SortLayout, _React$Component);
+
+	    function SortLayout(props) {
+	        _classCallCheck(this, SortLayout);
+
+	        return _possibleConstructorReturn(this, (SortLayout.__proto__ || Object.getPrototypeOf(SortLayout)).call(this, props));
+	    }
+
+	    _createClass(SortLayout, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {}
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {}
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_Header2.default, null),
+	                _react2.default.createElement(_SortList2.default, null)
+	            );
+	        }
+	    }]);
+
+	    return SortLayout;
+	}(_react2.default.Component);
+
+	exports.default = SortLayout;
+
+/***/ }),
+/* 951 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _store = __webpack_require__(264);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	var _reactRouter = __webpack_require__(203);
+
+	var _constTYPE = __webpack_require__(604);
+
+	var TYPE = _interopRequireWildcard(_constTYPE);
+
+	var _customEvents = __webpack_require__(611);
+
+	var events = _interopRequireWildcard(_customEvents);
+
+	var _Header = __webpack_require__(613);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _fetchJson = __webpack_require__(614);
+
+	var _fetchJson2 = _interopRequireDefault(_fetchJson);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SortAdd = function (_React$Component) {
+	    _inherits(SortAdd, _React$Component);
+
+	    function SortAdd(props) {
+	        _classCallCheck(this, SortAdd);
+
+	        var _this = _possibleConstructorReturn(this, (SortAdd.__proto__ || Object.getPrototypeOf(SortAdd)).call(this, props));
+
+	        _this.state = {
+	            sorts: []
+	        };
+	        _this.editor = null;
+	        return _this;
+	    }
+
+	    _createClass(SortAdd, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.init();
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {}
+	    }, {
+	        key: 'init',
+	        value: function init() {}
+	    }, {
+	        key: 'addNew',
+	        value: function () {
+	            var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+	                var data, msg;
+	                return regeneratorRuntime.wrap(function _callee$(_context) {
+	                    while (1) {
+	                        switch (_context.prev = _context.next) {
+	                            case 0:
+	                                data = {
+	                                    cname: $('#title').val()
+	                                };
+	                                _context.prev = 1;
+	                                _context.next = 4;
+	                                return (0, _fetchJson2.default)({
+	                                    type: 'POST',
+	                                    url: '/json/sort/add',
+	                                    data: data
+	                                });
+
+	                            case 4:
+	                                msg = _context.sent;
+
+
+	                                if (msg.status === 'success') {
+	                                    _reactRouter.browserHistory.push('/sort/list');
+	                                }
+	                                _context.next = 10;
+	                                break;
+
+	                            case 8:
+	                                _context.prev = 8;
+	                                _context.t0 = _context['catch'](1);
+
+	                            case 10:
+	                            case 'end':
+	                                return _context.stop();
+	                        }
+	                    }
+	                }, _callee, this, [[1, 8]]);
+	            }));
+
+	            function addNew() {
+	                return _ref.apply(this, arguments);
+	            }
+
+	            return addNew;
+	        }()
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var sorts = this.state.sorts || [];
+
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_Header2.default, null),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'container' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'row' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'col-xs-12 col-md-10 col-md-push-1' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'mt' },
+	                                _react2.default.createElement('input', { id: 'title', className: 'form-control', type: 'text', placeholder: '\u7C7B\u522B\u540D\u79F0' })
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'mt' },
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { className: 'btn btn-default', onClick: this.addNew.bind(this) },
+	                                    '\u6DFB\u52A0'
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return SortAdd;
+	}(_react2.default.Component);
+
+	exports.default = SortAdd;
+
+/***/ }),
+/* 952 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _store = __webpack_require__(264);
+
+	var _store2 = _interopRequireDefault(_store);
+
+	var _reactRouter = __webpack_require__(203);
+
+	var _constTYPE = __webpack_require__(604);
+
+	var TYPE = _interopRequireWildcard(_constTYPE);
+
+	var _customEvents = __webpack_require__(611);
+
+	var events = _interopRequireWildcard(_customEvents);
+
+	var _Header = __webpack_require__(613);
+
+	var _Header2 = _interopRequireDefault(_Header);
+
+	var _fetchJson = __webpack_require__(614);
+
+	var _fetchJson2 = _interopRequireDefault(_fetchJson);
+
+	var _func = __webpack_require__(945);
+
+	var func = _interopRequireWildcard(_func);
+
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SortEdit = function (_React$Component) {
+	    _inherits(SortEdit, _React$Component);
+
+	    function SortEdit(props) {
+	        _classCallCheck(this, SortEdit);
+
+	        var _this = _possibleConstructorReturn(this, (SortEdit.__proto__ || Object.getPrototypeOf(SortEdit)).call(this, props));
+
+	        _this.state = {
+	            sort: {}
+	        };
+	        _this.editor = null;
+	        return _this;
+	    }
+
+	    _createClass(SortEdit, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.init();
+	        }
+	    }, {
+	        key: 'componentWillUnmount',
+	        value: function componentWillUnmount() {}
+	    }, {
+	        key: 'init',
+	        value: function init() {
+	            this.getData();
+	        }
+	    }, {
+	        key: 'getData',
+	        value: function () {
+	            var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+	                var data, msg;
+	                return regeneratorRuntime.wrap(function _callee$(_context) {
+	                    while (1) {
+	                        switch (_context.prev = _context.next) {
+	                            case 0:
+	                                data = {
+	                                    id: func.getQueryString('id')
+	                                };
+	                                _context.prev = 1;
+	                                _context.next = 4;
+	                                return (0, _fetchJson2.default)({
+	                                    type: 'GET',
+	                                    url: '/json/sort/detail',
+	                                    data: data
+	                                });
+
+	                            case 4:
+	                                msg = _context.sent;
+
+
+	                                this.setState({
+	                                    sort: msg.data
+	                                });
+
+	                                //必须加一个延时
+	                                setTimeout(function () {
+	                                    $('#orderid').val(msg.data.orderid);
+	                                    $('#title2').val(msg.data.cname);
+	                                }, 100);
+
+	                                _context.next = 11;
+	                                break;
+
+	                            case 9:
+	                                _context.prev = 9;
+	                                _context.t0 = _context['catch'](1);
+
+	                            case 11:
+	                            case 'end':
+	                                return _context.stop();
+	                        }
+	                    }
+	                }, _callee, this, [[1, 9]]);
+	            }));
+
+	            function getData() {
+	                return _ref.apply(this, arguments);
+	            }
+
+	            return getData;
+	        }()
+	    }, {
+	        key: 'editSort',
+	        value: function () {
+	            var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+	                var data, msg;
+	                return regeneratorRuntime.wrap(function _callee2$(_context2) {
+	                    while (1) {
+	                        switch (_context2.prev = _context2.next) {
+	                            case 0:
+	                                data = {
+	                                    id: this.state.sort.id,
+	                                    orderid: $('#orderid').val(),
+	                                    cname: $('#title2').val()
+	                                };
+	                                _context2.prev = 1;
+	                                _context2.next = 4;
+	                                return (0, _fetchJson2.default)({
+	                                    type: 'POST',
+	                                    url: '/json/sort/edit',
+	                                    data: data
+	                                });
+
+	                            case 4:
+	                                msg = _context2.sent;
+
+
+	                                if (msg.status === 'success') {
+	                                    _reactRouter.browserHistory.push('/sort/list');
+	                                }
+	                                _context2.next = 10;
+	                                break;
+
+	                            case 8:
+	                                _context2.prev = 8;
+	                                _context2.t0 = _context2['catch'](1);
+
+	                            case 10:
+	                            case 'end':
+	                                return _context2.stop();
+	                        }
+	                    }
+	                }, _callee2, this, [[1, 8]]);
+	            }));
+
+	            function editSort() {
+	                return _ref2.apply(this, arguments);
+	            }
+
+	            return editSort;
+	        }()
+	    }, {
+	        key: 'render',
+	        value: function render() {
+
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_Header2.default, null),
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'container' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'row' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'col-xs-12 col-md-10 col-md-push-1' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'mt' },
+	                                _react2.default.createElement('input', { id: 'orderid', className: 'form-control', type: 'text' })
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'mt' },
+	                                _react2.default.createElement('input', { id: 'title2', className: 'form-control', type: 'text', placeholder: '\u6807\u9898' })
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'mt' },
+	                                _react2.default.createElement(
+	                                    'button',
+	                                    { className: 'btn btn-default', onClick: this.editSort.bind(this) },
+	                                    '\u4FEE\u6539'
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return SortEdit;
+	}(_react2.default.Component);
+
+	exports.default = SortEdit;
 
 /***/ })
 /******/ ]);

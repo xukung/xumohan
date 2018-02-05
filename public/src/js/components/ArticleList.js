@@ -5,7 +5,7 @@ import * as TYPE from '../libs/constTYPE';
 import * as events from '../libs/customEvents';
 import fetchJson from '../libs/fetchJson';
 
-export default class MainList extends React.Component {
+export default class ArticleList extends React.Component {
     constructor(props) {
         super(props);
 
