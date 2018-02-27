@@ -17,5 +17,9 @@ router.get('/regexp', function (req, res, next) {
     res.render('regexp', {title: 'tech'});
 });
 
+router.get('/calc', function (req, res, next) {
+    res.render('calc', {title: 'tech'});
+});
+
 
 module.exports = router;
