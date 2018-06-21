@@ -33,7 +33,7 @@ export default class ArticleAdd extends React.Component {
      */
     initEditor() {
         this.editor = KindEditor.create('#note', {
-            height: '480px',
+            height: '350px',
             items: [
                 'clearhtml', 'quickformat', 'source', 'code', '|',
                 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', '|',
@@ -108,7 +108,7 @@ export default class ArticleAdd extends React.Component {
                             </div>
                             <div className="mt">
                                 <textarea id="note" className="form-control note" placeholder="内容" cols="30"
-                                          rows="10"></textarea>
+                                          rows="7"></textarea>
                             </div>
                             <div className="mt">
                                 <button className="btn btn-default" onClick={this.addNew.bind(this)}>添加</button>
