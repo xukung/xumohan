@@ -32,7 +32,7 @@ export default class ArticleEdit extends React.Component {
 
     initEditor() {
         this.editor = KindEditor.create('#note2',{
-            height: '480px',
+            height: '350px',
             items: [
                 'clearhtml', 'quickformat', 'source', 'code', '|',
                 'justifyleft', 'justifycenter', 'justifyright', 'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', '|',
