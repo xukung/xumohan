@@ -199,6 +199,8 @@ router.get('/article/total', function (req, res, next) {
 
 //article 列表
 router.get('/article/list', function (req, res, next) {
+    console.log('req.session.user:', req.session.user);
+
     let page = parseInt(req.query.page, 10) || 1;
     let size = parseInt(req.query.size, 10) || 10;
     let offset = (page - 1) * size;
@@ -241,6 +243,12 @@ router.get('/article/list', function (req, res, next) {
                     data: rows,
                     total: rows.length,
                 };
+
+                if (req.session.user === 'xukung') {
+                    obj['login'] = true;
+                } else {
+                    obj['login'] = false;
+                }
 
                 res.json(obj);
             } else {

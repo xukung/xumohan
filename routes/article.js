@@ -7,19 +7,19 @@ var router = express.Router();
 
 
 router.get('/list', function (req, res, next) {
-    res.render('index', {title: 'tech', file: "app.js"});
+    res.render('blog', {title: 'blog', file: "app.js"});
 });
 
 router.get('/detail', function (req, res, next) {
-    res.render('index', {title: 'tech', file: "app.js"});
+    res.render('blog', {title: 'blog', file: "app.js"});
 });
 
 router.get('/add', function (req, res, next) {
-    res.render('index', {title: 'tech', file: "app.js"});
+    res.render('blog', {title: 'blog', file: "app.js"});
 });
 
 router.get('/edit', function (req, res, next) {
-    res.render('index', {title: 'tech', file: "app.js"});
+    res.render('blog', {title: 'blog', file: "app.js"});
 });
 
 

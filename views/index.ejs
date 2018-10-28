@@ -1,28 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge,chrome=1">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
-
-    <title><%= title %></title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <link rel='stylesheet' href='/dist/css/materialize.min.css'/>
-    <link rel='stylesheet' href='/dist/css/index.css'/>
-</head>
-<body>
-
-<div class="banner">
-    <div class="in">
-        <div class="slogan">
-            <div class="">The harder you work,</div>
-            <div class="">the luckier you will be</div>
-        </div>
-    </div>
-</div>
+<%-include("./inc/header") %>
 
 <div class="container main">
     <div class="row">
@@ -51,12 +27,12 @@
         <div class="col s12 m3">
             <div class="title">Blog</div>
             <ul class="links">
-                <li><a href="#">home</a></li>
-                <li><a href="#">javascript</a></li>
-                <li><a href="#">css</a></li>
-                <li><a href="#">node</a></li>
-                <li><a href="#">linux</a></li>
-                <li><a href="#">database</a></li>
+                <li><a href="/article/list">home</a></li>
+                <li><a href="/article/list">javascript</a></li>
+                <li><a href="/article/list">css</a></li>
+                <li><a href="/article/list">node</a></li>
+                <li><a href="/article/list">linux</a></li>
+                <li><a href="/article/list">database</a></li>
             </ul>
         </div>
         <div class="col s12 m3">
@@ -70,10 +46,4 @@
 </div>
 
 
-<script src="/dist/js/jquery.min.js"></script>
-<script src="/dist/js/polygonizr.min.js"></script>
-<script src="/dist/js/canvasBanner.js"></script>
-
-<!--<script src="/dist/js/materialize.js"></script>-->
-</body>
-</html>
+<%-include("./inc/footer") %>

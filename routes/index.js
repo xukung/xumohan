@@ -1,6 +1,22 @@
 var express = require('express');
 var router = express.Router();
 
+router.get('/login', function (req, res, next) {
+    res.render('login', {title: 'Work harder,will luckier!'});
+});
+
+router.post('/verify', function (req, res, next) {
+    let name = req.body.name;
+    let pw = req.body.pw;
+    if (name === 'xukung' && pw === '000000') {
+        req.session.user = 'xukung';
+        res.redirect('/article/list');
+    } else {
+        res.send('You are denied!');
+    }
+
+});
+
 router.get('/', function (req, res, next) {
     res.render('index', {title: 'Work harder,will luckier!'});
 });

@@ -10,6 +10,7 @@ export default class ArticleList extends React.Component {
         super(props);
 
         this.state = {
+            login: false,
             articles: [],
             total: 0,
             page: 1,
@@ -76,6 +77,7 @@ export default class ArticleList extends React.Component {
             });
 
             this.setState({
+                login: msg.login,
                 articles: msg.data,
             });
 
@@ -161,14 +163,24 @@ export default class ArticleList extends React.Component {
     render() {
         let articleArray = this.state.articles.map((value, index)=> {
             return (
-                <tr key={index} data-id={value.id} data-title={value.title} onDoubleClick={this.editArticle.bind(this)}>
+                <tr key={index} data-id={value.id} data-title={value.title} onDoubleClick={(e)=> {
+                    if (this.state.login === true) {
+                        this.editArticle(e)
+                    }
+                }}>
                     <td>{value.sort_name}</td>
                     <td><a href={`/article/detail?id=${value.id}`} target="_blank">{value.title}</a></td>
                     <td>{value.datetime}</td>
                     <td>
-                        <button type="button" className="btn btn-xs btn-danger" onClick={this.delArticle.bind(this)}>
-                            删除
-                        </button>
+                        {
+                            this.state.login === true ? (
+                                <button type="button" className="btn btn-xs btn-danger"
+                                        onClick={this.delArticle.bind(this)}>
+                                    删除
+                                </button>
+                            ) : null
+                        }
+
                     </td>
                 </tr>
             );
