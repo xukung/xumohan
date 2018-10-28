@@ -2,23 +2,23 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/', function (req, res, next) {
-    res.redirect('/article/list');
+    res.render('index', {title: 'Work harder,will luckier!'});
 });
 
 router.get('/it', function (req, res, next) {
-    res.render('it', {title: 'tech'});
+    res.render('it', {title: 'Work harder,will luckier!'});
 });
 
 router.get('/code', function (req, res, next) {
-    res.render('code', {title: 'tech'});
+    res.render('code', {title: 'Work harder,will luckier!'});
 });
 
 router.get('/regexp', function (req, res, next) {
-    res.render('regexp', {title: 'tech'});
+    res.render('regexp', {title: 'Work harder,will luckier!'});
 });
 
 router.get('/calc', function (req, res, next) {
-    res.render('calc', {title: 'tech'});
+    res.render('calc', {title: 'Work harder,will luckier!'});
 });
 
 

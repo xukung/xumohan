@@ -1,0 +1,123 @@
+@import "_const";
+@import "_reset";
+@import "_common";
+//@import "_module";
+//@import "_font";
+//@import "_color";
+//@import "_seldom";
+//@import "pagination";
+
+/*通用组件样式*/
+
+$banner-height: 200px;
+$footer-height: 30px;
+$banner-min-height: 40vh;
+$main-margin-top: 25px;
+
+.banner {
+    background-color: #0A071A;
+    //background-image: url("/dist/images/bg_banner.jpg");
+    //background-size: contain;
+
+    .in {
+        height: $banner-height;
+        min-height: $banner-min-height;
+        overflow: hidden;
+        //background-image: url("/dist/images/ball.jpg");
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: 120% bottom;
+
+        canvas{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+
+    .slogan {
+        position: relative;
+        width: 70%;
+        max-width: 1280px;
+        padding: 0 0.75rem;
+        margin: 0 auto;
+        top: 30%;
+        //left: 16%;
+        //width: 360px;
+        height: 200px;
+        font-size: 40px;
+        color: #fff;
+        font-family: 'Snell Roundhand';
+        line-height: 1.2;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-origin: content-box;
+    }
+}
+
+@media all and (max-width: 600px) { //移动端特殊处理
+    .banner {
+        .in {
+            height: 220px;
+            background-position: 180px bottom;
+        }
+        .slogan {
+            top: 15%;
+            height: 150px;
+        }
+    }
+}
+
+@media all and (min-width: 1400px) { //宽屏特殊处理
+    .banner {
+        .in {
+            background-position: 80% bottom;
+        }
+    }
+}
+
+.main {
+    min-height: calc(100% - #{$banner-min-height} - #{$footer-height} - #{$main-margin-top});
+
+    .col {
+        margin-top: $main-margin-top;
+    }
+
+    .title {
+        height: 50px;
+        line-height: 50px;
+        font-size: 20px;
+        font-weight: bold;
+        border-bottom: 1px solid #999;
+        margin-bottom: 15px;
+    }
+
+    ul.links {
+        li {
+            font-size: 12px;
+            padding-left: 12px;
+            &.no {
+                background: none;
+            }
+        }
+    }
+
+    .lang {
+        display: inline-block;
+        border: 1px solid #999;
+        border-radius: 4px;
+        line-height: 1.2;
+        padding: 0 6px;
+        transform: scale(0.8);
+        transform-origin: left center;
+    }
+}
+
+.footer {
+    font-size: 12px;
+    color: #ccc;
+    background: #F5F5F5;
+    height: $footer-height;
+    line-height: $footer-height;
+    text-align: center;
+}
