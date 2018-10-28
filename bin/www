@@ -13,7 +13,7 @@ var config = require('../config.json');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || config.web.port || '3000');
+var port = normalizePort(process.env.PORT || config.web.port || '4000');
 console.log('listening on port:', port);
 app.set('port', port);
 
@@ -89,4 +89,6 @@ function onListening() {
         ? 'pipe ' + addr
         : 'port ' + addr.port;
     debug('Listening on ' + bind);
+
+    console.log('listening on port:',addr.port);
 }
