@@ -97,15 +97,14 @@ img.photo { border: 1px solid #ddd; }
 .banner { background-color: #0A071A; }
 .banner .in { height: 200px; min-height: 40vh; overflow: hidden; background-repeat: no-repeat; background-size: contain; background-position: 120% bottom; }
 .banner .in canvas { position: absolute; top: 0; left: 0; }
-.banner .slogan { position: relative; width: 70%; max-width: 1280px; padding: 0 0.75rem; margin: 0 auto; top: 30%; height: 200px; font-size: 40px; color: #fff; font-family: 'Snell Roundhand'; line-height: 1.2; background-repeat: no-repeat; background-size: contain; background-origin: content-box; }
+.banner .slogan { position: relative; width: 70%; max-width: 1280px; padding: 0 0.75rem; margin: 0 auto; top: 30%; height: 200px; font-size: 32px; color: #fff; font-family: 'Snell Roundhand'; line-height: 1.2; background-repeat: no-repeat; background-size: contain; background-origin: content-box; }
 
-@media all and (max-width: 600px) { .banner .in { height: 220px; background-position: 180px bottom; }
-  .banner .slogan { top: 15%; height: 150px; } }
+@media all and (max-width: 600px) { .banner .slogan { font-size: 24px; } }
 @media all and (min-width: 1400px) { .banner .in { background-position: 80% bottom; } }
 .main { min-height: calc(100% - 40vh - 30px - 25px); }
 .main .col { margin-top: 25px; }
 .main .title { height: 50px; line-height: 50px; font-size: 20px; font-weight: bold; border-bottom: 1px solid #999; margin-bottom: 15px; }
-.main ul.links li { font-size: 12px; padding-left: 12px; }
+.main ul.links li { font-size: 12px; padding-left: 12px; background: url("/dist/images/li.png") no-repeat left 10px; }
 .main ul.links li.no { background: none; }
 .main .lang { display: inline-block; border: 1px solid #999; border-radius: 4px; line-height: 1.2; padding: 0 6px; transform: scale(0.8); transform-origin: left center; }
 
