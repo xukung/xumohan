@@ -20,7 +20,7 @@ export default class ArticleLayout extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="">
                 <Header/>
                 <ArticleList/>
             </div>

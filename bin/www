@@ -14,7 +14,6 @@ var config = require('../config.json');
  */
 
 var port = normalizePort(process.env.PORT || config.web.port || '4000');
-console.log('listening on port:', port);
 app.set('port', port);
 
 /**

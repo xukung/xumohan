@@ -93,32 +93,26 @@ export default class Header extends React.Component {
                 <li className={currentSort === value.id ? 'active' : ''}
                     key={index}
                     data-id={value.id} onClick={this.changeSort.bind(this)}>
-                    <a className="btn" href="javascript:void(0)">{value.cname}</a>
+                    <a href="javascript:void(0)" className="white-text">{value.cname}</a>
                 </li>
             )
         });
 
 
         return (
-            <div>
-                <nav className="navbar navbar-inverse">
-                    <div className="container-fluid">
-                        <div className="navbar-header">
-                            <a className="navbar-brand" href="/">Home</a>
-                        </div>
-
-                        <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul className="nav navbar-nav">
-                                {sortsArray}
-                            </ul>
-                            <div className="navbar-form navbar-right" role="search">
-                                <div className="form-group">
-                                    <input type="text" name="keywords" id="searchInput" className="form-control"
-                                           placeholder="Search"/>
-                                </div>
-                                <button type="button" className="btn btn-default" onClick={this.search.bind(this)}>搜索
-                                </button>
+            <div className="">
+                <nav className="blue">
+                    <div className="nav-wrapper">
+                        <ul className="left">
+                            {sortsArray}
+                        </ul>
+                        <div className="right">
+                            <div className="left">
+                                <input type="text" name="keywords" id="searchInput" className="form-control"
+                                       placeholder="Search"/>
                             </div>
+                            <button type="button" className="btn waves-effect waves-light" onClick={this.search.bind(this)}>搜索
+                            </button>
                         </div>
                     </div>
                 </nav>

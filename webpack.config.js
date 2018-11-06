@@ -3,8 +3,8 @@ var webpack = require('webpack');
 //avoid react warning
 var productionEnv = new webpack.DefinePlugin({
     "process.env": {
-        // NODE_ENV: JSON.stringify("production")
-        NODE_ENV: JSON.stringify("development")
+        NODE_ENV: JSON.stringify("production")
+        // NODE_ENV: JSON.stringify("development")
     }
 });
 var path = require('path');
