@@ -34,7 +34,8 @@
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
     "request": "^2.74.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "utils-xk": "^1.0.4"
   },
   "devDependencies": {
     "babel-core": "^6.11.4",

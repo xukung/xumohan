@@ -4,6 +4,7 @@ import {browserHistory} from 'react-router';
 import * as TYPE from '../libs/constTYPE';
 import * as events from '../libs/customEvents';
 import fetchJson from '../libs/fetchJson';
+import utils from 'utils-xk';
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -87,8 +88,6 @@ export default class Header extends React.Component {
 
 
         let sortsArray = this.state.sorts.map((value, index)=> {
-            // console.log('store.getState().project.currentSort:', store.getState().project.currentSort);
-            // console.log('value.id:', value.id);
             return (
                 <li className={currentSort === value.id ? 'active' : ''}
                     key={index}
