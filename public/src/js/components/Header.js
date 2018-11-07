@@ -93,7 +93,7 @@ export default class Header extends React.Component {
                 <li className={currentSort === value.id ? 'active' : ''}
                     key={index}
                     data-id={value.id} onClick={this.changeSort.bind(this)}>
-                    <a href="javascript:void(0)" className="white-text">{value.cname}</a>
+                    <a href="javascript:void(0)">{value.cname}</a>
                 </li>
             )
         });
@@ -103,16 +103,27 @@ export default class Header extends React.Component {
             <div className="">
                 <nav className="blue">
                     <div className="nav-wrapper">
-                        <ul className="left">
+                        <ul id="nav-pc" className="left hide-on-small-only">
                             {sortsArray}
                         </ul>
-                        <div className="right">
+                        <ul id="nav-mobile" className="sidenav">
+                            {sortsArray}
+                        </ul>
+                        <div className="right  hide-on-small-only">
                             <div className="left">
                                 <input type="text" name="keywords" id="searchInput" className="form-control"
                                        placeholder="Search"/>
                             </div>
-                            <button type="button" className="btn waves-effect waves-light" onClick={this.search.bind(this)}>搜索
-                            </button>
+                            <span className="white-text waves-effect waves-light"
+                                  style={{width: '50px'}}
+                                  onClick={this.search.bind(this)}
+                            >
+                                <i className="material-icons">search</i>
+                            </span>
+                        </div>
+                        <div className="right">
+                            <a href="#" data-target="nav-mobile" className="sidenav-trigger white-text"><i
+                                className="material-icons">menu</i></a>
                         </div>
                     </div>
                 </nav>

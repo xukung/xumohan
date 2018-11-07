@@ -183,43 +183,6 @@ img.photo { border: 1px solid #ddd; }
 
 .f26b { font-size: 26px; font-weight: bold; }
 
-/* color*/
-.black, .black a, a.black:link, a.black:visited { color: #000000; }
-
-.white, .white a, a.white:link, a.white:visited { color: #ffffff; }
-
-.gray, .gray a, a.gray:link, a.gray:visited { color: #888888; }
-
-.silver, .silver a, a.silver:link, a.silver:visited { color: #cccccc; }
-
-.red, .red a, a.red:link, a.red:visited { color: #cc0000; }
-
-.maroon, .maroon a, a.maroon:link, a.maroon:visited { color: #880000; }
-
-.lime, .lime a, a.lime:link, a.lime:visited { color: #00ff00; }
-
-.green, .green a, a.green:link, a.green:visited { color: #008800; }
-
-.blue, .blue a, a.blue:link, a.blue:visited { color: #0000ff; }
-
-.navy, .navy a, a.navy:link, a.navy:visited { color: #000088; }
-
-.yellow, .yellow a, a.yellow:link, a.yellow:visited { color: #ffff00; }
-
-.olive, .olive a, a.olive:link, a.olive:visited { color: #888800; }
-
-.teal, .teal a, a.teal:link, a.teal:visited { color: #008888; }
-
-.fuchsia, .fuchsia a, a.fuchsia:link, a.fuchsia:visited { color: #ff00ff; }
-
-.purple, .purple a, a.purple:link, a.purple:visited { color: #880088; }
-
-.orange, .orange a, a.orange:link, a.orange:visited { color: #ff9900; }
-
-.cyan, .cyan a, a.cyan:link, a.cyan:visited { color: #04bee6; }
-
-.magenta, .magenta a, a.magenta:link, a.magenta:visited { color: #f3048b; }
-
 /*seldom*/
 fieldset { border: 1px solid #ddd; padding: 0 1em 1em 1em; margin-bottom: 1em; clear: both; }
 
@@ -330,7 +293,7 @@ img.photo { border: 1px solid #ddd; }
 .middle-center { display: flex; align-items: center; justify-content: center; }
 
 /*通用组件样式*/
-.banner { background-color: #0A071A; }
+.banner { background-color: #1E80F0; }
 .banner .in { height: 200px; min-height: 40vh; overflow: hidden; background-repeat: no-repeat; background-size: contain; background-position: 120% bottom; }
 .banner .in canvas { position: absolute; top: 0; left: 0; }
 .banner .slogan { position: relative; width: 70%; max-width: 1280px; padding: 0 0.75rem; margin: 0 auto; top: 30%; height: 200px; font-size: 32px; color: #fff; font-family: 'Snell Roundhand'; line-height: 1.2; background-repeat: no-repeat; background-size: contain; background-origin: content-box; }

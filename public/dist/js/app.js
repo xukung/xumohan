@@ -43821,7 +43821,7 @@
 	                        'data-id': value.id, onClick: _this3.changeSort.bind(_this3) },
 	                    _react2.default.createElement(
 	                        'a',
-	                        { href: 'javascript:void(0)', className: 'white-text' },
+	                        { href: 'javascript:void(0)' },
 	                        value.cname
 	                    )
 	                );
@@ -43838,12 +43838,17 @@
 	                        { className: 'nav-wrapper' },
 	                        _react2.default.createElement(
 	                            'ul',
-	                            { className: 'left' },
+	                            { id: 'nav-pc', className: 'left hide-on-small-only' },
+	                            sortsArray
+	                        ),
+	                        _react2.default.createElement(
+	                            'ul',
+	                            { id: 'nav-mobile', className: 'sidenav' },
 	                            sortsArray
 	                        ),
 	                        _react2.default.createElement(
 	                            'div',
-	                            { className: 'right' },
+	                            { className: 'right  hide-on-small-only' },
 	                            _react2.default.createElement(
 	                                'div',
 	                                { className: 'left' },
@@ -43851,9 +43856,30 @@
 	                                    placeholder: 'Search' })
 	                            ),
 	                            _react2.default.createElement(
-	                                'button',
-	                                { type: 'button', className: 'btn waves-effect waves-light', onClick: this.search.bind(this) },
-	                                '\u641C\u7D22'
+	                                'span',
+	                                { className: 'white-text waves-effect waves-light',
+	                                    style: { width: '50px' },
+	                                    onClick: this.search.bind(this)
+	                                },
+	                                _react2.default.createElement(
+	                                    'i',
+	                                    { className: 'material-icons' },
+	                                    'search'
+	                                )
+	                            )
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'right' },
+	                            _react2.default.createElement(
+	                                'a',
+	                                { href: '#', 'data-target': 'nav-mobile', className: 'sidenav-trigger white-text' },
+	                                _react2.default.createElement(
+	                                    'i',
+	                                    {
+	                                        className: 'material-icons' },
+	                                    'menu'
+	                                )
 	                            )
 	                        )
 	                    )
