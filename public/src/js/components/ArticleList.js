@@ -179,13 +179,13 @@ export default class ArticleList extends React.Component {
                     <td>
                         {
                             this.state.login === true ? (
-                                <button type="button" className="btn btn-xs btn-danger"
+                                <button type="button" className="btn btn-small btn-flat white"
                                         onClick={this.delArticle.bind(this)}>
-                                    删除
+                                    <i class="material-icons">delete</i>
                                 </button>
                             ) : null
                         }
-
+                        <i class="material-icons">delete</i>
                     </td>
                 </tr>
             );

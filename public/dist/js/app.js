@@ -44234,10 +44234,19 @@
 	                        null,
 	                        _this3.state.login === true ? _react2.default.createElement(
 	                            'button',
-	                            { type: 'button', className: 'btn btn-xs btn-danger',
+	                            { type: 'button', className: 'btn btn-small btn-flat white',
 	                                onClick: _this3.delArticle.bind(_this3) },
-	                            '\u5220\u9664'
-	                        ) : null
+	                            _react2.default.createElement(
+	                                'i',
+	                                { 'class': 'material-icons' },
+	                                'delete'
+	                            )
+	                        ) : null,
+	                        _react2.default.createElement(
+	                            'i',
+	                            { 'class': 'material-icons' },
+	                            'delete'
+	                        )
 	                    )
 	                );
 	            });
