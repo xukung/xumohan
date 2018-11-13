@@ -4,6 +4,7 @@ import store from '../store';
 import * as TYPE from '../libs/constTYPE';
 import * as events from '../libs/customEvents';
 import fetchJson from '../libs/fetchJson';
+import utils from 'utils-xk';
 
 export default class ArticleList extends React.Component {
     constructor(props) {
@@ -48,8 +49,8 @@ export default class ArticleList extends React.Component {
                 type: 'GET',
                 url: '/json/article/total',
                 data: {
-                    sort: store.getState().project.currentSort,
-                    keywords: store.getState().project.keywords,
+                    sort: utils.getQueryString('sort') || 0,
+                    keywords: utils.getQueryString('keywords'),
                 },
             });
 
@@ -71,8 +72,8 @@ export default class ArticleList extends React.Component {
                 data: {
                     page: this.state.page,
                     size: this.state.size,
-                    sort: store.getState().project.currentSort,
-                    keywords: store.getState().project.keywords,
+                    sort: utils.getQueryString('sort') || 0,
+                    keywords: utils.getQueryString('keywords'),
                 }
             });
 
@@ -96,7 +97,7 @@ export default class ArticleList extends React.Component {
         if (totalPage > 0) {
             $('#pages').twbsPagination({
                 totalPages: totalPage,
-                visiblePages: totalPage > 5 ? 5 : totalPage,
+                visiblePages: totalPage > 8 ? 8 : totalPage,
                 onPageClick: (event, page)=> {
                     // console.log(page);
                     this.setState({
@@ -104,7 +105,11 @@ export default class ArticleList extends React.Component {
                     });
 
                     this.getArticles();
-                }
+                },
+                first: '&laquo;',
+                prev: '<',
+                next: '>',
+                last: '&raquo;',
             });
         } else {
             this.getArticles();
@@ -204,7 +209,7 @@ export default class ArticleList extends React.Component {
                             {articleArray}
                             </tbody>
                         </table>
-                        <div id="pages" className="page"></div>
+                        <div id="pages" className="pagination mt-20 center"></div>
                     </div>
                 </div>
             </div>

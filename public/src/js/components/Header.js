@@ -54,17 +54,13 @@ export default class Header extends React.Component {
         }
     }
 
-    changeSort(e) {
-        browserHistory.push(`/article/list`);
+    changeSort(id, e) {
+        browserHistory.push(`/article/list?sort=${id}`);
 
-        let tar = e.currentTarget;
-        let id = parseInt(tar.dataset.id, 10);
-        // console.log(id);
-
-        store.dispatch({
-            type: TYPE.SET_CURRENT_SORT,
-            val: id,
-        });
+        // store.dispatch({
+        //     type: TYPE.SET_CURRENT_SORT,
+        //     val: id,
+        // });
 
         events.customEvent.emit(events.REFRESH_ARTICLE_LIST);
 
@@ -90,8 +86,7 @@ export default class Header extends React.Component {
         let sortsArray = this.state.sorts.map((value, index)=> {
             return (
                 <li className={currentSort === value.id ? 'active' : ''}
-                    key={index}
-                    data-id={value.id} onClick={this.changeSort.bind(this)}>
+                    key={index} onClick={this.changeSort.bind(this, value.id)}>
                     <a href="javascript:void(0)">{value.cname}</a>
                 </li>
             )
