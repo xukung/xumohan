@@ -60,10 +60,8 @@ export default class ArticleEdit extends React.Component {
 
             this.setState({
                 sorts: msg.data,
-            },()=>{
-                setTimeout(()=>{
-                    $('select').formSelect();
-                },300);
+            }, () => {
+
             });
 
         } catch (e) {
@@ -90,6 +88,10 @@ export default class ArticleEdit extends React.Component {
                 $('#title2').val(msg.data.title);
                 // $('#note2').val(msg.data.note);
                 this.editor.html(msg.data.note);
+
+                setTimeout(() => {
+                    $('select').formSelect();
+                }, 100);
             });
 
 
