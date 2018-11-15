@@ -63,7 +63,7 @@ export default class ArticleEdit extends React.Component {
             },()=>{
                 setTimeout(()=>{
                     $('select').formSelect();
-                },100);
+                },300);
             });
 
         } catch (e) {
