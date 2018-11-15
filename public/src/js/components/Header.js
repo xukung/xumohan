@@ -98,9 +98,15 @@ export default class Header extends React.Component {
                 <nav className="blue">
                     <div className="nav-wrapper">
                         <ul id="nav-pc" className="left hide-on-small-only">
+                            <li onClick={this.changeSort.bind(this, 0)}>
+                                <a href="javascript:void(0)">ALL</a>
+                            </li>
                             {sortsArray}
                         </ul>
                         <ul id="nav-mobile" className="sidenav">
+                            <li onClick={this.changeSort.bind(this, 0)}>
+                                <a href="javascript:void(0)">ALL</a>
+                            </li>
                             {sortsArray}
                         </ul>
                         <div className="right  hide-on-small-only">

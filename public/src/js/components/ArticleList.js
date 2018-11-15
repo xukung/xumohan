@@ -179,13 +179,12 @@ export default class ArticleList extends React.Component {
                     <td>
                         {
                             this.state.login === true ? (
-                                <button type="button" className="btn btn-small btn-flat white"
+                                <button type="button" className="btn btn-small btn-flat transparent"
                                         onClick={this.delArticle.bind(this)}>
-                                    <i class="material-icons">delete</i>
+                                    <i className="material-icons red-text">delete</i>
                                 </button>
                             ) : null
                         }
-                        <i class="material-icons">delete</i>
                     </td>
                 </tr>
             );
@@ -195,7 +194,25 @@ export default class ArticleList extends React.Component {
             <div className="container">
                 <div className="row">
                     <div className="col-xs-12">
-                        <i class="large material-icons" onClick={this.addNew.bind(this)}>mode_edit</i>
+
+                        <div className="fixed-action-btn">
+                            <a className="btn-floating btn-large red" onClick={(e)=>{
+                                location.href=`/article/add`;
+                            }}>
+                                <i className="large material-icons">add</i>
+                            </a>
+                            <ul>
+                                <li onClick={(e)=>{
+                                    location.href=`/it`;
+                                }}><a className="btn-floating red"><i className="material-icons">flash_on</i></a></li>
+                                <li onClick={(e)=>{
+                                    location.href=`/code`;
+                                }}><a className="btn-floating yellow darken-1"><i className="material-icons">code</i></a></li>
+                                <li><a className="btn-floating green"><i className="material-icons">publish</i></a></li>
+                                <li><a className="btn-floating blue"><i className="material-icons">attach_file</i></a></li>
+                            </ul>
+                        </div>
+
                         <table className="data" width="100%">
                             <thead>
                             <tr>
