@@ -55,11 +55,12 @@ export default class ArticleDetail extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-xs-12 col-md-10 col-md-push-1">
-                        <ol className="breadcrumb">
-                        </ol>
-                        <h1 className="text-center">{a.title}</h1>
-                        <div className="text-center">{func.timestampToTime(a.datetime)}</div>
+                    <div className="col s12 m10 offset-m1">
+                        <div style={{margin:'20px 0'}}>
+                            <h1 className="a-title center">{a.title}</h1>
+                            <div className="a-sub center">{func.timestampToTime(a.datetime)}</div>
+                        </div>
+                        <div className="divider"></div>
                         <div className="note-area" dangerouslySetInnerHTML={{__html: a.note}}></div>
                     </div>
                 </div>

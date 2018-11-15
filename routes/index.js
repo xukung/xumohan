@@ -5,6 +5,11 @@ router.get('/login', function (req, res, next) {
     res.render('login', {title: 'Work harder,will luckier!'});
 });
 
+router.get('/logout', function (req, res, next) {
+    req.session.user = '';
+    res.redirect('/article/list');
+});
+
 router.post('/verify', function (req, res, next) {
     let name = req.body.name;
     let pw = req.body.pw;

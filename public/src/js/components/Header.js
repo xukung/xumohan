@@ -94,7 +94,7 @@ export default class Header extends React.Component {
 
 
         return (
-            <div className="">
+            <div className="header">
                 <nav className="blue">
                     <div className="nav-wrapper">
                         <ul id="nav-pc" className="left hide-on-small-only">

@@ -10,8 +10,8 @@
 
 /*通用组件样式*/
 
-nav ul a{
-    padding:0 8px;
+nav ul a {
+    padding: 0 8px;
 }
 
 .row {
@@ -24,7 +24,6 @@ nav ul a{
 
 .note-area {
     margin-top: 1.5em;
-    border-top: 1px solid #ddd;
     padding: 1.5em 0;
 
     ul {
@@ -51,7 +50,11 @@ pre {
     padding: 20px;
 }
 
-.navbar {
-    border-radius: 0 !important;
+.a-title{
+    font-size: 36px;
+}
+
+.a-sub{
+
 }
 

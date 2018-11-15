@@ -94,63 +94,7 @@ img.photo { border: 1px solid #ddd; }
 .middle-center { display: flex; align-items: center; justify-content: center; }
 
 /*module*/
-.nav-bar { position: absolute; left: 0; top: 0; bottom: 0; width: 200px; overflow-y: auto; background: #363737; box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1); color: #ddd; }
-.nav-bar::-webkit-scrollbar { width: 4px; background-color: #363737; }
-.nav-bar::-webkit-scrollbar-track { width: 4px; background-color: #363737; }
-.nav-bar::-webkit-scrollbar-thumb { width: 4px; border-radius: 2px; background-color: rgba(255, 255, 255, 0.3); }
-
-.logo-bar { height: 70px; border-bottom: 1px solid #222; }
-.logo-bar img.logo { float: left; margin-top: 25px; margin-left: 20px; height: 25px; }
-.logo-bar .user-menu { float: right; font-size: 10px; color: #eee; margin-top: 10px; }
-.logo-bar .user-menu button { position: relative; width: 34px !important; left: -12px; top: 4px; }
-
-.top-bar { position: absolute; z-index: 99; left: 200px; top: 0; right: 0; height: 70px; line-height: 70px; min-width: calc(1280px - 200px); overflow: hidden; border-bottom: 1px solid #ddd; padding-left: 45px; background: #f9f8f8; }
-.top-bar .split-item { display: inline-block; height: 34px; border-left: 1px solid #ccc; margin: 0 20px 0 10px; }
-.top-bar .title { float: left; font-size: 18px; }
-
-.main-body { position: absolute; left: 200px; top: 70px; right: 0; bottom: 0; min-width: calc(1280px - 200px); padding: 20px 50px 30px 30px; overflow: auto; min-width: 1080px; }
-
-.nobar-main-body { top: 0px; }
-
-.side-bar { overflow: hidden; background: #f9f9f9; }
-.side-bar .side-head { position: relative; height: 160px; background: #38f; color: #fff; }
-.side-bar .side-head .side-title { position: absolute; left: 70px; top: 0; line-height: 160px; font-size: 18px; }
-.side-bar .side-head .mid-area { padding: 20px 70px 0; }
-.side-bar .side-head .mid-area .return-back { margin-bottom: 20px; cursor: pointer; }
-.side-bar .side-head .mid-area .return-back span { margin-right: 3px; transform: rotate(90deg); -ms-transform: rotate(90deg); -moz-transform: rotate(90deg); -webkit-transform: rotate(90deg); -o-transform: rotate(90deg); float: left; font-size: 17px; margin-top: 2px; }
-.side-bar .side-head .photo { position: absolute; left: 50px; top: 50px; width: 60px; height: 60px; border-radius: 100%; overflow: hidden; box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.1); }
-.side-bar .side-head .photo img { width: 100%; }
-.side-bar .side-head .name { position: absolute; left: 125px; top: 70px; font-size: 18px; color: #fff; }
-.side-bar .side-head .operation { position: absolute; top: 20px; right: 30px; text-align: right; }
-.side-bar .side-head .operation span { margin-right: 20px; color: #fff; font-size: 20px; cursor: pointer; }
-.side-bar .side-head .operation span .icon-lock-return { font-size: 22px; }
-.side-bar .side-body { position: absolute; top: 160px; left: 0; right: 0; bottom: 80px; overflow-x: hidden; overflow-y: auto; }
-.side-bar .side-body[class*="notEdit"] { bottom: 0; }
-.side-bar .side-body .btn-add { position: absolute; top: 25px; left: 40px; display: inline-block; width: 25px; height: 25px; line-height: 24px; font-size: 15px; text-align: center; border-radius: 100%; background: #eee; color: #999; cursor: pointer; }
-.side-bar .side-body .btn-remove { display: inline-block; width: 16px; height: 16px; line-height: 16px; text-align: center; border-radius: 100%; background: #f00; color: #fff; cursor: pointer; }
-.side-bar .side-body .btn-edit { position: absolute; top: 25px; right: 30px; display: inline-block; width: 30px; height: 30px; padding: 5px; border-radius: 8px; cursor: pointer; }
-.side-bar .side-body .btn-edit[class*='editable'] { border: 1px solid #ddd; box-shadow: inset 0 0 2px 1px rgba(0, 0, 0, 0.1); }
-.side-bar .side-body .btn-edit .icon-edit { font-size: 20px; color: #38f; }
-.side-bar .side-body .form-area { padding: 55px 30px 10px; }
-.side-bar .side-body .form-area[class*="form-area2"] { padding: 10px 0 10px 60px; }
-.side-bar .side-body .form-area .form-row { margin: 3px 0; }
-.side-bar .side-body .form-area .form-row label[class*="require"]::after { position: absolute; top: 8px; right: -7px; content: "*"; color: red; }
-.side-bar .side-body .form-area .form-row .left-area { position: relative; vertical-align: top; display: inline-block; width: 85px; text-align: right; margin-right: 26px; padding-top: 14px; }
-.side-bar .side-body .form-area .form-row .right-area { vertical-align: top; display: inline-block; width: 320px; }
-.side-bar .side-body .form-area .form-row .right-area div, .side-bar .side-body .form-area .form-row .right-area input { font-size: 12px !important; }
-.side-bar .side-body .form-area .form-row .right-area .check-left { position: relative; left: -40px; margin: 10px 0; }
-.side-bar .side-body .form-area .form-row .right-area .label-name { position: relative; top: 12px; margin: 0 22px; }
-.side-bar .side-body .form-area .form-row .right-area .label-name[class*="require"]::after { top: -8px; }
-.side-bar .side-body .form-area .form-row .right-area .mid-line { position: relative; top: 23px; border-top: 1px solid #ddd; margin: 0 3px; width: 12px; }
-.side-bar .side-body .form-area .form-row .right-area .fg { height: 8px; border: 0; }
-.side-bar .side-body .form-area .form-row .right-area .info-label { height: 48px; line-height: 48px; color: #888; }
-.side-bar .side-body .form-area .form-row .right-area .telephoneErrorText { color: #f00; }
-.side-bar .side-body .form-area .form-row .right-area .checkbox-label { position: relative; left: -10px; top: 1px; }
-.side-bar .side-body .form-area .form-row .right-area .checkbox-pad { padding-top: 12px; }
-.side-bar .side-body .form-area .form-row .right-area .checkbox-pad span { margin-top: 2px; display: block; color: rgba(0, 0, 0, 0.29804); }
-.side-bar .side-body .form-area .member-photo { width: 30px; height: 30px; border-radius: 100%; border: 1px solid #eee; }
-.side-bar .side-foot { position: absolute; left: 0; bottom: 0; width: 560px; height: 80px; line-height: 80px; padding: 0 2em; border-top: 1px solid #ddd; text-align: right; }
-.side-bar .side-foot a { margin: 0 2em; }
+.header { margin-bottom: 10px; }
 
 /*font*/
 .bold { font-weight: bold; }
@@ -316,7 +260,7 @@ nav ul a { padding: 0 8px; }
 
 .mt { margin-top: 10px; }
 
-.note-area { margin-top: 1.5em; border-top: 1px solid #ddd; padding: 1.5em 0; }
+.note-area { margin-top: 1.5em; padding: 1.5em 0; }
 .note-area ul { padding-left: 2em; }
 .note-area ul li { list-style: disc; }
 
@@ -326,6 +270,6 @@ nav ul a { padding: 0 8px; }
 
 pre { padding: 20px; }
 
-.navbar { border-radius: 0 !important; }
+.a-title { font-size: 36px; }
 
 /*# sourceMappingURL=style.css.map */

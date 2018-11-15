@@ -166,7 +166,7 @@ export default class ArticleList extends React.Component {
             return (
                 <tr key={index} data-id={value.id} data-title={value.title} onDoubleClick={(e) => {
                     if (this.state.login === true) {
-                        location.href=`/article/edit?id=${value.id}`;
+                        location.href = `/article/edit?id=${value.id}`;
                     }
                 }}>
                     <td>{value.sort_name}</td>
@@ -192,21 +192,24 @@ export default class ArticleList extends React.Component {
                     <div className="col s12">
 
                         <div className="fixed-action-btn">
-                            <a className="btn-floating btn-large red" onClick={(e)=>{
-                                location.href=`/article/add`;
+                            <a className="btn-floating btn-large red" onClick={(e) => {
+                                location.href = `/article/add`;
                             }}>
                                 <i className="large material-icons">add</i>
                             </a>
                             <ul>
-                                <li onClick={(e)=>{
-                                    location.href=`/it`;
+                                <li onClick={(e) => {
+                                    location.href = `/it`;
                                 }}><a className="btn-floating red"><i className="material-icons">flash_on</i></a></li>
-                                <li onClick={(e)=>{
-                                    location.href=`/code`;
-                                }}><a className="btn-floating yellow darken-1"><i className="material-icons">code</i></a></li>
-                                <li><a className="btn-floating green"><i className="material-icons">publish</i></a></li>
-                                <li><a className="btn-floating blue" onClick={(e)=>{
-                                    location.href=`/login`;
+                                <li onClick={(e) => {
+                                    location.href = `/code`;
+                                }}><a className="btn-floating yellow darken-1"><i
+                                    className="material-icons">code</i></a></li>
+                                <li><a className="btn-floating green" onClick={(e) => {
+                                    location.href = `/logout`;
+                                }}><i className="material-icons">exit_to_app</i></a></li>
+                                <li><a className="btn-floating blue" onClick={(e) => {
+                                    location.href = `/login`;
                                 }}><i className="material-icons">vpn_key</i></a></li>
                             </ul>
                         </div>
@@ -214,10 +217,10 @@ export default class ArticleList extends React.Component {
                         <table className="data" width="100%">
                             <thead>
                             <tr>
-                                <th>分类</th>
-                                <th>标题</th>
-                                <th>日期</th>
-                                <th>操作</th>
+                                <th width="10%">分类</th>
+                                <th width="60%">标题</th>
+                                <th width="20%">日期</th>
+                                <th width="10%">{this.state.login === true ? '操作' : '&nbsp;'}</th>
                             </tr>
                             </thead>
                             <tbody>
