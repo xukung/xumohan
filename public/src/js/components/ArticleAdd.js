@@ -56,9 +56,7 @@ export default class ArticleAdd extends React.Component {
             this.setState({
                 sorts: msg.data,
             }, () => {
-                setTimeout(() => {
-                    $('select').formSelect();
-                }, 100);
+
             });
 
         } catch (e) {
@@ -97,7 +95,13 @@ export default class ArticleAdd extends React.Component {
                     <div className="row">
                         <div className="col s12 m10 offset-m1">
                             <div style={{width: '150px'}}>
-                                <select name="" id="sorts" value={this.state.sort}>
+                                <select  className="browser-default" id="sorts" value={this.state.sort}
+                                         onChange={(e) => {
+                                             this.setState({
+                                                 sort: e.target.value,
+                                             });
+                                         }}>
+                                >
                                     {
                                         sorts.map((value, index) => {
                                             return <option key={index} value={value.id}>{value.cname}</option>;
