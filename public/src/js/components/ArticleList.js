@@ -37,6 +37,8 @@ export default class ArticleList extends React.Component {
         });
 
         this.getTotal();
+
+        $('.fixed-action-btn').floatingActionButton();
     }
 
     refreshList() {
@@ -220,7 +222,7 @@ export default class ArticleList extends React.Component {
                                 <th width="10%">分类</th>
                                 <th width="60%">标题</th>
                                 <th width="20%">日期</th>
-                                <th width="10%">{this.state.login === true ? '操作' : '&nbsp;'}</th>
+                                <th width="10%">{this.state.login === true ? '操作' : ' '}</th>
                             </tr>
                             </thead>
                             <tbody>

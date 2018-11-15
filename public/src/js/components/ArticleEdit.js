@@ -60,6 +60,10 @@ export default class ArticleEdit extends React.Component {
 
             this.setState({
                 sorts: msg.data,
+            },()=>{
+                setTimeout(()=>{
+                    $('select').formSelect();
+                },100);
             });
 
         } catch (e) {

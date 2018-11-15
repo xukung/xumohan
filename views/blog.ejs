@@ -11,23 +11,21 @@
     <script src="/dist/js/jquery.min.js"></script>
     <script src="/dist/js/jquery.twbsPagination.min.js"></script>
     <script src="/dist/kindeditor/kindeditor-all-min.js"></script>
-
-    <!--<script src="/dist/js/bootstrap.min.js"></script>-->
-
+    <script src="/dist/js/materialize.js"></script>
+    
 </head>
 <body>
 <div id="APP"></div>
 <script src="/dist/js/<%= file %>"></script>
 
-<script src="/dist/js/materialize.js"></script>
 
 <script>
     "use strict";
 
     $(document).ready(function () {
         $('.sidenav').sidenav();
-        $('.fixed-action-btn').floatingActionButton();
-        $('select').formSelect();
+
+
     });
 </script>
 </body>

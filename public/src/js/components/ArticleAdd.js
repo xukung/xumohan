@@ -12,6 +12,7 @@ export default class ArticleAdd extends React.Component {
         super(props);
         this.state = {
             sorts: [],
+            id: 3,
         };
         this.editor = null;
     }
@@ -54,11 +55,11 @@ export default class ArticleAdd extends React.Component {
 
             this.setState({
                 sorts: msg.data,
+            }, () => {
+                setTimeout(() => {
+                    $('select').formSelect();
+                }, 100);
             });
-
-            setTimeout(()=>{
-                $('#sorts').val(3);
-            },100);
 
         } catch (e) {
             // console.error(e); 
@@ -95,10 +96,10 @@ export default class ArticleAdd extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div className="col s12 m10 offset-m1">
-                            <div style={{width:'150px'}}>
-                                <select name="" id="sorts">
+                            <div style={{width: '150px'}}>
+                                <select name="" id="sorts" value={this.state.id}>
                                     {
-                                        sorts.map((value, index)=> {
+                                        sorts.map((value, index) => {
                                             return <option key={index} value={value.id}>{value.cname}</option>;
                                         })
                                     }
