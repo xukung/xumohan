@@ -5,11 +5,13 @@ import * as TYPE from '../libs/constTYPE';
 import * as events from '../libs/customEvents';
 import Header from './Header';
 import fetchJson from '../libs/fetchJson';
+import utils from 'utils-xk';
 
 export default class ArticleEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            id: null,
             sorts: [],
             article: {},
         };
@@ -25,13 +27,19 @@ export default class ArticleEdit extends React.Component {
     }
 
     init() {
-        this.getSorts();
-        this.getData();
-        this.initEditor();
+        this.setState({
+            id: utils.getQueryString('id'),
+        }, (e) => {
+            this.getSorts();
+            this.getData();
+            this.initEditor();
+        });
+
+
     }
 
     initEditor() {
-        this.editor = KindEditor.create('#note2',{
+        this.editor = KindEditor.create('#note2', {
             height: '350px',
             items: [
                 'clearhtml', 'quickformat', 'source', 'code', '|',
@@ -61,7 +69,7 @@ export default class ArticleEdit extends React.Component {
 
     async getData() {
         let data = {
-            id: store.getState().project.currentArticle,
+            id: this.state.id,
         };
 
         try {
@@ -73,15 +81,12 @@ export default class ArticleEdit extends React.Component {
 
             this.setState({
                 article: msg.data,
-            });
-
-            //必须加一个延时
-            setTimeout(()=> {
+            }, (e) => {
                 $('#sorts2').val(msg.data.sort);
                 $('#title2').val(msg.data.title);
                 // $('#note2').val(msg.data.note);
                 this.editor.html(msg.data.note);
-            }, 100);
+            });
 
 
         } catch (e) {
@@ -120,10 +125,10 @@ export default class ArticleEdit extends React.Component {
                 <div className="container">
                     <div className="row">
                         <div className="col-xs-12 col-md-10 col-md-push-1">
-                            <div>
-                                <select name="" id="sorts2">
+                            <div style={{width: '150px'}}>
+                                <select name="" id="sorts2" value={this.state.id}>
                                     {
-                                        sorts.map((value, index)=> {
+                                        sorts.map((value, index) => {
                                             return <option key={index} value={value.id}>{value.cname}</option>;
                                         })
                                     }
@@ -138,7 +143,8 @@ export default class ArticleEdit extends React.Component {
                                           rows="10" defaultValue={this.state.article.note}></textarea>
                             </div>
                             <div className="mt">
-                                <button className="btn btn-default" onClick={this.editArticle.bind(this)}>修改</button>
+                                <button className="btn btn-default blue" onClick={this.editArticle.bind(this)}>修改
+                                </button>
                             </div>
                         </div>
                     </div>

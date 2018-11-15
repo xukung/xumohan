@@ -5,6 +5,7 @@ import * as TYPE from '../libs/constTYPE';
 import * as events from '../libs/customEvents';
 import Header from './Header';
 import fetchJson from '../libs/fetchJson';
+import utils from 'utils-xk';
 
 export default class ArticleAdd extends React.Component {
     constructor(props) {
@@ -93,8 +94,8 @@ export default class ArticleAdd extends React.Component {
                 <Header/>
                 <div className="container">
                     <div className="row">
-                        <div className="col-xs-12 col-md-10 col-md-push-1">
-                            <div>
+                        <div className="col s12 m10 offset-m1">
+                            <div style={{width:'150px'}}>
                                 <select name="" id="sorts">
                                     {
                                         sorts.map((value, index)=> {
@@ -111,7 +112,7 @@ export default class ArticleAdd extends React.Component {
                                           rows="7"></textarea>
                             </div>
                             <div className="mt">
-                                <button className="btn btn-default" onClick={this.addNew.bind(this)}>添加</button>
+                                <button className="btn btn-default blue" onClick={this.addNew.bind(this)}>添加</button>
                             </div>
                         </div>
                     </div>

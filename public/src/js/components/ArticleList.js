@@ -117,10 +117,6 @@ export default class ArticleList extends React.Component {
 
     }
 
-    addNew() {
-        browserHistory.push(`/article/add`);
-    }
-
     editArticle(e) {
         let tar = e.currentTarget;
         let id = parseInt($(tar).attr('data-id'), 10);
@@ -170,7 +166,7 @@ export default class ArticleList extends React.Component {
             return (
                 <tr key={index} data-id={value.id} data-title={value.title} onDoubleClick={(e) => {
                     if (this.state.login === true) {
-                        this.editArticle(e)
+                        location.href=`/article/edit?id=${value.id}`;
                     }
                 }}>
                     <td>{value.sort_name}</td>
@@ -193,7 +189,7 @@ export default class ArticleList extends React.Component {
         return (
             <div className="container">
                 <div className="row">
-                    <div className="col-xs-12">
+                    <div className="col s12">
 
                         <div className="fixed-action-btn">
                             <a className="btn-floating btn-large red" onClick={(e)=>{
@@ -209,7 +205,9 @@ export default class ArticleList extends React.Component {
                                     location.href=`/code`;
                                 }}><a className="btn-floating yellow darken-1"><i className="material-icons">code</i></a></li>
                                 <li><a className="btn-floating green"><i className="material-icons">publish</i></a></li>
-                                <li><a className="btn-floating blue"><i className="material-icons">attach_file</i></a></li>
+                                <li><a className="btn-floating blue" onClick={(e)=>{
+                                    location.href=`/login`;
+                                }}><i className="material-icons">vpn_key</i></a></li>
                             </ul>
                         </div>
 
