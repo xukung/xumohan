@@ -12,6 +12,7 @@ export default class ArticleEdit extends React.Component {
         super(props);
         this.state = {
             id: null,
+            sort: 3,
             sorts: [],
             article: {},
         };
@@ -83,6 +84,7 @@ export default class ArticleEdit extends React.Component {
 
             this.setState({
                 article: msg.data,
+                sort: msg.data.sort,
             }, (e) => {
                 $('#sorts2').val(msg.data.sort);
                 $('#title2').val(msg.data.title);
@@ -90,6 +92,7 @@ export default class ArticleEdit extends React.Component {
                 this.editor.html(msg.data.note);
 
                 setTimeout(() => {
+                    console.log('sort:', this.state.sort);
                     $('select').formSelect();
                 }, 100);
             });
@@ -130,9 +133,9 @@ export default class ArticleEdit extends React.Component {
                 <Header/>
                 <div className="container">
                     <div className="row">
-                        <div className="col-xs-12 col-md-10 col-md-push-1">
+                        <div className="col s12 m10 offset-m1">
                             <div style={{width: '150px'}}>
-                                <select name="" id="sorts2" value={this.state.id}>
+                                <select name="" id="sorts2" value={this.state.sort}>
                                     {
                                         sorts.map((value, index) => {
                                             return <option key={index} value={value.id}>{value.cname}</option>;

@@ -12,7 +12,7 @@ export default class ArticleAdd extends React.Component {
         super(props);
         this.state = {
             sorts: [],
-            id: 3,
+            sort: 3,
         };
         this.editor = null;
     }
@@ -97,7 +97,7 @@ export default class ArticleAdd extends React.Component {
                     <div className="row">
                         <div className="col s12 m10 offset-m1">
                             <div style={{width: '150px'}}>
-                                <select name="" id="sorts" value={this.state.id}>
+                                <select name="" id="sorts" value={this.state.sort}>
                                     {
                                         sorts.map((value, index) => {
                                             return <option key={index} value={value.id}>{value.cname}</option>;
