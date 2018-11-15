@@ -73,7 +73,7 @@ export default class ArticleList extends React.Component {
                     page: this.state.page,
                     size: this.state.size,
                     sort: utils.getQueryString('sort') || 0,
-                    keywords: utils.getQueryString('keywords'),
+                    keywords: store.getState().project.keywords,
                 }
             });
 
@@ -98,7 +98,7 @@ export default class ArticleList extends React.Component {
             $('#pages').twbsPagination({
                 totalPages: totalPage,
                 visiblePages: totalPage > 8 ? 8 : totalPage,
-                onPageClick: (event, page)=> {
+                onPageClick: (event, page) => {
                     // console.log(page);
                     this.setState({
                         page: page,
@@ -166,9 +166,9 @@ export default class ArticleList extends React.Component {
     }
 
     render() {
-        let articleArray = this.state.articles.map((value, index)=> {
+        let articleArray = this.state.articles.map((value, index) => {
             return (
-                <tr key={index} data-id={value.id} data-title={value.title} onDoubleClick={(e)=> {
+                <tr key={index} data-id={value.id} data-title={value.title} onDoubleClick={(e) => {
                     if (this.state.login === true) {
                         this.editArticle(e)
                     }
@@ -195,7 +195,7 @@ export default class ArticleList extends React.Component {
             <div className="container">
                 <div className="row">
                     <div className="col-xs-12">
-                        <div className="glyphicon glyphicon-plus add-new" onClick={this.addNew.bind(this)}></div>
+                        <i class="large material-icons" onClick={this.addNew.bind(this)}>mode_edit</i>
                         <table className="data" width="100%">
                             <thead>
                             <tr>
