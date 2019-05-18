@@ -1,6 +1,5 @@
 #!/bin/bash
 
-app='xmh';
 version=$1;
 
 if [ $version ]
@@ -9,4 +8,4 @@ then
 else
     git reset --hard HEAD
 fi
-pm2 restart $app
+pm2 restart all

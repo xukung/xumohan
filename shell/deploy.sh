@@ -1,6 +1,4 @@
 #!/bin/bash
 
-app='xmh';
-
 git pull
-pm2 restart $app
+pm2 restart all
