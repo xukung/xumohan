@@ -23,10 +23,10 @@ $main-margin-top: 25px;
         height: $banner-height;
         min-height: $banner-min-height;
         overflow: hidden;
-        //background-image: url("/dist/images/ball.jpg");
+        background-image: url("/dist/images/banner.jpg");
         background-repeat: no-repeat;
-        background-size: contain;
-        background-position: 120% bottom;
+        background-size: cover;
+        background-position: left bottom;
 
         canvas{
             position: absolute;

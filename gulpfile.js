@@ -20,7 +20,7 @@ watch(['./public/src/scss/*.scss'], { ignoreInitial: false }, function scssToCss
             outputStyle: 'compact',  //[compressed,compact,nested,expanded]
         }).on('error', sass.logError))
         // .pipe(postcss(processors))
-        .pipe(sourcemaps.write())
+        .pipe(sourcemaps.write('.'))
         .pipe(dest('./public/dist/css'));
 
     cb();
