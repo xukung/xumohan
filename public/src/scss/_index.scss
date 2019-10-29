@@ -108,6 +108,19 @@ $main-margin-top: 25px;
         transform: scale(0.8);
         transform-origin: left center;
     }
+
+    .focus{
+        .item{
+            border-radius:10px;
+            overflow: hidden;
+            box-shadow: $shadow2;
+
+            .title{
+                border-bottom:none;
+                padding: 0 1em;
+            }
+        }
+    }
 }
 
 .footer {
