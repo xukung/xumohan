@@ -95,7 +95,7 @@ export default class Header extends React.Component {
 
         return (
             <div className="header">
-                <nav className="blue">
+                <nav className="grey darken-4">
                     <div className="nav-wrapper">
                         <ul id="nav-pc" className="left hide-on-small-only">
                             <li onClick={this.changeSort.bind(this, 0)}>
