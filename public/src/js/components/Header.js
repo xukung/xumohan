@@ -112,7 +112,7 @@ export default class Header extends React.Component {
                         <div className="right  hide-on-small-only">
                             <div className="left">
                                 <input type="text" name="keywords" id="searchInput" className="form-control"
-                                       placeholder="Search"/>
+                                       placeholder="Search" style={{color:'white'}}/>
                             </div>
                             <span className="white-text waves-effect waves-light"
                                   style={{width: '50px'}}
