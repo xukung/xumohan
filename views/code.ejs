@@ -1,72 +1,83 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>code</title>
-    <link rel='stylesheet' href='/dist/css/it.css'/>
+    <link rel='stylesheet' href='/dist/css/it.css' />
     <script src="/dist/js/jquery.min.js"></script>
 
 </head>
+
 <body>
 
-<fieldset>
-    <legend>PHPStorm参数设置</legend>
-    <div class="pad"></div>
-    <div class="">注册(10.x)选择“License server”输入“//idea.lanyus.com/”</div>
-    <div class="">注册(2016.x) <a href="http://idea.lanyus.com/" target="_blank">IntelliJ IDEA 注册码</a></div>
-    <div class="hr"></div>
-    <div class="">
-        <div>SCSS参数设置(win)：$FileName$ $FileParentDir$\css\$FileNameWithoutExtension$.css --no-cache --style compact
+    <fieldset>
+        <legend>cnpm</legend>
+        <div class="">
+            npm install -g cnpm --registry=https://registry.npm.taobao.org
         </div>
-        <div>SCSS参数设置(mac)：$FileName$:$FileParentDir$/../dist/css/$FileNameWithoutExtension$.css --no-cache --style compact
+    </fieldset>
+
+    <fieldset>
+        <legend>PHPStorm参数设置</legend>
+        <div class="pad"></div>
+        <div class="">注册(10.x)选择“License server”输入“//idea.lanyus.com/”</div>
+        <div class="">注册(2016.x) <a href="http://idea.lanyus.com/" target="_blank">IntelliJ IDEA 注册码</a></div>
+        <div class="hr"></div>
+        <div class="">
+            <div>SCSS参数设置(win)：$FileName$ $FileParentDir$\css\$FileNameWithoutExtension$.css --no-cache --style compact
+            </div>
+            <div>SCSS参数设置(mac)：$FileName$:$FileParentDir$/../dist/css/$FileNameWithoutExtension$.css --no-cache --style
+                compact
+            </div>
         </div>
-    </div>
-    <div class="">--style [nested，expanded，compact，compressed]</div>
-    <div class="">
-        <div>phpstorm-program(win): C:\Ruby22\bin\scss.bat</div>
-        <div>phpstorm-program(mac): /usr/local/bin/scss</div>
-    </div>
-    <div class="hr"></div>
-    <div class="">LESS参数设置(win)： $FileName$ $FileParentDir$\css\$FileNameWithoutExtension$.css --source-map -x</div>
-    <div class="">LESS参数设置(mac)： $FileName$ $FileParentDir$/css/$FileNameWithoutExtension$.css --source-map -x</div>
-    <div class="">phpstorm-program(win): C:\Users\Administrator\AppData\Roaming\npm\lessc.cmd</div>
-    <div class="">phpstorm-program(mac): /Users/xk/.nvm/versions/node/v5.8.0/bin/lessc</div>
-</fieldset>
+        <div class="">--style [nested，expanded，compact，compressed]</div>
+        <div class="">
+            <div>phpstorm-program(win): C:\Ruby22\bin\scss.bat</div>
+            <div>phpstorm-program(mac): /usr/local/bin/scss</div>
+        </div>
+        <div class="hr"></div>
+        <div class="">LESS参数设置(win)： $FileName$ $FileParentDir$\css\$FileNameWithoutExtension$.css --source-map -x</div>
+        <div class="">LESS参数设置(mac)： $FileName$ $FileParentDir$/css/$FileNameWithoutExtension$.css --source-map -x</div>
+        <div class="">phpstorm-program(win): C:\Users\Administrator\AppData\Roaming\npm\lessc.cmd</div>
+        <div class="">phpstorm-program(mac): /Users/xk/.nvm/versions/node/v5.8.0/bin/lessc</div>
+    </fieldset>
 
-<fieldset>
-    <legend>mysqldump</legend>
-    <div class="">
-        <script>
-            "use strict";
+    <fieldset>
+        <legend>mysqldump</legend>
+        <div class="">
+            <script>
+                "use strict";
 
-            let d = new Date();
-            let Y = d.getFullYear();
-            let m = d.getMonth() + 1;
-            let M = m < 10 ? `0${m}` : m;
-            let date = d.getDate();
-            let D = date < 10 ? `0${date}` : date;
-            document.write(`mysqldump -uroot -p blog > /Users/xukun/Documents/pdf/github/blog_${Y}${M}${D}.sql`);
-        </script>
+                let d = new Date();
+                let Y = d.getFullYear();
+                let m = d.getMonth() + 1;
+                let M = m < 10 ? `0${m}` : m;
+                let date = d.getDate();
+                let D = date < 10 ? `0${date}` : date;
+                document.write(`mysqldump -uroot -p blog > /Users/xukun/Documents/pdf/github/blog_${Y}${M}${D}.sql`);
+            </script>
 
-    </div>
-</fieldset>
+        </div>
+    </fieldset>
 
-<fieldset>
-    <legend>百度地图生成器</legend>
-    <div class="">
-        <a href="//api.map.baidu.com/lbsapi/creatmap/index.html" target="_blank">百度地图生成器</a>
-    </div>
-</fieldset>
+    <fieldset>
+        <legend>百度地图生成器</legend>
+        <div class="">
+            <a href="//api.map.baidu.com/lbsapi/creatmap/index.html" target="_blank">百度地图生成器</a>
+        </div>
+    </fieldset>
 
-<fieldset>
-    <legend>google的hosts地址</legend>
-    <div class=""><a href="//github.com/racaljk/hosts" target="_blank">github说明</a></div>
-    <div class=""><a href="//raw.githubusercontent.com/racaljk/hosts/master/hosts" target="_blank">源码</a></div>
-</fieldset>
+    <fieldset>
+        <legend>google的hosts地址</legend>
+        <div class=""><a href="//github.com/racaljk/hosts" target="_blank">github说明</a></div>
+        <div class=""><a href="//raw.githubusercontent.com/racaljk/hosts/master/hosts" target="_blank">源码</a></div>
+    </fieldset>
 
 
 </body>
+
 </html>
