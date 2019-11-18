@@ -108,13 +108,13 @@ fieldset legend { font-size: 16px; padding-left: 8px; padding-right: 10px; font-
 
 fieldset:nth-child(2n) { background: #f9f9f9; }
 
-.header { position: fixed; top: 0; left: 0; width: 200px; height: 60px; line-height: 2em; padding: 10px; color: #fff; background-color: #349cf0; background-image: linear-gradient(to bottom, #474747, #202020); box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
+.header { position: fixed; top: 0; left: 0; width: 200px; height: 60px; line-height: 2em; padding: 10px; color: #fff; background-color: #349cf0; background-image: linear-gradient(to bottom, #33495e, #18222c); box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15); border-bottom: 1px solid rgba(255, 255, 255, 0.3); }
 
 .header a { color: #fff; margin: 0 5px; }
 
 .header a.cur { color: #444; padding: 3px 5px; background: #fc0; border-radius: 5px; }
 
-.sub-nav { position: fixed; top: 60px; bottom: 0; left: 0; width: 200px; padding: 10px; background-color: #2d2d2d; background-image: linear-gradient(to bottom, #3a3a3a, #070707); box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15); }
+.sub-nav { position: fixed; top: 60px; bottom: 0; left: 0; width: 200px; padding: 10px; background-color: #212f3d; background-image: linear-gradient(to bottom, #2a3c4e, #06090b); box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.15); }
 
 .sub-nav a { color: #fff; }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {browserHistory} from 'react-router';
+import history from '../libs/history';
 import store from '../store';
 import * as TYPE from '../libs/constTYPE';
 import * as events from '../libs/customEvents';

@@ -1,6 +1,6 @@
 import React from 'react';
 import store from '../store';
-import {browserHistory} from 'react-router';
+import history from '../libs/history';
 import * as TYPE from '../libs/constTYPE';
 import * as events from '../libs/customEvents';
 import Header from './Header';

@@ -1,40 +1,67 @@
 var webpack = require('webpack');
-// var CommonsChunk = new webpack.optimize.CommonsChunkPlugin('common.js');
-//avoid react warning
-var productionEnv = new webpack.DefinePlugin({
-    "process.env": {
-        NODE_ENV: JSON.stringify("production")
-        // NODE_ENV: JSON.stringify("development")
-    }
-});
 var path = require('path');
+var packageJson = require('./package.json');
 
 module.exports = {
+    mode: 'development',    //[ production,development ]
     entry: {
-        app: ['./public/src/js/router.js'],
+        main: ['./public/src/js/router.js'],
+        // vendor: Object.keys(packageJson.dependencies),
     },
     output: {
         path: path.join(__dirname, 'public/dist/js/'),
-        filename: '[name].js'
+        filename: 'bundle_[name].js',
+
+        publicPath: "/dist/js/",
+        // chunkFilename: 'chunk_[id]_[chunkhash].js',
+        chunkFilename: 'chunk_[id].js',
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        extensions: ['.js', '.jsx']
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
-                loader: 'babel',
-                query: {
-                    presets: ['es2015', 'stage-0', 'react']
-                },
-                exclude: /node_modules/
+                exclude: /(node_modules|bower_components)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env']
+                    }
+                }
             },
-            {
-                test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
-                loader: 'url-loader?limit=8192&name=[path][name].[ext]'
-            }
         ]
     },
-    plugins: [productionEnv]
+    plugins: [
+        // new webpack.DefinePlugin({
+        //     "process.env": {
+        //         NODE_ENV: JSON.stringify("production")
+        //         // NODE_ENV: JSON.stringify("development")
+        //     }
+        // }),
+    ],
+    optimization: {
+        splitChunks: {
+            chunks: 'async',
+            minSize: 30000,
+            maxSize: 0,
+            minChunks: 1,
+            maxAsyncRequests: 5,
+            maxInitialRequests: 3,
+            automaticNameDelimiter: '~',
+            name: true,
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    priority: -10
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
+                }
+            }
+        }
+    }
 };
