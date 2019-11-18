@@ -4,25 +4,29 @@ import { Provider } from 'react-redux';
 import { Router, Route, Switch } from "react-router-dom";
 import store from './store/';
 import history from './libs/history';
-import ErrorPage from './components/ErrorPage';
-import ArticleLayout from './components/ArticleLayout';
-import SortLayout from './components/SortLayout';
-import ArticleDetail from './components/ArticleDetail';
-import ArticleAdd from './components/ArticleAdd';
-import SortAdd from './components/SortAdd';
-import ArticleEdit from './components/ArticleEdit';
-import SortEdit from './components/SortEdit';
+import ErrorPage from './components/comp/ErrorPage';
 
+import {
+    ArticleAdd,
+    ArticleEdit,
+    ArticleDetail,
+    ArticleLayout,
+    SortAdd,
+    SortEdit,
+    SortLayout,
+} from './components/async/comps';
 
 ReactDOM.render(
     <Provider store={store}>
         <Router history={history}>
             <Switch>
+                <Route path="/article" component={ArticleLayout} />
                 <Route path="/article/list" component={ArticleLayout} />
                 <Route path="/article/detail" component={ArticleDetail} />
                 <Route path="/article/add" component={ArticleAdd} />
                 <Route path="/article/edit" component={ArticleEdit} />
 
+                <Route path="/sort" component={SortLayout} />
                 <Route path="/sort/list" component={SortLayout} />
                 <Route path="/sort/add" component={SortAdd} />
                 <Route path="/sort/edit" component={SortEdit} />

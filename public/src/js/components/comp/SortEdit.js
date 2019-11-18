@@ -1,11 +1,11 @@
 import React from 'react';
-import store from '../store';
-import history from '../libs/history';
-import * as TYPE from '../libs/constTYPE';
-import * as events from '../libs/customEvents';
+import store from '../../store';
+import history from '../../libs/history';
+import * as TYPE from '../../libs/constTYPE';
+import * as events from '../../libs/customEvents';
 import Header from './Header';
-import fetchJson from '../libs/fetchJson';
-import * as func from '../libs/func';
+import fetchJson from '../../libs/fetchJson';
+import * as func from '../../libs/func';
 
 export default class SortEdit extends React.Component {
     constructor(props) {
@@ -71,7 +71,7 @@ export default class SortEdit extends React.Component {
             });
 
             if (msg.status === 'success') {
-                browserHistory.push(`/sort/list`);
+                history.push(`/sort/list`);
             }
         } catch (e) {
             // console.error(e);

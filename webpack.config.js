@@ -6,7 +6,7 @@ module.exports = {
     mode: 'development',    //[ production,development ]
     entry: {
         main: ['./public/src/js/router.js'],
-        // vendor: Object.keys(packageJson.dependencies),
+        vendor: Object.keys(packageJson.dependencies),
     },
     output: {
         path: path.join(__dirname, 'public/dist/js/'),
@@ -32,6 +32,9 @@ module.exports = {
                 }
             },
         ]
+    },
+    node: {
+        fs: "empty"
     },
     plugins: [
         // new webpack.DefinePlugin({

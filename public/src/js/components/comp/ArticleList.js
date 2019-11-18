@@ -1,9 +1,9 @@
 import React from 'react';
-import history from '../libs/history';
-import store from '../store';
-import * as TYPE from '../libs/constTYPE';
-import * as events from '../libs/customEvents';
-import fetchJson from '../libs/fetchJson';
+import history from '../../libs/history';
+import store from '../../store';
+import * as TYPE from '../../libs/constTYPE';
+import * as events from '../../libs/customEvents';
+import fetchJson from '../../libs/fetchJson';
 import utils from 'utils-xk';
 
 export default class ArticleList extends React.Component {
@@ -128,7 +128,7 @@ export default class ArticleList extends React.Component {
             val: id,
         });
 
-        browserHistory.push(`/article/edit`);
+        history.push(`/article/edit`);
     }
 
     delArticle(e) {

@@ -1,9 +1,9 @@
 import React from 'react';
-import store from '../store';
-import history from '../libs/history';
-import * as TYPE from '../libs/constTYPE';
-import * as events from '../libs/customEvents';
-import fetchJson from '../libs/fetchJson';
+import store from '../../store';
+import history from '../../libs/history';
+import * as TYPE from '../../libs/constTYPE';
+import * as events from '../../libs/customEvents';
+import fetchJson from '../../libs/fetchJson';
 import utils from 'utils-xk';
 
 export default class Header extends React.Component {
@@ -55,7 +55,7 @@ export default class Header extends React.Component {
     }
 
     changeSort(id, e) {
-        browserHistory.push(`/article/list?sort=${id}`);
+        history.push(`/article/list?sort=${id}`);
 
         // store.dispatch({
         //     type: TYPE.SET_CURRENT_SORT,
@@ -67,7 +67,7 @@ export default class Header extends React.Component {
     }
 
     search() {
-        browserHistory.push(`/article/list`);
+        history.push(`/article/list`);
 
         let keywords = $('#searchInput').val();
         store.dispatch({

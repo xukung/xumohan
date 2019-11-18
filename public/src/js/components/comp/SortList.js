@@ -1,9 +1,9 @@
 import React from 'react';
-import history from '../libs/history';
-import store from '../store';
-import * as TYPE from '../libs/constTYPE';
-import * as events from '../libs/customEvents';
-import fetchJson from '../libs/fetchJson';
+import history from '../../libs/history';
+import store from '../../store';
+import * as TYPE from '../../libs/constTYPE';
+import * as events from '../../libs/customEvents';
+import fetchJson from '../../libs/fetchJson';
 
 export default class SortList extends React.Component {
     constructor(props) {
@@ -52,14 +52,14 @@ export default class SortList extends React.Component {
     }
 
     addNew() {
-        browserHistory.push(`/sort/add`);
+        history.push(`/sort/add`);
     }
 
     editSort(e) {
         let tar = e.currentTarget;
         let id = parseInt($(tar).attr('data-id'), 10);
 
-        browserHistory.push(`/sort/edit?id=${id}`);
+        history.push(`/sort/edit?id=${id}`);
     }
 
     delSort(e) {

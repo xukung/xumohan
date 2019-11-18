@@ -1,9 +1,9 @@
 import React from 'react';
-import store from '../store';
-import * as TYPE from '../libs/constTYPE';
-import * as events from '../libs/customEvents';
-import fetchJson from '../libs/fetchJson';
-import * as func from '../libs/func';
+import store from '../../store';
+import * as TYPE from '../../libs/constTYPE';
+import * as events from '../../libs/customEvents';
+import fetchJson from '../../libs/fetchJson';
+import * as func from '../../libs/func';
 
 export default class ArticleDetail extends React.Component {
     constructor(props) {

@@ -1,10 +1,10 @@
 import React from 'react';
-import store from '../store';
-import history from '../libs/history';
-import * as TYPE from '../libs/constTYPE';
-import * as events from '../libs/customEvents';
+import store from '../../store';
+import history from '../../libs/history';
+import * as TYPE from '../../libs/constTYPE';
+import * as events from '../../libs/customEvents';
 import Header from './Header';
-import fetchJson from '../libs/fetchJson';
+import fetchJson from '../../libs/fetchJson';
 import utils from 'utils-xk';
 
 export default class ArticleAdd extends React.Component {
@@ -78,7 +78,7 @@ export default class ArticleAdd extends React.Component {
             });
 
             if (msg.status === 'success') {
-                browserHistory.push(`/article/list`);
+                history.push(`/article/list`);
             }
         } catch (e) {
             // console.error(e);
