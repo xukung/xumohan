@@ -20,13 +20,13 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={history}>
             <Switch>
-                <Route path="/article" component={ArticleLayout} />
+                <Route path="/article" exact component={ArticleLayout} />
                 <Route path="/article/list" component={ArticleLayout} />
                 <Route path="/article/detail" component={ArticleDetail} />
                 <Route path="/article/add" component={ArticleAdd} />
                 <Route path="/article/edit" component={ArticleEdit} />
 
-                <Route path="/sort" component={SortLayout} />
+                <Route path="/sort" exact component={SortLayout} />
                 <Route path="/sort/list" component={SortLayout} />
                 <Route path="/sort/add" component={SortAdd} />
                 <Route path="/sort/edit" component={SortEdit} />
